@@ -17,8 +17,41 @@ def calc_vector_norms(vector):
     pass
 
 
+def zero_diag(matrix):
+    # Check if there are 0's on the diagonal of the input matrix
+
+    if some_condition:
+        return True
+    else:
+        return False
+
+def s_diag_dominant(matrix):
+    # Check if the diagonal value is larger than the sum of all
+    # other entries in that row/column
+
+    if some_condition:
+        return True
+    else:
+        return False
+
+def divergence(matrix):
+    # Check for divergence in successive matrix norms
+
+    # I think this actually needs to go inside solve_matrix()
+    # but I'll leave it here for now
+
+
+def solve_matrix(A):
+    # Check for cycling
+
+    # Define maxits?
+
+    # Stop when maxits reached
+
+
 def main():
     # Read input file containing A and b
+    # If the user provides an argument to the program, use that as filename
     A = read_inputs('nas_Sor.in')
 
     # Solve (if possible) Ax = b
@@ -40,12 +73,8 @@ def main():
         # The matrix divergences, so quit
         exit(0)
     else:
-        solve_matrix(A)
-
-
-
-
-
+        # solve the matrix using SOR
+        sol_vector, stop_r, other_inf = solve_matrix(A)
 
 
     # write computed solution vector x, reason for stopping
@@ -53,5 +82,5 @@ def main():
     write_outputs(sol_vector, stop_r, other_inf)
 
 
-if name == "__main__":
+if __name__ == "__main__":
     main()
