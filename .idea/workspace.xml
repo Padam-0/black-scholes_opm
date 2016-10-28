@@ -2,10 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="45f3443f-944a-4dd8-b7cb-a6499d8358a8" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/code/sample_inputs/Input_descriptions.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/code/sample_inputs/large_dd_matrix.in" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/code/sample_inputs/not diag_dominant_2.in" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/code/sample_inputs/not_diag_dominant_1.in" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/code/sample_inputs/not_diag_dominant_3.in" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/code/sample_inputs/zero_on_diag.in" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/code/tests/sample.in" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/code/Output_Specifications.txt" afterPath="$PROJECT_DIR$/code/Output_Specifications.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/code/nas_Sor.in" afterPath="$PROJECT_DIR$/code/nas_Sor.in" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/code/sor.py" afterPath="$PROJECT_DIR$/code/sor.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/code/tests/sor_tests.py" afterPath="$PROJECT_DIR$/code/tests/sor_tests.py" />
     </list>
     <ignored path="nas_Adam_Ellis_McSweeney_prog2.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -29,18 +34,18 @@
       <file leaf-file-name="sor.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/code/sor.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
+            <state relative-caret-position="932">
               <caret line="67" column="48" selection-start-line="67" selection-start-column="48" selection-end-line="67" selection-end-column="48" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="nas_Sor.in" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/code/nas_Sor.in">
+      <file leaf-file-name="sor_tests.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/code/tests/sor_tests.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" column="3" selection-start-line="3" selection-start-column="3" selection-end-line="3" selection-end-column="3" />
+            <state relative-caret-position="15">
+              <caret line="1" column="10" selection-start-line="1" selection-start-column="10" selection-end-line="1" selection-end-column="10" />
               <folding />
             </state>
           </provider>
@@ -57,6 +62,9 @@
         <option value="$PROJECT_DIR$/code/sor.py" />
         <option value="$PROJECT_DIR$/code/Output_Specifications.txt" />
         <option value="$PROJECT_DIR$/code/nas_Sor.in" />
+        <option value="$PROJECT_DIR$/code/sample_inputs/Input_descriptions.txt" />
+        <option value="$PROJECT_DIR$/code/tests/sample.in" />
+        <option value="$PROJECT_DIR$/code/tests/sor_tests.py" />
       </list>
     </option>
   </component>
@@ -128,6 +136,42 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="code" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="nas_Adam_Ellis_McSweeney_prog2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="nas_Adam_Ellis_McSweeney_prog2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="code" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tests" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="nas_Adam_Ellis_McSweeney_prog2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="nas_Adam_Ellis_McSweeney_prog2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="code" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sample_inputs" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -404,15 +448,55 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/code/sor.py">
+    <entry file="file://$PROJECT_DIR$/code/nas_Sor.out">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="67" column="48" selection-start-line="67" selection-start-column="48" selection-end-line="67" selection-end-column="48" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/code/nas_Sor.out">
+    <entry file="file://$PROJECT_DIR$/code/sample_inputs/not_diag_dominant_1.in">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/sample_inputs/not_diag_dominant_3.in">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/sample_inputs/not diag_dominant_2.in">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/sample_inputs/Input_descriptions.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="24" column="41" selection-start-line="24" selection-start-column="41" selection-end-line="24" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/sample_inputs/large_dd_matrix.in">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/sample_inputs/zero_on_diag.in">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -424,6 +508,30 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="3" column="3" selection-start-line="3" selection-start-column="3" selection-end-line="3" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/tests/sample.in">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="3" selection-start-line="3" selection-start-column="3" selection-end-line="3" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/sor.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="932">
+          <caret line="67" column="48" selection-start-line="67" selection-start-column="48" selection-end-line="67" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/tests/sor_tests.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="10" selection-start-line="1" selection-start-column="10" selection-end-line="1" selection-end-column="10" />
           <folding />
         </state>
       </provider>
