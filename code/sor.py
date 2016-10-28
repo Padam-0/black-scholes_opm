@@ -65,6 +65,7 @@ def main():
     """
     if zero_diag(A):
         # There are 0's on the diagonal, so quit
+        write_outputs('', "Zero on diagonal", '')
         exit(0)
     elif s_diag_dominant(A) == False:
         # Matrix isn't diagonally dominant, so quit

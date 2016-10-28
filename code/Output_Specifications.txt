@@ -1,0 +1,20 @@
+Line 1 gives heading titles Stopping reason, Max num of iterations,
+Number of iterations, Machine epsilon, X seq tolerance, Residual seq tolerance
+of information on line 2
+
+Line 2 consists of:
+Possible stopping reasons - String
+    "x sequence divergence",
+    "Zero on diagonal",
+    "Cannot proceed",
+    "Max Iterations Reached",
+    "x Sequence convergence", or
+    "Residual convergence"
+Value of maxIts - Integer
+Number of iterations - Integer
+Value of machine epsilon
+x Sequence tolerance used
+Risidual sequence tolerance used
+
+On third line, if sequence converges or maxits reached, print n floats, the
+components of the solution x, otherwise blank
