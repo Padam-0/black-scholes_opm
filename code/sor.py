@@ -19,26 +19,31 @@ def calc_vector_norms(vector):
 
 def zero_diag(matrix):
     # Check if there are 0's on the diagonal of the input matrix
-
+    pass
+    """
     if some_condition:
         return True
     else:
         return False
+    """
 
 def s_diag_dominant(matrix):
     # Check if the diagonal value is larger than the sum of all
     # other entries in that row/column
-
+    pass
+    """
     if some_condition:
         return True
     else:
         return False
+    """
 
 def divergence(matrix):
     # Check for divergence in successive matrix norms
 
     # I think this actually needs to go inside solve_matrix()
     # but I'll leave it here for now
+    pass
 
 
 def solve_matrix(A):
@@ -47,6 +52,7 @@ def solve_matrix(A):
     # Define maxits?
 
     # Stop when maxits reached
+    pass
 
 
 def main():
@@ -82,6 +88,6 @@ def main():
     # and other information
     write_outputs(sol_vector, stop_r, other_inf)
 
-x
+
 if __name__ == "__main__":
     main()

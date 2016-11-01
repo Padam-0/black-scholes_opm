@@ -101,39 +101,35 @@ and so on until the timestep 0 is solved.
 """
 import math
 
-
-
-
-
 def create_BS_matrix(M, k, r, theta):
     if M < 2:
-        print("There must be at least 3 intervals")
-        exit(0)
+        return "There must be at least 3 intervals"
+        #exit(0)
+    else:
+        # Create matrix in CSR form:
+        val = []
+        col = []
+        rowStart = [1]
 
-    # Create matrix in CSR form:
-    val = []
-    col = []
-    rowStart = [1]
+        for n in range(1, 3 * (M-2) + 5):
+            row = math.floor(n / 3) + 1
+            if n % 3 == 1:
+                value = 1 + k * r + k * ((theta) ** 2) * ((row) ** 2)
+                column = row
+            elif n % 3 == 2:
+                value = ((-1 * row * k)/2) * (row * (theta ** 2) + r)
+                column = row + 1
+            else:
+                value = ((-1 * row * k)/2) * (row * (theta ** 2) - r)
+                column = row - 1
+                rowStart.append(n)
+            val.append(value)
+            col.append(column)
 
-    for n in range(1, 3 * (M-2) + 5):
-        row = math.floor(n / 3) + 1
-        if n % 3 == 1:
-            value = 1 + k * r + k * ((theta) ** 2) * ((row) ** 2)
-            column = row
-        elif n % 3 == 2:
-            value = ((-1 * row * k)/2) * (row * (theta ** 2) + r)
-            column = row + 1
-        else:
-            value = ((-1 * row * k)/2) * (row * (theta ** 2) - r)
-            column = row - 1
-            rowStart.append(n)
-        val.append(value)
-        col.append(column)
+            if n == 3 * (M-2) + 4:
+                rowStart.append(n+1)
 
-        if n == 3 * (M-2) + 4:
-            rowStart.append(n+1)
-
-    return (val, col, rowStart)
+        return (val, col, rowStart)
 
 def main():
     # Define inital conditions
