@@ -102,43 +102,54 @@ and so on until the timestep 0 is solved.
 import math
 
 
-# Define inital conditions
-X = 10 # Strike Price, in Dollars
-T = 30 # Maturity Date, Days from now
-r = 0.02 # Risk free rate (% per day)
-theta = 0.3 # Volatility
 
-# Define spacing conditions
-M = 3 # Number of Timesteps
-k = T/M
 
-for m in range(M-1,-1,-1):
-    # Iterate through each timestamp
-    pass
 
-# Create matrix in CSR form:
-val = []
-col = []
-rowStart = [1]
+def create_BS_matrix(M, k, r, theta):
+    # Create matrix in CSR form:
+    val = []
+    col = []
+    rowStart = [1]
 
-for n in range(1, 3 * (M-2) + 5):
-    row = math.floor(n / 3) + 1
-    if n % 3 == 1:
-        value = 1 + k * r + k * ((theta) ** 2) * ((row) ** 2)
-        column = row
-    elif n % 3 == 2:
-        value = ((-1 * row * k)/2) * (row * (theta ** 2) + r)
-        column = row + 1
-    else:
-        value = ((-1 * row * k)/2) * (row * (theta ** 2) - r)
-        column = row - 1
-        rowStart.append(n)
-    val.append(value)
-    col.append(column)
+    for n in range(1, 3 * (M-2) + 5):
+        row = math.floor(n / 3) + 1
+        if n % 3 == 1:
+            value = 1 + k * r + k * ((theta) ** 2) * ((row) ** 2)
+            column = row
+        elif n % 3 == 2:
+            value = ((-1 * row * k)/2) * (row * (theta ** 2) + r)
+            column = row + 1
+        else:
+            value = ((-1 * row * k)/2) * (row * (theta ** 2) - r)
+            column = row - 1
+            rowStart.append(n)
+        val.append(value)
+        col.append(column)
 
-    if n == 3 * (M-2) + 4:
-        rowStart.append(n+1)
+        if n == 3 * (M-2) + 4:
+            rowStart.append(n+1)
 
-print(col)
-print(rowStart)
-#rowStart = [1,3,6,9]
+    return (val, col, rowStart)
+
+def main():
+    # Define inital conditions
+    X = 10  # Strike Price, in Dollars
+    T = 30  # Maturity Date, Days from now
+    r = 0.02  # Risk free rate (% per day)
+    theta = 0.3  # Volatility
+
+    # Define spacing conditions
+    M = 4  # Number of Timesteps
+    k = T / M
+
+    val, col, rowStart = create_BS_matrix(M, k, r, theta)
+
+
+    """
+    for m in range(M - 1, -1, -1):
+        # Iterate through each timestamp from M-1 to 0
+        pass
+    """
+
+if __name__ == "__main__":
+    main()
