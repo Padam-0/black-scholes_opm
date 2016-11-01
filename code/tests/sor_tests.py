@@ -9,7 +9,7 @@ def test_read_inputs():
     a = 'sample.in'
     b = 'sample'
     c = '/sample.in'
-    d = '../sample.in'
+    d = './sa1ple.in'
 
     res1 = sor.read_inputs(a)
     res2 = sor.read_inputs(b)
@@ -19,7 +19,7 @@ def test_read_inputs():
     assert_equal(res1, outputsTBC)
     assert_equal(res2, outputsTBC)
     assert_equal(res3, outputsTBC)
-    assert_equal(res4, outputsTBC)
+    assert_equal(res4, "File doesn't exist!")
 
 
 #Sample Tests:
