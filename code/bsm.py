@@ -41,4 +41,104 @@ The result x represents the value of f(S, t), the option price given a stock
 price and time away from T.
 
 
+However, we can't solve at a given timestamp until we have relations among
+all the f_(n,m) for that timestamp: then we get a system of algebraic
+equations in the unknowns f_(n,m) where m is fixed and 0 <= n <= N.
+
+There is a slight complication, as we know the option value at maturity date
+(t=T) but not today (t=0), so we start at t = T and work backwards to 0 in
+the time dimension, so a backward t difference is actually a negative forward
+difference.
+
+This gives:
+
+f_(n, m+1) = -nk/2(n*theta^2-r) * f_(n-1,m)
+    + (1 + kr + k * theta^2 * n^2)* f_(n,m)
+    - nk/2(n* theta^2 + r) * f_(n+1, m)
+
+This represents 4 grid points, and as the value of f_(n, m+1) is known,
+the others represent a system of linear equations.
+
+We solve the difference equations (above) for 0 < n < N and 0 < m <= M.
+
+The boundary conditions determine the f_(0,m) and the f_(N, m) while the
+'initial' (actually a final condition) determines f_(n, M). The problem is
+then to find the f_(n, m) for:
+    0 <= m < M (ie 0 <= t < T) and
+    0 < n < N (ie 0 < S < S_max)
+
+Looking at the final condition first, the value of the put option at time T is:
+    max{X-S_T, 0} where S_T is the stock price at time T.
+This gives:
+    f_(n,M) = {X - nh, 0}, n = 0,1,...,N
+The value of the put option when S = 0 is just the strike price X, giving:
+    f_(0,m) = X, m=0,1,...,M
+As assumed earlier, the value of the put option is 0 when S = S_max
+    f_(N,m) = 0, m = 0,1,...,M
+
+These define the value of the option along the three edges of our grid
+(where S = 0 (LH vertical), S = S_max (RH vertical), and t = T (top horizontal)
+and allow us to start
+
+We first form a system of linear equations for the timestep m = M - 1 and solve
+the resulting equation Af = b. This gives:
+
+f_(n, M) = -nk/2(n*theta^2-r) * f_(n-1,M-1)
+    + (1 + kr + k * theta^2 * n^2)* f_(n,M-1)
+    - nk/2(n* theta^2 + r) * f_(n+1, M-1)
+
+for n = 1,...,N-1, and we know all the numbers on the RHS from the boundary
+conditions and 'final' condition when t = T so we can solve this
+
+(also have f_(n-1, M-1) = f_(0, M-1) for n = 1 and
+    f_(n+1, M-1) = f_(N, M-1) for n = N-1
+
+So we solve this for all the f values of f_(n, M-1) so can find the values
+f_(n, M-2) for the M-2 timestep, and use these to solve for the M-3 timestep
+and so on until the timestep 0 is solved.
+
+
 """
+import math
+
+
+# Define inital conditions
+X = 10 # Strike Price, in Dollars
+T = 30 # Maturity Date, Days from now
+r = 0.02 # Risk free rate (% per day)
+theta = 0.3 # Volatility
+
+# Define spacing conditions
+M = 3 # Number of Timesteps
+k = T/M
+
+for m in range(M-1,-1,-1):
+    # Iterate through each timestamp
+    pass
+
+# Create matrix in CSR form:
+val = []
+col = []
+rowStart = [1]
+
+for n in range(1, 3 * (M-2) + 5):
+    row = math.floor(n / 3) + 1
+    if n % 3 == 1:
+        value = 1 + k * r + k * ((theta) ** 2) * ((row) ** 2)
+        column = row
+    elif n % 3 == 2:
+        value = ((-1 * row * k)/2) * (row * (theta ** 2) + r)
+        column = row + 1
+    else:
+        value = ((-1 * row * k)/2) * (row * (theta ** 2) - r)
+        column = row - 1
+        rowStart.append(n)
+    val.append(value)
+    col.append(column)
+
+    if n == 3 * (M-2) + 4:
+        rowStart.append(n+1)
+
+print(col)
+print(rowStart)
+#rowStart = [1,3,6,9]
