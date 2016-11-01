@@ -106,6 +106,10 @@ import math
 
 
 def create_BS_matrix(M, k, r, theta):
+    if M < 2:
+        print("There must be at least 3 intervals")
+        exit(0)
+
     # Create matrix in CSR form:
     val = []
     col = []
