@@ -12,38 +12,46 @@ import numpy as np
 
 
 def solve_axb(val, col, rowstart, b, n, maxits, e, w, x):
-    # def converged(e):
-    #     if k == 0 or k==1:
-    #         return False
-    #     elif abs(x[k-1] - x[k-2]) < e:
-    #         return True
-    #     else:
-    #         return False
-
-    # converged(e) == False and
     k = 0
     while k <= maxits:
         for i in range(0, n):
             sum1 = 0
-            for j in range(rowstart[i], rowstart[i + 1]-1):
-                sum1 = sum1 + val[j] * x[col[j]]
-                if col[j] == i:  # identify and store diagonal entry # ??
+            for j in range(rowstart[i], rowstart[i+1]):
+                sum1=sum1+val[j] *x[col[j]] # multiply each value in A by an element from the zero vector..?
+                                            # that will just make sum1=0
+                
+#                 print (x[col[j]]) 
+
+                if col[j] == i:  # identify and store diagonal entry
                     d = val[j]
-                print(i,j)
-            d = 1
             x[i] = x[i] + w * (b[i] - sum1) / d
         k = k + 1
-    return x, k, d
+        if abs(x[k] - x[k-1]) < e:
+            print(x)
+            print(x[k])
+            print(x[k-1])
+            print(abs(x[k] - x[k-1]))
+            return "converged", x,k
+    return x, k
 
-
-rowstart = np.array([0, 1, 2, 3])
-col = np.array([0,1,2])
 val = np.array([1,2,3])
-
-b = np.array([1, 2, 3])
-n = 3
-maxits = 9
-w = 1.3
+col = np.array([0,1,2])
+rowstart = np.array([0, 1, 2, 3])
+b = np.array([1, 2, 13])
 x = np.array([0, 0, 0])
-e = 0.0001
+n = 3
+
+maxits = 0
+w = 1.3
+e = 0.000000000001
+# print(solve_axb(val, col, rowstart, b, n, maxits, e, w, x))
+
+
+val = np.array([21, 12, 49, 31,16,23,85,55,91,41])
+col = np.array([0,3,1,0,2,5,3,0,4,5])
+rowstart = np.array([0,2,3,6,7,9,10])
+b = np.array([1, 2, 3,4,5,6])
+x = np.array([0, 0, 0,0,0,0])
+# x = np.array([1,1,1,1,1,1])
+n = 6
 print(solve_axb(val, col, rowstart, b, n, maxits, e, w, x))
