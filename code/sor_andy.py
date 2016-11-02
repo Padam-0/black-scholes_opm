@@ -60,13 +60,21 @@ def calc_vector_norms(vector):
     pass
 
 
-def zero_diag(matrix):
+def zero_diag(val, col, rowStart):
     # Check if there are 0's on the diagonal of the input matrix
 
-    if some_condition:
-        return True
-    else:
-        return False
+    #print(len(rowStart)-1)
+    row = 0
+    tf = True
+    for i in range(len(rowStart)-1):
+        r = col[rowStart[i]:rowStart[i+1]]
+        if row not in r:
+            tf = False
+
+        row += 1
+
+    return tf
+
 
 def s_diag_dominant(matrix):
     # Check if the diagonal value is larger than the sum of all
@@ -96,9 +104,8 @@ def solve_matrix(A):
 
 def main():
     matrix_size, matrix_in, vector_b = read_inputs('nas_Sor2.in')
-    print(con_to_csr(matrix_in, matrix_size)[0])
-    print(con_to_csr(matrix_in, matrix_size)[1])
-    print(con_to_csr(matrix_in, matrix_size)[2])
+    val, col, rowStart = con_to_csr(matrix_in, matrix_size)
+    print(zero_diag(val, col, rowStart))
 
 if __name__=='__main__':
     main()
