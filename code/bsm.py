@@ -101,6 +101,7 @@ and so on until the timestep 0 is solved.
 """
 
 import math
+import numpy as np
 
 def create_BS_matrix(M, k, r, theta):
     if M < 2:
@@ -130,7 +131,11 @@ def create_BS_matrix(M, k, r, theta):
             if n == 3 * (M-2) + 4:
                 rowStart.append(n)
 
-        return (val, col, rowStart)
+        val = np.asarray(val)
+        col = np.asarray(col)
+        rowStart = np.asarray(rowStart)
+
+        return val, col, rowStart
 
 def main():
     # Define inital conditions
