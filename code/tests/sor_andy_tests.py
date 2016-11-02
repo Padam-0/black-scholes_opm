@@ -20,22 +20,55 @@ def test_create_BS_matrix():
 
     #assert_equal(resMn, "There must be at least 3 intervals")
     #assert_equal(resM0, "There must be at least 3 intervals")
-    #numpy.testing.assert_array_equal(resM1[0], np.asarray([]))
-    #numpy.testing.assert_array_equal(resM1[1], np.asarray([0,1,0,1,2,1,2]))
-    #numpy.testing.assert_array_equal(resM1[2], np.asarray([0,2,5,8]))
+    #numpy.testing.assert_array_equal(resM1[0], np.array([]))
+    #numpy.testing.assert_array_equal(resM1[1], np.array([0,1,0,1,2,1,2]))
+    #numpy.testing.assert_array_equal(resM1[2], np.array([0,2,5,8]))
+
 
 def test_con_to_csr():
-    in1 = sor_andy.read_inputs('nas_Sor2.in')
-
-    res1 = sor_andy.con_to_csr(in1[1], in1[0])
+    res1 = sor_andy.con_to_csr(np.array([[12, 0, 0], [4, 11, 0],[7, 8, 16]]),
+                                3.0)
 
     numpy.testing.assert_array_equal(res1[0],
-                    np.asarray([12,4,11,7,8,16]))
+                    np.array([12,4,11,7,8,16]))
     numpy.testing.assert_array_equal(res1[1],
-                    np.asarray([0,1,1,0,1,2]))
-    numpy.testing.assert_array_equal(res1[2], np.asarray([0,1,3,6]))
+                    np.array([0,0,1,0,1,2]))
+    numpy.testing.assert_array_equal(res1[2], np.array([0,1,3,6]))
+
+
+def test_zero_diag():
+    res1 = sor_andy.con_to_csr(np.array([[12, 0, 0], [4, 11, 0], [7, 8, 16]]),
+                                3.0)
+    res2 = sor_andy.con_to_csr(np.array([[12, 0, 0, 5], [4, 11, 0, 4],
+                                         [7, 8, 16, 12], [1,1,1,1]]),
+                               4.0)
+    res3 = sor_andy.con_to_csr(np.array([[12, 0, 0, 5, 7], [4, 11, 0, 4, 12],
+                                         [7, 8, 0, 12, 14], [1, 1, 1, 1, 1],
+                                         [2, 2, 2, 2, 2]]),
+                               5.0)
+
+    assert_equal(sor_andy.zero_diag(res1[0], res1[1], res1[2]), True)
+    assert_equal(sor_andy.zero_diag(res2[0], res2[1], res2[2]), True)
+    assert_equal(sor_andy.zero_diag(res3[0], res3[1], res3[2]), False)
+
+
+def test_diag_dominant():
+    res1 = sor_andy.con_to_csr(np.array([[12, 0, 0], [4, 11, 0], [7, 8, 16]]),
+                               3.0)
+    res2 = sor_andy.con_to_csr(np.array([[13, 0, 3, 5], [4, 11, 0, 4],
+                                         [7, 8, 19, 1], [1, 1, 1, 11]]),
+                               4.0)
+    res3 = sor_andy.con_to_csr(np.array([[12, 0, 0, 5, 7], [4, 11, 0, 4, 12],
+                                         [7, 8, 1, 12, 14], [1, 1, 1, 1, 1],
+                                         [2, 2, 2, 2, 2]]),
+                               5.0)
+    assert_equal(sor_andy.diag_dominant(res1[0], res1[1], res1[2]), True)
+    assert_equal(sor_andy.diag_dominant(res2[0], res2[1], res2[2]), True)
+    assert_equal(sor_andy.diag_dominant(res3[0], res3[1], res3[2]), False)
+
 
 """
+
 def test_read_inputs():
     a = 'sample.in'
     b = 'sample'
