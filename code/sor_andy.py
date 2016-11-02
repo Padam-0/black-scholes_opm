@@ -46,8 +46,8 @@ def con_to_csr(matrix, matrix_length):
     rowStart.append(len(col))
 
     val = [i for i in val if i != 0]
-    col = np.asarray(col)
-    rowStart = np.asarray(rowStart)
+    col = np.array(col)
+    rowStart = np.array(rowStart)
 
     return val, col, rowStart
 
@@ -97,8 +97,8 @@ def diag_dominant(val, col, rowStart):
         row_sums.append(sum(val[rowStart[i]:rowStart[i + 1]]))
 
     diags = np.asarray(diags)
-    col_sums = np.asarray(col_sums) - diags
-    row_sums = np.asarray(row_sums) - diags
+    col_sums = np.array(col_sums) - diags
+    row_sums = np.array(row_sums) - diags
 
     if np.greater(diags, col_sums).all() and np.greater(diags,row_sums).all():
         return True
@@ -124,14 +124,16 @@ def solve_matrix(A):
 
 
 def main():
-    matrix_size, matrix_in, vector_b = read_inputs('nas_Sor2.in')
+    matrix_size, matrix_in, vector_b = read_inputs('nas_Sor.in')
     val, col, rowStart = con_to_csr(matrix_in, matrix_size)
+
+    """
     zd = zero_diag(val, col, rowStart)
     dd = col_diag_dominant(val, col, rowStart)
 
     if zd != True and dd != True:
         exit()
-
+    """
 
 
 
