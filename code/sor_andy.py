@@ -60,6 +60,14 @@ def calc_vector_norms(vector):
     pass
 
 
+def matrix_det(matrix):
+    # check that matrix determinant is non zero
+    if np.linalg.det(matrix) != 0:
+        return True
+    else:
+        return False
+
+
 def zero_diag(val, col, rowStart):
     # Check if there are 0's on the diagonal of the input matrix
 
@@ -126,6 +134,7 @@ def solve_matrix(A):
 def main():
     matrix_size, matrix_in, vector_b = read_inputs('nas_Sor.in')
     val, col, rowStart = con_to_csr(matrix_in, matrix_size)
+    print(matrix_det(matrix_in))
 
     """
     zd = zero_diag(val, col, rowStart)
