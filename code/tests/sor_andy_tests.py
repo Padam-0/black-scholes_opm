@@ -9,30 +9,20 @@ def test_create_BS_matrix():
     Mn = -3
     M0 = 2
     M1 = 3
-    M2 = 5
-    M3 = 9
-    M4 = 10
 
     T = 30
-
     r = 0.02
     theta = 0.3
 
-    resMn = bsm.create_BS_matrix(Mn, Mn/T, r, theta)
-    resM0 = bsm.create_BS_matrix(M0, M0/T, r, theta)
-    resM1 = bsm.create_BS_matrix(M1, M1/T, r, theta)
-    resM2 = bsm.create_BS_matrix(M2, M2/T, r, theta)
-    resM3 = bsm.create_BS_matrix(M3, M3/T, r, theta)
-    resM4 = bsm.create_BS_matrix(M4, M4/T, r, theta)
+    resMn = bsm.create_BS_matrix(Mn, T/Mn, r, theta)
+    resM0 = bsm.create_BS_matrix(M0, T/M0, r, theta)
+    resM1 = bsm.create_BS_matrix(M1, T/M1, r, theta)
 
     #assert_equal(resMn, "There must be at least 3 intervals")
     #assert_equal(resM0, "There must be at least 3 intervals")
     #numpy.testing.assert_array_equal(resM1[0], np.asarray([]))
-    #numpy.testing.assert_array_equal(resM1[1], np.asarray([]))
-    #numpy.testing.assert_array_equal(resM1[2], np.asarray([]))
-    #numpy.testing.assert_array_equal(resM2, outputsTBC)
-    #numpy.testing.assert_array_equal(resM3, outputsTBC)
-    #numpy.testing.assert_array_equal(resM4, outputsTBC)
+    #numpy.testing.assert_array_equal(resM1[1], np.asarray([0,1,0,1,2,1,2]))
+    #numpy.testing.assert_array_equal(resM1[2], np.asarray([0,2,5,8]))
 
 def test_con_to_csr():
     in1 = sor_andy.read_inputs('nas_Sor2.in')
