@@ -110,25 +110,25 @@ def create_BS_matrix(M, k, r, theta):
         # Create matrix in CSR form:
         val = []
         col = []
-        rowStart = [1]
+        rowStart = [0]
 
         for n in range(1, 3 * (M-2) + 5):
             row = math.floor(n / 3) + 1
             if n % 3 == 1:
                 value = 1 + k * r + k * ((theta) ** 2) * ((row) ** 2)
-                column = row
+                column = row - 1
             elif n % 3 == 2:
                 value = ((-1 * row * k)/2) * (row * (theta ** 2) + r)
-                column = row + 1
+                column = row
             else:
                 value = ((-1 * row * k)/2) * (row * (theta ** 2) - r)
-                column = row - 1
+                column = row - 2
                 rowStart.append(n)
             val.append(value)
             col.append(column)
 
             if n == 3 * (M-2) + 4:
-                rowStart.append(n+1)
+                rowStart.append(n)
 
         return (val, col, rowStart)
 
@@ -144,7 +144,10 @@ def main():
     k = T / M
 
     val, col, rowStart = create_BS_matrix(M, k, r, theta)
-
+    print(val)
+    print(col)
+    print(rowStart)
+    #b = [X,...,0]
 
     """
     for m in range(M - 1, -1, -1):

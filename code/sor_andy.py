@@ -6,25 +6,26 @@ with A a nxn matrix in R and x, b nx1 vectors in R
 """
 
 import numpy as np
+from con_to_csr import con_to_csr
 
 def read_inputs(filename):
 
     matrix_size = np.genfromtxt(filename, max_rows=1)
-    print('Matrix size n:',matrix_size)
-    print('----------')
+    #print('Matrix size n:',matrix_size)
+    #print('----------')
 
     matrix_in = np.genfromtxt(filename, skip_header=1, skip_footer=1)
-    print('Matrix A:')
-    print(matrix_in)
-    print('----------')
+    #print('Matrix A:')
+    #print(matrix_in)
+    #print('----------')
 
     column = np.genfromtxt(filename, usecols=0)
     col_len = len(column)
-    print('Column length', col_len)
-    print('----------')
+    #print('Column length', col_len)
+    #print('----------')
 
     vector_b = np.genfromtxt(filename, skip_header=(col_len-1))
-    print('Vector b: ',vector_b)
+    #print('Vector b: ',vector_b)
 
     return matrix_size, matrix_in, vector_b
 
@@ -73,8 +74,9 @@ def solve_matrix(A):
 
 def main():
     matrix_size, matrix_in, vector_b = read_inputs('nas_Sor2.in')
-
-
+    print(con_to_csr(matrix_in, matrix_size)[0])
+    print(con_to_csr(matrix_in, matrix_size)[1])
+    print(con_to_csr(matrix_in, matrix_size)[2])
 
 if __name__=='__main__':
     main()
