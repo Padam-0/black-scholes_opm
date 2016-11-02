@@ -1,6 +1,6 @@
 from nose.tools import *
 import bsm
-import sor
+import sorandy
 import numpy.testing
 import numpy as np
 
@@ -30,7 +30,18 @@ def test_create_BS_matrix():
     #assert_equal(resM1, outputsTBC)
     #assert_equal(resM2, outputsTBC)
     #assert_equal(resM3, outputsTBC)
-    #assert_equal(resM4, "File doesn't exist!")
+    #assert_equal(resM4, outputsTBC)
+
+def test_con_to_csr():
+    matrix1 = np.asarray([0,1,2,3,4,5,0,0,2])
+    len1 = 3
+
+    res1 = sorandy.con_to_csr(matrix1, len1)
+
+    assert_equal(res1, [np.asarray([1,2,3,4,5,2]),
+                 np.asarray([1,2,0,1,2,2]),
+                 np.asarray([0,2,5])])
+
 
 """
 def test_read_inputs():
