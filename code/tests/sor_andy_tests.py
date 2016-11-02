@@ -30,10 +30,10 @@ def test_con_to_csr():
     res1 = sor_andy.con_to_csr(in1[1], in1[0])
 
     numpy.testing.assert_array_equal(res1[0],
-                    np.asarray([1,2,3,4,5,7,8,10]))
+                    np.asarray([12,4,11,7,8,16]))
     numpy.testing.assert_array_equal(res1[1],
-                    np.asarray([0,1,2,0,1,0,1,2]))
-    numpy.testing.assert_array_equal(res1[2], np.asarray([0,3,5,8]))
+                    np.asarray([0,1,1,0,1,2]))
+    numpy.testing.assert_array_equal(res1[2], np.asarray([0,1,3,6]))
 
 """
 def test_read_inputs():

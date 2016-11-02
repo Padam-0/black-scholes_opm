@@ -124,14 +124,20 @@ def solve_matrix(A):
 
 
 def main():
-    matrix_size, matrix_in, vector_b = read_inputs('nas_Sor2.in')
+    matrix_size, matrix_in, vector_b = read_inputs('nas_Sor.in')
     val, col, rowStart = con_to_csr(matrix_in, matrix_size)
+
+    print(val)
+    print(col)
+    print(rowStart)
+
+    """
     zd = zero_diag(val, col, rowStart)
     dd = col_diag_dominant(val, col, rowStart)
 
     if zd != True and dd != True:
         exit()
-
+    """
 
 
 
