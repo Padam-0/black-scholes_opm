@@ -145,7 +145,7 @@ def main():
     theta = 0.3  # Volatility
 
     # Define spacing conditions
-    M = 4  # Number of Timesteps
+    M = 3  # Number of Timesteps
     k = T / M
 
     val, col, rowStart = create_BS_matrix(M, k, r, theta)
