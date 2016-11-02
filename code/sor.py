@@ -5,8 +5,20 @@ Ax = b
 with A a nxn matrix in R and x, b nx1 vectors in R
 """
 
+import numpy as np
+
 def read_inputs(filename):
-    pass
+    # Reads in matrix size from header
+    matrix_size = np.genfromtxt(filename, max_rows=1)
+    mat_size_int = int(matrix_size)
+
+    # Reads in the matrix A from lines between head and footer
+    matrix_in = np.genfromtxt(filename, skip_header=1, skip_footer=1)
+
+    # Reads in vector b from footer
+    vector_b = np.genfromtxt(filename, skip_header=(mat_size_int - 1))
+
+    return matrix_size, matrix_in, vector_b
 
 
 def write_outputs(solution_vector, stopping_reason, other_information):
@@ -60,33 +72,33 @@ def main():
     # If the user provides an argument to the program, use that as filename
     A = read_inputs('nas_Sor.in')
 
-    # Solve (if possible) Ax = b
-    """
-    Check if:
-        There are no zeros on the diagonal
-        If the matrix is strictly row or column diagonally dominant
-            C := -(D + L)^-1 * U has spectral radius r(C)<1
-        Check for divergence (cycling or ||x^(k)-x^(k-1)||
-
-    """
-    if zero_diag(A):
-        # There are 0's on the diagonal, so quit
-        write_outputs('', "Zero on diagonal", '')
-        exit(0)
-    elif s_diag_dominant(A) == False:
-        # Matrix isn't diagonally dominant, so quit
-        exit(0)
-    elif divergence(A):
-        # The matrix divergences, so quit
-        exit(0)
-    else:
-        # solve the matrix using SOR
-        sol_vector, stop_r, other_inf = solve_matrix(A)
-
-
-    # write computed solution vector x, reason for stopping
-    # and other information
-    write_outputs(sol_vector, stop_r, other_inf)
+    # # Solve (if possible) Ax = b
+    # """
+    # Check if:
+    #     There are no zeros on the diagonal
+    #     If the matrix is strictly row or column diagonally dominant
+    #         C := -(D + L)^-1 * U has spectral radius r(C)<1
+    #     Check for divergence (cycling or ||x^(k)-x^(k-1)||
+    #
+    # """
+    # if zero_diag(A):
+    #     # There are 0's on the diagonal, so quit
+    #     write_outputs('', "Zero on diagonal", '')
+    #     exit(0)
+    # elif s_diag_dominant(A) == False:
+    #     # Matrix isn't diagonally dominant, so quit
+    #     exit(0)
+    # elif divergence(A):
+    #     # The matrix divergences, so quit
+    #     exit(0)
+    # else:
+    #     # solve the matrix using SOR
+    #     sol_vector, stop_r, other_inf = solve_matrix(A)
+    #
+    #
+    # # write computed solution vector x, reason for stopping
+    # # and other information
+    # write_outputs(sol_vector, stop_r, other_inf)
 
 
 if __name__ == "__main__":
