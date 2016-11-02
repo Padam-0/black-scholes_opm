@@ -74,22 +74,9 @@ def zero_diag(val, col, rowStart):
     return tf
 
 
-def row_diag_dominant(val, col, rowStart):
+def diag_dominant(val, col, rowStart):
     # Check if the diagonal value is larger than the sum of all
-    # other entries in that row
-    for i in range(len(rowStart)-1):
-        r = col[rowStart[i]:rowStart[i+1]]
-
-
-    if some_condition:
-        return True
-    else:
-        return False
-
-
-def col_diag_dominant(val, col, rowStart):
-    # Check if the diagonal value is larger than the sum of all
-    # other entries in that column
+    # other entries in that row/column
 
     diags = []
     col_sums = []
@@ -141,8 +128,6 @@ def main():
     val, col, rowStart = con_to_csr(matrix_in, matrix_size)
     zd = zero_diag(val, col, rowStart)
     dd = col_diag_dominant(val, col, rowStart)
-
-    print(dd)
 
     if zd != True and dd != True:
         exit()
