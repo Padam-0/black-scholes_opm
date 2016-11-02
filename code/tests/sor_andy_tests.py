@@ -1,6 +1,6 @@
 from nose.tools import *
 import bsm
-import sorandy
+import sor_andy
 import numpy.testing
 import numpy as np
 
@@ -25,23 +25,22 @@ def test_create_BS_matrix():
     resM3 = bsm.create_BS_matrix(M3, M3/T, r, theta)
     resM4 = bsm.create_BS_matrix(M4, M4/T, r, theta)
 
-    assert_equal(resMn, "There must be at least 3 intervals")
-    assert_equal(resM0, "There must be at least 3 intervals")
+    #assert_equal(resMn, "There must be at least 3 intervals")
+    #assert_equal(resM0, "There must be at least 3 intervals")
     #assert_equal(resM1, outputsTBC)
     #assert_equal(resM2, outputsTBC)
     #assert_equal(resM3, outputsTBC)
     #assert_equal(resM4, outputsTBC)
 
 def test_con_to_csr():
-    matrix1 = np.asarray([0,1,2,3,4,5,0,0,2])
-    len1 = 3
+    matrix1 = sor_andy.read_inputs('nas_Sor2.in')[1]
+    len1 = sor_andy.read_inputs('nas_Sor2.in')[0]
 
-    res1 = sorandy.con_to_csr(matrix1, len1)
+    res1 = sor_andy.con_to_csr(matrix1, len1)
 
-    assert_equal(res1, [np.asarray([1,2,3,4,5,2]),
-                 np.asarray([1,2,0,1,2,2]),
-                 np.asarray([0,2,5])])
-
+    assert_equal(res1, [np.asarray([1,2,3,4,5,7,8,10]),
+                 np.asarray([0,1,2,0,1,0,1,2]),
+                 np.asarray([0,3,5,8])])
 
 """
 def test_read_inputs():
