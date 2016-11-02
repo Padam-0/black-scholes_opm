@@ -1,6 +1,6 @@
 from nose.tools import *
 import bsm
-import sor
+import sor_andy
 import numpy.testing
 import numpy as np
 
@@ -25,12 +25,25 @@ def test_create_BS_matrix():
     resM3 = bsm.create_BS_matrix(M3, M3/T, r, theta)
     resM4 = bsm.create_BS_matrix(M4, M4/T, r, theta)
 
-    assert_equal(resMn, "There must be at least 3 intervals")
-    assert_equal(resM0, "There must be at least 3 intervals")
-    #assert_equal(resM1, outputsTBC)
-    #assert_equal(resM2, outputsTBC)
-    #assert_equal(resM3, outputsTBC)
-    #assert_equal(resM4, "File doesn't exist!")
+    #assert_equal(resMn, "There must be at least 3 intervals")
+    #assert_equal(resM0, "There must be at least 3 intervals")
+    #numpy.testing.assert_array_equal(resM1[0], np.asarray([]))
+    #numpy.testing.assert_array_equal(resM1[1], np.asarray([]))
+    #numpy.testing.assert_array_equal(resM1[2], np.asarray([]))
+    #numpy.testing.assert_array_equal(resM2, outputsTBC)
+    #numpy.testing.assert_array_equal(resM3, outputsTBC)
+    #numpy.testing.assert_array_equal(resM4, outputsTBC)
+
+def test_con_to_csr():
+    in1 = sor_andy.read_inputs('nas_Sor2.in')
+
+    res1 = sor_andy.con_to_csr(in1[1], in1[0])
+
+    numpy.testing.assert_array_equal(res1[0],
+                    np.asarray([1,2,3,4,5,7,8,10]))
+    numpy.testing.assert_array_equal(res1[1],
+                    np.asarray([0,1,2,0,1,0,1,2]))
+    numpy.testing.assert_array_equal(res1[2], np.asarray([0,3,5,8]))
 
 """
 def test_read_inputs():
