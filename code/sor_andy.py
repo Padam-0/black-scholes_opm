@@ -63,27 +63,57 @@ def calc_vector_norms(vector):
 def zero_diag(val, col, rowStart):
     # Check if there are 0's on the diagonal of the input matrix
 
-    #print(len(rowStart)-1)
     row = 0
     tf = True
     for i in range(len(rowStart)-1):
         r = col[rowStart[i]:rowStart[i+1]]
         if row not in r:
             tf = False
-
         row += 1
 
     return tf
 
 
-def s_diag_dominant(matrix):
+def row_diag_dominant(val, col, rowStart):
     # Check if the diagonal value is larger than the sum of all
-    # other entries in that row/column
+    # other entries in that row
+    for i in range(len(rowStart)-1):
+        r = col[rowStart[i]:rowStart[i+1]]
+
 
     if some_condition:
         return True
     else:
         return False
+
+
+def col_diag_dominant(val, col, rowStart):
+    # Check if the diagonal value is larger than the sum of all
+    # other entries in that column
+
+    diags = []
+    col_sums = []
+    for i in range(len(rowStart) - 1):
+        # 0 through 2
+        r = col[rowStart[i]:rowStart[i + 1]]
+
+        if i in r:
+            diags.append(val[rowStart[i] + int(np.where(r == i)[0])])
+
+        sum = 0
+        for j in range(len(col)):
+            if col[j] == i:
+                sum += val[j]
+        col_sums.append(sum)
+
+    diags = np.asarray(diags)
+    col_sums = np.asarray(col_sums) - diags
+
+    if np.greater(diags, col_sums).all():
+        return True
+    else:
+        return False
+
 
 def divergence(matrix):
     pass
@@ -105,7 +135,9 @@ def solve_matrix(A):
 def main():
     matrix_size, matrix_in, vector_b = read_inputs('nas_Sor2.in')
     val, col, rowStart = con_to_csr(matrix_in, matrix_size)
-    print(zero_diag(val, col, rowStart))
+    if zero_diag(val, col, rowStart) == False:
+        exit()
+    print(col_diag_dominant(val, col, rowStart))
 
 if __name__=='__main__':
     main()
