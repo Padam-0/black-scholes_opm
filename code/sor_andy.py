@@ -93,6 +93,7 @@ def col_diag_dominant(val, col, rowStart):
 
     diags = []
     col_sums = []
+    row_sums = []
     for i in range(len(rowStart) - 1):
         # 0 through 2
         r = col[rowStart[i]:rowStart[i + 1]]
@@ -100,16 +101,19 @@ def col_diag_dominant(val, col, rowStart):
         if i in r:
             diags.append(val[rowStart[i] + int(np.where(r == i)[0])])
 
-        sum = 0
+        c_sum = 0
         for j in range(len(col)):
             if col[j] == i:
-                sum += val[j]
-        col_sums.append(sum)
+                c_sum += val[j]
+        col_sums.append(c_sum)
+
+        row_sums.append(sum(val[rowStart[i]:rowStart[i + 1]]))
 
     diags = np.asarray(diags)
     col_sums = np.asarray(col_sums) - diags
+    row_sums = np.asarray(row_sums) - diags
 
-    if np.greater(diags, col_sums).all():
+    if np.greater(diags, col_sums).all() and np.greater(diags,row_sums).all():
         return True
     else:
         return False
@@ -135,9 +139,16 @@ def solve_matrix(A):
 def main():
     matrix_size, matrix_in, vector_b = read_inputs('nas_Sor2.in')
     val, col, rowStart = con_to_csr(matrix_in, matrix_size)
-    if zero_diag(val, col, rowStart) == False:
+    zd = zero_diag(val, col, rowStart)
+    dd = col_diag_dominant(val, col, rowStart)
+
+    print(dd)
+
+    if zd != True and dd != True:
         exit()
-    print(col_diag_dominant(val, col, rowStart))
+
+
+
 
 if __name__=='__main__':
     main()
