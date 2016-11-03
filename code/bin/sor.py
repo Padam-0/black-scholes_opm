@@ -82,23 +82,19 @@ def read_inputs(filename):
 
 """
 Checks to be completed:
-Check that first line is a number
-If dense matrix, is the matrix size = n
-Are all entries numbers
-Is the row size of the matrix the same as the vector row size
+Check that first line is an integer
+Check row size
 """
 
 # -------------------
 # DENSE MATRIX TESTS
 # -------------------
 
-# Check that first line is a number
-
 def dense_input_test(matrix_size, matrix_in, vector_b):
     errors = []
 
     # Check that defined matrix size matches actual matrix size
-    if matrix_size == len(matrix_in):
+    if matrix_size == np.size(matrix_in)/matrix_size:
         pass
     else:
         errors.append('Defined matrix size and actual matrix size do not match.')
@@ -108,6 +104,18 @@ def dense_input_test(matrix_size, matrix_in, vector_b):
         pass
     else:
         errors.append("Defined matrix size is not an integer")
+
+    # # Check matrix size and vector size are compatible
+    if np.size(matrix_in)/matrix_size == np.size(vector_b):
+        pass
+    else:
+        errors.append("Matrix length and vector length are not compatible")
+
+    # Check that matrix is square
+    if np.size(matrix_in)/matrix_size == matrix_size:
+        pass
+    else:
+        errors.append("Matrix is not square")
 
     return errors
 
