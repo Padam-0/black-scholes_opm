@@ -10,11 +10,14 @@ import SOR_solve_kron
 
 
 
-def check_CM_args():
+def test_check_CM_args():
 
-    a = 'nas_Sor.in'
-    res1 = ()
+    res1 = sor.check_CM_args(["sor_andy.py", "nas_Sor.in", "nas_out.out"])
 
+    assert_equal(res1, [["nas_Sor.in", "nas_out.out"]])
+
+
+"""
 def test_solve_axb():
     res1 = SOR_solve_kron.solve_axb(np.array([[12, 0, 0], [4, 11, 0], [7, 8, 16]]),
                                3.0)
@@ -141,7 +144,7 @@ def test_con_filename():
 
 
 
-"""
+
 def test_read_inputs():
     a = 'sample.in'
     b = 'sample'
