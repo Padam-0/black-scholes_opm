@@ -19,3 +19,14 @@ def test_solve_axb():
     #                                  np.array([0, 0, 1, 0, 1, 2]))
     # numpy.testing.assert_array_equal(res1[2], np.array([0, 1, 3, 6]))
 test_solve_axb()
+import SOR_solve_kron
+
+def test_solve_axb():
+    res1 = SOR_solve_kron.solve_axb(np.array([[12, 0, 0], [4, 11, 0], [7, 8, 16]]),
+                               3.0)
+    numpy.testing.assert_array_equal(res1[0],
+                                     np.array([12, 4, 11, 7, 8, 16]))
+    numpy.testing.assert_array_equal(res1[1],
+                                     np.array([0, 0, 1, 0, 1, 2]))
+    numpy.testing.assert_array_equal(res1[2], np.array([0, 1, 3, 6]))
+
