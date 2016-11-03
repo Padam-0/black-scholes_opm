@@ -43,6 +43,7 @@ def create_good_inital_x_vector(A,b,n):
 #try out different values of w
 def solve_axb_with_best_w(val, col, rowstart, b, n, maxits, w, x, A, tol):
     l=[]
+    #if the user inputed any of these:
     if w == 1.2 or w == 1.3 or w == 1.2:
         w = 1.2
         solved1 = solve_axb(val, col, rowstart, b, n, maxits, w, x, A, tol)
@@ -59,6 +60,7 @@ def solve_axb_with_best_w(val, col, rowstart, b, n, maxits, w, x, A, tol):
         else:
             return best
     else:
+    #if the user inputed something other than 1.2, 1.3 or 1.4
         solved1 = solve_axb(val, col, rowstart, b, n, maxits, w, x, A, tol)
         w = 1.2
         solved2 = solve_axb(val, col, rowstart, b, n, maxits, w, x, A, tol)
@@ -90,7 +92,7 @@ def solve_axb(val, col, rowstart, b, n, maxits, w, x, A, tol):
     x= x.astype(float)
     A=A.astype(float)
     x = create_good_inital_x_vector(A, b, n) #override the given x vector, this can be taken out of the solve_axb function
-    #and can be used to create x in the first place
+    #and can be used to create x in the first place?
     while k <= maxits:
         x1=x.tolist()
         x1= np.array(x1) #store x(k)th vector in x1
@@ -104,42 +106,41 @@ def solve_axb(val, col, rowstart, b, n, maxits, w, x, A, tol):
         x2=x.tolist()
         x2=np.array(x2) #store x(k-1)th vector in x2
         r=residual(b,A,x)
-        # print("residual at %s iteration = %s"%(k,r))
-        # print("x-convergence test = %s"%(vectornorm(x1-x2)))
-        # print("current solution vector \t", x)
         l.append(vectornorm(abs(x1 - x2)))
+
         #  return solution_vector_x, stopping_reason, maxits, #_of_iterations, machine_epsilon, x-seq_tolerance, residual, w
         if r==0:
             return x, "Residual convergence", maxits, k+1, e, tol, r, w
-            # have to return residual tolerance used..
+            # ^^ have to return residual tolerance used..?
+
         elif vectornorm(abs(x1-x2)) < tol-4*e:
             #x-convergence
             return x, "x Sequence Convergence", maxits, k+1, e, tol, r, w
+        #divergence
         elif k>0 and l[k]>l[k-1]:
             return x, "Divergence",  maxits, k+1, e, tol, r, w
         else:
             k += 1
             if k== maxits:
                 return x, "Max Iterations Reached", maxits, k, e, tol, r, w
-    # return "something unexpected has happened.."
 
 
-val = np.array([1.,2.,3.])
-col = np.array([0.,1.,2.])
-rowstart = np.array([0., 1., 2., 3.])
-b = np.array([1., 2., 13.])
-x = np.array([1., 1., 1.])
-n = 3
-maxits = 50
-tol = 1*10**-6
-A = np.array([[1,0,0],[0,2,0],[0,0,3]])
-w = 1.22
-# print(solve_axb(val, col, rowstart, b, n, maxits, w, x, A, tol))
-# w = 1.3
-# print(solve_axb(val, col, rowstart, b, n, maxits, w, x, A, tol))
-# w = 1.4
-# print(solve_axb(val, col, rowstart, b, n, maxits, w, x, A, tol))
-print(solve_axb_with_best_w(val, col, rowstart, b, n, maxits, w, x, A, tol))
+# val = np.array([1.,2.,3.])
+# col = np.array([0.,1.,2.])
+# rowstart = np.array([0., 1., 2., 3.])
+# b = np.array([1., 2., 13.])
+# x = np.array([1., 1., 1.])
+# n = 3
+# maxits = 50
+# tol = 1*10**-6
+# A = np.array([[1,0,0],[0,2,0],[0,0,3]])
+# w = 1.22
+# # print(solve_axb(val, col, rowstart, b, n, maxits, w, x, A, tol))
+# # w = 1.3
+# # print(solve_axb(val, col, rowstart, b, n, maxits, w, x, A, tol))
+# # w = 1.4
+# # print(solve_axb(val, col, rowstart, b, n, maxits, w, x, A, tol))
+# print(solve_axb_with_best_w(val, col, rowstart, b, n, maxits, w, x, A, tol))
 
 
 
