@@ -1,13 +1,50 @@
 from nose.tools import *
-import bsm
-import sor_andy
-import numpy.testing
-import numpy as np
+# import bsm
+# import numpy.testing
+# import numpy as np
 
 from bin import sor
 
-import SOR_solve_kron
+def test_check_CM_args():
+    res1 = sor.check_CM_args(["sor_andy.py", "nas_Sor.in", "nas_out.out"])
 
+    assert_equal(res1, [["nas_Sor.in", "nas_out.out"]])
+
+
+def test_check_file_exists():
+    a = 'nas_Sor.in'
+    b = 'nas_Sor'
+    c = '/nas_Sor.in'
+    d = './nas_Sor.in'
+
+    res1 = sor.check_file_exists(a)
+    res2 = sor.check_file_exists(b)
+    res3 = sor.check_file_exists(c)
+    res4 = sor.check_file_exists(d)
+
+    assert_equal(res1, True)
+    assert_equal(res2, False)
+    assert_equal(res3, False)
+    assert_equal(res4, True)
+
+
+def test_read_inputs():
+    a = 'sample.in'
+    b = 'sample'
+    c = '/sample.in'
+    d = './sa1ple.in'
+
+    res1 = sor.read_inputs(a)
+    res2 = sor.read_inputs(b)
+    res3 = sor.read_inputs(c)
+    res4 = sor.read_inputs(d)
+
+    assert_equal(res1, outputsTBC)
+    assert_equal(res2, outputsTBC)
+    assert_equal(res3, outputsTBC)
+    assert_equal(res4, "File doesn't exist!")
+
+"""
 def test_solve_axb():
     res1 = SOR_solve_kron.solve_axb(np.array([[12, 0, 0], [4, 11, 0], [7, 8, 16]]),
                                3.0)
@@ -16,7 +53,6 @@ def test_solve_axb():
     numpy.testing.assert_array_equal(res1[1],
                                      np.array([0, 0, 1, 0, 1, 2]))
     numpy.testing.assert_array_equal(res1[2], np.array([0, 1, 3, 6]))
-
 
 
 def test_create_BS_matrix():
@@ -83,24 +119,10 @@ def test_diag_dominant():
     assert_equal(sor.diag_dominant(res3[0], res3[1], res3[2]), False)
 
 
-def test_read_inputs():
 
 
-def test_check_file_exists():
-    a = 'nas_Sor.in'
-    b = 'nas_Sor'
-    c = '/nas_Sor.in'
-    d = './nas_Sor.in'
 
-    res1 = sor.check_file_exists(a)
-    res2 = sor.check_file_exists(b)
-    res3 = sor.check_file_exists(c)
-    res4 = sor.check_file_exists(d)
 
-    assert_equal(res1, True)
-    assert_equal(res2, False)
-    assert_equal(res3, False)
-    assert_equal(res4, True)
 
 
 def test_con_filename():
@@ -135,22 +157,8 @@ def test_con_filename():
 
 
 
-"""
-def test_read_inputs():
-    a = 'sample.in'
-    b = 'sample'
-    c = '/sample.in'
-    d = './sa1ple.in'
 
-    res1 = sor.read_inputs(a)
-    res2 = sor.read_inputs(b)
-    res3 = sor.read_inputs(c)
-    res4 = sor.read_inputs(d)
 
-    assert_equal(res1, outputsTBC)
-    assert_equal(res2, outputsTBC)
-    assert_equal(res3, outputsTBC)
-    assert_equal(res4, "File doesn't exist!")
 
 
 
