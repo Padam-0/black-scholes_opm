@@ -304,10 +304,9 @@ def calc_csr_residual(val, col, rowStart, b, x):
     for i in range(n):
         sum = 0
         for j in range(rowStart[i], rowStart[i + 1]):
-            print(x[0], x[1], x[2], val[j], col[j])
             sum = sum + val[j] * x[int(col[j])]
         c[i] = c[i] + sum
-    residual = vectornorm(b-Ax)
+    residual = vectornorm(b-c)
     return residual
 
 

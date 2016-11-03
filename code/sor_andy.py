@@ -67,7 +67,7 @@ def main():
     #A = original matrix, get rid of this when have resid in CSR sorted
     #solve_axb(val, col, rowStart, vector_b, n, maxits, w, x, A, tol)
 
-    print(sor.calc_csr_residual(val, col, rowStart, vector_b, x))
+    residual = sor.calc_csr_residual(val, col, rowStart, vector_b, x)
     # outputs
 
 if __name__=='__main__':
