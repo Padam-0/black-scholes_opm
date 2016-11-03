@@ -29,7 +29,9 @@ def solve_matrix(A):
 
 def main():
     input_filename, output_filename = sor.check_CM_args(sys.argv)
-    matrix_size, matrix_in, vector_b = sor.read_inputs(input_filename)
+    print(input_filename)
+    print(output_filename)
+    #matrix_size, matrix_in, vector_b = sor.read_inputs(input_filename)
 
     """
     val, col, rowStart = sor.con_to_csr(matrix_in, matrix_size)

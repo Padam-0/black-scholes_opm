@@ -3,10 +3,30 @@ import sys
 
 def check_CM_args(cmArgs):
     if len(cmArgs) == 1:
-        #prompt user
-        if userNoreply:
-            input_file = 'nas_In.out'
-            output_file = 'nas_Sor.out'
+        question = input('Would you like to define an input and output filename? [y/n]: ')
+
+        if question == 'y':
+            input_file = input("Please enter an input file name: ")
+            output_file = input("Please enter an output file name: ")
+
+        elif question == 'n':
+            default_ques = input('Is using the default file names ok? [y/n]: ')
+            if default_ques =='y':
+                input_file = 'nas_In.out'
+                output_file = 'nas_Sor.out'
+            else:
+                exit_ques = input('Would you like to exit? [y/n]: ')
+                if exit_ques == 'y':
+                    exit()
+                else:
+                    check_CM_args()
+        else:
+            error_check = input('Looks like an error. Would you like to try again? [y/n]: ')
+            if error_check =='y':
+                check_CM_args()
+            else:
+                exit(0)
+
     elif len(cmArgs) == 2:
         input_file = cmArgs[1]
         output_file = 'nas_Sor.out'
@@ -15,6 +35,7 @@ def check_CM_args(cmArgs):
         output_file = cmArgs[2]
     else:
         exit()
+
     return input_file, output_file
 
 
