@@ -28,9 +28,11 @@ def solve_matrix(A):
 
 
 def main():
+
     input_filename, output_filename = sor.check_CM_args(sys.argv)
     print(input_filename)
     print(output_filename)
+
     #matrix_size, matrix_in, vector_b = sor.read_inputs(input_filename)
 
     """

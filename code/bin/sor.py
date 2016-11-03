@@ -1,5 +1,7 @@
 import numpy as np
 import sys
+import os.path
+import re
 
 def check_CM_args(cmArgs):
     if len(cmArgs) == 1:
@@ -36,7 +38,11 @@ def check_CM_args(cmArgs):
     else:
         exit()
 
-    return input_file, output_file
+    return con_filename(input_file, 1), con_filename(output_file, 2)
+
+
+def check_file_exists(filename):
+    return os.path.isfile(filename)
 
 
 def read_inputs(filename):
@@ -152,7 +158,7 @@ def diag_dominant(val, col, rowStart):
     else:
         return False
 
-def getfilename(filename):
+def con_filename(filename, argNum = 0):
     # Takes a filename and reformats it to be in correct input style
     if os.path.join('a', 'b') == 'a/b':  # Checks if OS is Mac/Unix, which uses
         #  the '/' character in directory paths
@@ -189,7 +195,9 @@ def getfilename(filename):
         # If the pattern returns a result, find the length of the match
         a = len(re.findall(pattern, nf)[0])
         nf = nf[:-a]  # Remove the file extension from the end of the filename
-    nf += '.txt'  # Replace the file extension with '.txt'
-    return os.path.join('..', nf)  # Return the extension in the form
+    if argNum == 1:
+        nf += '.in'  # Replace the file extension with '.in'
+    elif argNum == 2:
+        nf += '.out'  # Replace the file extension with '.out'
+    return os.path.join('.', nf)  # Return the extension in the form
     # '../filename.txt'. On windows, will be '..\filename.txt'
-
