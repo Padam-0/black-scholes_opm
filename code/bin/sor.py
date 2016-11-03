@@ -161,7 +161,7 @@ def con_to_csr(matrix, matrix_length):
 def value_tests(val, col, rowStart, errors):
     if not zero_diag(val, col, rowStart):
         errors.append("There are zeros on the diagonal")
-    if not col_diag_dominant(val, col, rowStart):
+    if not diag_dominant(val, col, rowStart):
         errors.append("The matrix is not row and column diagonally dominant")
 
     return errors

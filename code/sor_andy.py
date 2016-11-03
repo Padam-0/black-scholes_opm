@@ -30,6 +30,7 @@ def solve_matrix(A):
 
 def main():
     input_filename, output_filename = sor.check_CM_args(sys.argv)
+
     if not sor.read_raw_inputs(input_filename):
         exit("There is a non-decimal entry in the input file. Please amend "
               "the input according to the guidelines in README.md")
@@ -39,7 +40,7 @@ def main():
     if sor.read_inputs(input_filename)[0] == "Dense":
         matrix_size, matrix_in, vector_b = sor.read_inputs(input_filename)[1:]
 
-        errors.extend(sor.dense_input_tests(matrix_size, matrix_in, vector_b))
+        errors.extend(sor.dense_input_test(matrix_size, matrix_in, vector_b))
 
         val, col, rowStart = sor.con_to_csr(matrix_in, matrix_size)
     else:
@@ -53,16 +54,18 @@ def main():
         print("The following errors were identified:")
         for i in errors:
             print(i)
-        print("Please correct these errors and restart the program")
-        exit()
+        exit("Please correct these errors and restart the program")
+
 
     tol = 1 * 10 ** (-10)
     n = rowStart.size - 1
-    print(n)
     maxits = 100
     x = np.random.randn(n)
+    w = 1.3
     #A = original matrix, get rid of this when have resid in CSR sorted
     #solve_axb(val, col, rowStart, vector_b, n, maxits, w, x, A, tol)
+
+    # outputs
 
 if __name__=='__main__':
     main()
