@@ -28,9 +28,16 @@ def residual(b,A,x):
     Ax =A @ x
     return vectornorm(b-Ax)
 
-def solve_axb(val, col, rowstart, b, n, maxits, e, w, x, A):
+def solve_axb(val, col, rowstart, b, n, maxits, w, x, A, tol):
     k = 0
     l=[]
+    e = np.finfo(float).eps
+    val= val.astype(float)
+    col = col.astype(float)
+    rowstart = rowstart.astype(float)
+    b = b.astype(float)
+    x= x.astype(float)
+    A=A.astype(float)
     while k <= maxits:
         x1=x.tolist()
         x1= np.array(x1) #store x(k)th vector in x1
@@ -56,17 +63,20 @@ def solve_axb(val, col, rowstart, b, n, maxits, e, w, x, A):
         if r==0:
             return "residual ==0", x,k
         
-        if vectornorm(abs(x1-x2))<e:
-            return "x-convergence:", x, "k=%s"%(k), "e=%s"%(e)
+        if vectornorm(abs(x1-x2)) < (tol-4*e):
+            #x-convergence
+            # return solution_vector_x, stopping_reason, maxits, #_of_iterations, machine_epsilon, x-seq_tolerance, residual
+            return x, "x_Sequence_convergence", maxits, k+1, e, tol, r
         #test for divergence
         l.append(vectornorm(abs(x1-x2)))
         if k>0 and l[k]>l[k-1]:
             return "diverging: \n ||x(k) − x(k−1)|| increased on this iteration: \
             \n value at (k)th iteration = %s \
             \n value at (k-1)th iteration = %s"%(l[k],l[k-1])
-        
+
         k = k + 1
-    return "something unexpected has happened.."
+    # return "something unexpected has happened.."
+
 
 val = np.array([1.,2.,3.])
 col = np.array([0.,1.,2.])
@@ -74,11 +84,31 @@ rowstart = np.array([0., 1., 2., 3.])
 b = np.array([1., 2., 13.])
 x = np.array([1., 1., 1.])
 
+
 n = 3
-maxits = 50
+maxits = 0
 w = 1.3
 e = 0.1
+
 print(solve_axb(val, col, rowstart, b, n, maxits, e, w, x, A))
+
+A = np.array([[1,0,0],[0,2,0],[0,0,3]])
+
+
+
+# ##floats
+# val = np.array([1.,2.,3.])
+# col = np.array([0.,1.,2.])
+# rowstart = np.array([0., 1., 2., 3.])
+# b = np.array([1., 2., 13.])
+# x = np.array([1., 1., 1.])
+# n = 3
+# maxits = 50
+# w = 1.3
+# e = 0.1
+# A = np.array([[1.,0.,0.],[0.,2.,0.],[0.,0.,3.]])
+# print(solve_axb(val, col, rowstart, b, n, maxits, w, x, A))
+
 
 
 ##integers
