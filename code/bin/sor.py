@@ -5,26 +5,29 @@ import re
 
 def check_CM_args(cmArgs):
     if len(cmArgs) == 1:
-        question = input('Would you like to define an input and output filename? [y/n]: ')
+        question = input('Would you like to define an input and output '
+                         'filename? [y/n]: ').upper()
 
-        if question == 'y':
+        if question == 'Y':
             input_file = input("Please enter an input file name: ")
             output_file = input("Please enter an output file name: ")
 
-        elif question == 'n':
-            default_ques = input('Is using the default file names ok? [y/n]: ')
-            if default_ques =='y':
+        elif question == 'N':
+            default_ques = input('Is using the default file names ok? [y/n]: '
+                                 '').upper()
+            if default_ques =='Y':
                 input_file = 'nas_In.out'
                 output_file = 'nas_Sor.out'
             else:
-                exit_ques = input('Would you like to exit? [y/n]: ')
-                if exit_ques == 'y':
-                    exit()
+                exit_ques = input('Would you like to exit? [y/n]: ').upper()
+                if exit_ques == 'Y':
+                    exit("Default Exit Message")
                 else:
-                    check_CM_args()
+                    check_CM_args(cmArgs)
         else:
-            error_check = input('Looks like an error. Would you like to try again? [y/n]: ')
-            if error_check =='y':
+            error_check = input('Looks like an error. Would you like to try '
+                                'again? [y/n]: ').upper()
+            if error_check =='Y':
                 check_CM_args()
             else:
                 exit(0)
