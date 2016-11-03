@@ -68,34 +68,36 @@ def check_file_exists(filename):
 
 def read_inputs(filename):
     # Open a file and extract data
-    try:
-        matrix_size = np.genfromtxt(filename, max_rows=1)
-        # print('Matrix size n:',matrix_size)
-        # print('----------')
+    matrix_size = np.genfromtxt(filename, max_rows=1)
 
-        matrix_in = np.genfromtxt(filename, skip_header=1, skip_footer=1)
-        # print('Matrix A:')
-        # print(matrix_in)
-        # print('----------')
+    matrix_in = np.genfromtxt(filename, skip_header=1, skip_footer=1)
 
-        column = np.genfromtxt(filename, usecols=0)
-        col_len = len(column)
-        # print('Column length', col_len)
-        # print('----------')
+    column = np.genfromtxt(filename, usecols=0)
+    col_len = len(column)
 
-        vector_b = np.genfromtxt(filename, skip_header=(col_len - 1))
-        # print('Vector b: ',vector_b)
+    vector_b = np.genfromtxt(filename, skip_header=(col_len - 1))
 
-        return matrix_size, matrix_in, vector_b
+    return matrix_size, matrix_in, vector_b
 
-    except:
-        o = input("I can't find a file with that name. If you want to quit, "
-              "please press Q, if not, please try again:  ").upper()
-        if o == 'Q':
-            exit(0) # If filename is wrong, allow user option to quit (Q)
-        else:
-            read_inputs(getfilename(o.lower())) # If filename is wrong,
-            # allow user option to keep trying
+
+"""
+Checks to be completed:
+Is there one number on the first line (n)
+If so, is the matrix size = n
+Are all entries numbers
+Is the row size of the matrix the same as the vector row size
+"""
+
+# -------------------
+# DENSE MATRIX TESTS
+# -------------------
+
+# Check that defined matrix size matches actual matrix size
+def corr_matrix_size(matrix_size, matrix_in):
+    if matrix_size == len(matrix_in):
+        return "Defined matrix size and actual matrix size match"
+    else:
+        return "Defined matrix size and actual matrix size match"
 
 
 def con_to_csr(matrix, matrix_length):

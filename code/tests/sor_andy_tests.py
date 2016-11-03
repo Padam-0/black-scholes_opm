@@ -82,6 +82,10 @@ def test_diag_dominant():
     assert_equal(sor.diag_dominant(res2[0], res2[1], res2[2]), True)
     assert_equal(sor.diag_dominant(res3[0], res3[1], res3[2]), False)
 
+
+def test_read_inputs():
+
+
 def test_check_file_exists():
     a = 'nas_Sor.in'
     b = 'nas_Sor'
