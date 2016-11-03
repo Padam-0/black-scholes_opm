@@ -66,6 +66,17 @@ def check_file_exists(filename):
     return os.path.isfile(filename)
 
 
+def read_raw_inputs(filename):
+    with open(filename, 'r') as myfile:
+        data = myfile.read().replace('\n', ' ')
+        pattern = re.compile(r'[^0-9\.\s:]')  # Compile a Regular Expression (
+        # Regex)
+        if re.search(pattern, data) == None:
+            return True
+        else:
+            return False
+
+
 def read_inputs(filename):
     if np.genfromtxt(filename, max_rows=1).size == 1:
         input_type = "Dense"
@@ -111,6 +122,16 @@ def con_to_csr(matrix, matrix_length):
     rowStart = np.array(rowStart)
 
     return val, col, rowStart
+
+
+def value_tests(val, col, rowStart, errors):
+    if not zero_diag(val, col, rowStart):
+        errors.append("There are zeros on the diagonal")
+    if not col_diag_dominant(val, col, rowStart):
+        errors.append("The matrix is not row and column diagonally dominant")
+
+    return errors
+
 
 
 def write_outputs(solution_vector, stopping_reason, other_information):
@@ -223,3 +244,7 @@ def csr_input_tests(val, col, rowStart, b):
         errors.append("Number of columns in matrix is not the same as the "
                       "number of rows in Vector b")
 
+
+def calc_csr_residual():
+    #solve B - Ax
+    pass
