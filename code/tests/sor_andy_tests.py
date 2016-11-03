@@ -1,12 +1,19 @@
 from nose.tools import *
 import bsm
-import sor_andy
 import numpy.testing
 import numpy as np
 
 from bin import sor
 
 import SOR_solve_kron
+
+
+
+
+def check_CM_args():
+
+    a = 'nas_Sor.in'
+    res1 = ()
 
 def test_solve_axb():
     res1 = SOR_solve_kron.solve_axb(np.array([[12, 0, 0], [4, 11, 0], [7, 8, 16]]),
@@ -16,7 +23,6 @@ def test_solve_axb():
     numpy.testing.assert_array_equal(res1[1],
                                      np.array([0, 0, 1, 0, 1, 2]))
     numpy.testing.assert_array_equal(res1[2], np.array([0, 1, 3, 6]))
-
 
 
 def test_create_BS_matrix():
