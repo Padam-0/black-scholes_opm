@@ -3,45 +3,63 @@ import sys
 import os.path
 import re
 
+try:
+    import numpy as np
+    import sys
+    import os.path
+    import re
+except ImportError as import_err:
+    print(import_err)
+    print("Unable to import required libraries. Please check installation of "
+          "sys, numpy, os & re libraries for python 3.5")
+    exit(0)
+
+
 def check_CM_args(cmArgs):
-    if len(cmArgs) == 1:
-        question = input('Would you like to define an input and output '
-                         'filename? [y/n]: ').upper()
-
-        if question == 'Y':
-            input_file = input("Please enter an input file name: ")
-            output_file = input("Please enter an output file name: ")
-
-        elif question == 'N':
-            default_ques = input('Is using the default file names ok? [y/n]: '
-                                 '').upper()
-            if default_ques =='Y':
-                input_file = 'nas_In.out'
-                output_file = 'nas_Sor.out'
-            else:
-                exit_ques = input('Would you like to exit? [y/n]: ').upper()
-                if exit_ques == 'Y':
-                    exit("Default Exit Message")
+    in_names = []
+    while len(in_names) != 2:
+        if len(cmArgs) == 1:
+            question = input('Would you like to define an input and output '
+                             'filename? [y/n]: ').upper()
+            if question == 'Y':
+                in_names.append(input("Please enter an input file name: "))
+                if not check_file_exists(in_names[0]):
+                    if input(
+                        "I can't find that file. Would you like to try "
+                        "again? [y/n]: ").upper() == 'Y':
+                        continue
+                    else:
+                        exit(0)
+                in_names.append(input("Please enter an output file name: "))
+            elif question == 'N':
+                if input('Is using the default file names ok? [y/n]: '
+                                     '').upper() =='Y':
+                    in_names.append('nas_In.out')
+                    in_names.append('nas_Sor.out')
                 else:
-                    check_CM_args(cmArgs)
-        else:
-            error_check = input('Looks like an error. Would you like to try '
-                                'again? [y/n]: ').upper()
-            if error_check =='Y':
-                check_CM_args()
+                    if input('Would you like to exit? [y/n]: ').upper() == 'Y':
+                        exit("Default Exit Message")
+                    else:
+                        continue
             else:
-                exit(0)
+                if input('Looks like an error. Would you like to try '
+                                    'again? [y/n]: ').upper() =='Y':
+                    continue
+                else:
+                    exit(0)
 
-    elif len(cmArgs) == 2:
-        input_file = cmArgs[1]
-        output_file = 'nas_Sor.out'
-    elif len(cmArgs) == 3:
-        input_file = cmArgs[1]
-        output_file = cmArgs[2]
-    else:
-        exit()
+        elif len(cmArgs) == 2:
+            in_names.append(cmArgs[1])
+            in_names.append('nas_Sor.out')
+        elif len(cmArgs) == 3:
+            in_names.append(cmArgs[1])
+            in_names.append(cmArgs[2])
+        else:
+            in_names = ['nas_Sor.in', 'nas_Sor.out']
 
-    return con_filename(input_file, 1), con_filename(output_file, 2)
+    input_file = con_filename(in_names[0], 1)
+    output_file = con_filename(in_names[1], 2)
+    return input_file, output_file
 
 
 def check_file_exists(filename):
