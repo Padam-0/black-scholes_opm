@@ -73,11 +73,11 @@ col = np.array([0.,1.,2.])
 rowstart = np.array([0., 1., 2., 3.])
 b = np.array([1., 2., 13.])
 x = np.array([1., 1., 1.])
+
 n = 3
 maxits = 50
 w = 1.3
 e = 0.1
-A = np.array([[1.,0.,0.],[0.,2.,0.],[0.,0.,3.]])
 print(solve_axb(val, col, rowstart, b, n, maxits, e, w, x, A))
 
 

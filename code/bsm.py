@@ -98,10 +98,21 @@ f_(n, M-2) for the M-2 timestep, and use these to solve for the M-3 timestep
 and so on until the timestep 0 is solved.
 
 
+
+b = f_0,m [f_(1,m),...,f_(N-1,m)] f_N,m
+b =   X  [] 0
+f_(n,m) = max{X-nh, 0}, h = S_max / N
+
+Let S_max = 20
+
+b =   X  [10 - 1*6.66, 0, 0] 0
+b = X [3.33, 0, 0] 0
+
 """
 
 import math
 import numpy as np
+from testy_mctestface import ssor
 
 def create_BS_matrix(M, k, r, theta):
     if M < 3:
@@ -136,22 +147,34 @@ def create_BS_matrix(M, k, r, theta):
 
         return val, col, rowStart
 
+def create_BS_b(M, X, Smax):
+    h = Smax / M
+    b = []
+    for n in range(M):
+        if X - (n+1) * h > 0:
+            b.append(X - (n+1) * h)
+        else:
+            b.append(0)
+    return b
+
 def main():
     # Define inital conditions
     X = 10  # Strike Price, in Dollars
+    Smax = 20
     T = 30  # Maturity Date, Days from now
-    r = 0.02  # Risk free rate (% per day)
+    r = 0.01  # Risk free rate (% per day)
     theta = 0.3  # Volatility
 
     # Define spacing conditions
-    M = 2  # Number of Timesteps
+    M = 30  # Number of Timesteps
     k = T / M
 
     val, col, rowStart = create_BS_matrix(M, k, r, theta)
-    print(val)
-    print(col)
-    print(rowStart)
-    #b = [X,...,0]
+    b = create_BS_b(M, X, Smax)
+
+    it, sol = ssor(val, col, rowStart, b)
+    print(it)
+    print(sol)
 
     """
     for m in range(M - 1, -1, -1):

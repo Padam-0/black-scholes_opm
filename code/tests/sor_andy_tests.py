@@ -20,6 +20,7 @@ def test_create_BS_matrix():
 
     assert_equal(resMn[0], "There must be at least 3 intervals")
     assert_equal(resM0[0], "There must be at least 3 intervals")
+
     numpy.testing.assert_array_almost_equal(resM1[0], np.array([2.1, -0.55,
         -1.6, 4.8, -2, -3.75, 9.3]), decimal=6)
     numpy.testing.assert_array_equal(resM1[1], np.array([0,1,0,1,2,1,2]))
@@ -68,8 +69,6 @@ def test_diag_dominant():
     assert_equal(sor_andy.diag_dominant(res3[0], res3[1], res3[2]), False)
 
 
-"""
-
 def test_read_inputs():
     a = 'sample.in'
     b = 'sample'
@@ -85,6 +84,8 @@ def test_read_inputs():
     assert_equal(res2, outputsTBC)
     assert_equal(res3, outputsTBC)
     assert_equal(res4, "File doesn't exist!")
+
+"""
 
 
 #Sample Tests:
