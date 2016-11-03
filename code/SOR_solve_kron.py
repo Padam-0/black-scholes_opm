@@ -108,19 +108,19 @@ def solve_axb(val, col, rowstart, b, n, maxits, w, x, A, tol):
         # print("x-convergence test = %s"%(vectornorm(x1-x2)))
         # print("current solution vector \t", x)
         l.append(vectornorm(abs(x1 - x2)))
+        #  return solution_vector_x, stopping_reason, maxits, #_of_iterations, machine_epsilon, x-seq_tolerance, residual, w
         if r==0:
-            return "residual ==0", x,k
+            return x, "Residual convergence", maxits, k+1, e, tol, r, w
+            # have to return residual tolerance used..
         elif vectornorm(abs(x1-x2)) < tol-4*e:
             #x-convergence
-            #  return solution_vector_x, stopping_reason, maxits, #_of_iterations, machine_epsilon, x-seq_tolerance, residual, w
-            return x, "x_Sequence_convergence", maxits, k+1, e, tol, r, w
-            #test for divergence
+            return x, "x Sequence Convergence", maxits, k+1, e, tol, r, w
         elif k>0 and l[k]>l[k-1]:
-            return "diverging: \n ||x(k) − x(k−1)|| increased on this iteration: \
-            \n value at (k)th iteration = %s \
-            \n value at (k-1)th iteration = %s"%(l[k],l[k-1])
+            return x, "Divergence",  maxits, k+1, e, tol, r, w
         else:
             k += 1
+            if k== maxits:
+                return x, "Max Iterations Reached", maxits, k, e, tol, r, w
     # return "something unexpected has happened.."
 
 
@@ -133,7 +133,7 @@ n = 3
 maxits = 50
 tol = 1*10**-6
 A = np.array([[1,0,0],[0,2,0],[0,0,3]])
-w = 1.21
+w = 1.22
 # print(solve_axb(val, col, rowstart, b, n, maxits, w, x, A, tol))
 # w = 1.3
 # print(solve_axb(val, col, rowstart, b, n, maxits, w, x, A, tol))
@@ -172,7 +172,7 @@ print(solve_axb_with_best_w(val, col, rowstart, b, n, maxits, w, x, A, tol))
 # A= np.array([[21,0,0,12,0,0], [0,49,0,0,0,0], [31,0,16,0,0,23], [0,0,0,85,0,0],[55,0,0,0,91,0],[0,0,0,0,0,41]])
 # print(solve_axb(val, col, rowstart, b, n, maxits, e, w, x, A))
 
-##floats
+# #floats
 # maxits = 50
 # w = 1.4
 # e = 0.1
@@ -184,3 +184,5 @@ print(solve_axb_with_best_w(val, col, rowstart, b, n, maxits, w, x, A, tol))
 # n = 6
 # A= np.array([[21.,0.,0.,12.,0.,0.], [0.,49.,0.,0.,0.,0.], [31.,0.,16.,0.,0.,23.], [0.,0.,0.,85.,0.,0.],[55.,0.,0.,0.,91.,0.],[0.,0.,0.,0.,0.,41.]])
 # print(solve_axb(val, col, rowstart, b, n, maxits, e, w, x, A))
+
+# print(solve_axb_with_best_w(val, col, rowstart, b, n, maxits, w, x, A, tol))
