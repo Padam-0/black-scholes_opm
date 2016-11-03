@@ -67,35 +67,26 @@ def check_file_exists(filename):
 
 
 def read_inputs(filename):
-    # Open a file and extract data
-    try:
+    if np.genfromtxt(filename, max_rows=1).size == 1:
+        input_type = "Dense"
+        # Open a file and extract data
         matrix_size = np.genfromtxt(filename, max_rows=1)
-        # print('Matrix size n:',matrix_size)
-        # print('----------')
 
         matrix_in = np.genfromtxt(filename, skip_header=1, skip_footer=1)
-        # print('Matrix A:')
-        # print(matrix_in)
-        # print('----------')
 
-        column = np.genfromtxt(filename, usecols=0)
-        col_len = len(column)
-        # print('Column length', col_len)
-        # print('----------')
+        col_len = len(np.genfromtxt(filename, usecols=0))
 
         vector_b = np.genfromtxt(filename, skip_header=(col_len - 1))
-        # print('Vector b: ',vector_b)
 
-        return matrix_size, matrix_in, vector_b
+        return input_type, matrix_size, matrix_in, vector_b
+    else:
+        input_type = "CSR"
+        val = np.genfromtxt(filename, max_rows=1)
+        col = np.genfromtxt(filename, skip_header=1, skip_footer=2)
+        rowStart = np.genfromtxt(filename, skip_header=2, skip_footer=1)
+        vector_b = np.genfromtxt(filename, skip_header=3)
 
-    except:
-        o = input("I can't find a file with that name. If you want to quit, "
-              "please press Q, if not, please try again:  ").upper()
-        if o == 'Q':
-            exit(0) # If filename is wrong, allow user option to quit (Q)
-        else:
-            read_inputs(getfilename(o.lower())) # If filename is wrong,
-            # allow user option to keep trying
+        return input_type, val, col, rowStart, vector_b
 
 
 def con_to_csr(matrix, matrix_length):
@@ -222,3 +213,13 @@ def con_filename(filename, argNum = 0):
         nf += '.out'  # Replace the file extension with '.out'
     return os.path.join('.', nf)  # Return the extension in the form
     # '../filename.txt'. On windows, will be '..\filename.txt'
+
+def csr_input_tests(val, col, rowStart, b):
+    errors = []
+    if val.size != col.size:
+        errors.append("Value and column vectors are not the same length")
+
+    if rowStart.size - 1 != b.size:
+        errors.append("Number of columns in matrix is not the same as the "
+                      "number of rows in Vector b")
+
