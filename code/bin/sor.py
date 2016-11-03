@@ -2,6 +2,7 @@ import numpy as np
 import sys
 import os.path
 import re
+import math
 
 try:
     import numpy as np
@@ -295,6 +296,23 @@ def csr_input_tests(val, col, rowStart, b):
                       "number of rows in Vector b")
 
 
-def calc_csr_residual():
-    #solve B - Ax
-    pass
+def calc_csr_residual(val, col, rowStart, b, x):
+    #solve b - Ax
+    # Let Ax = c, then b - c
+    n = rowStart.size - 1
+    c = np.zeros(n)
+    for i in range(n):
+        sum = 0
+        for j in range(rowStart[i], rowStart[i + 1]):
+            print(x[0], x[1], x[2], val[j], col[j])
+            sum = sum + val[j] * x[int(col[j])]
+        c[i] = c[i] + sum
+    residual = vectornorm(b-Ax)
+    return residual
+
+
+def vectornorm(v):
+    total = 0
+    for element in v:
+        total += element**2
+    return math.sqrt(total)
