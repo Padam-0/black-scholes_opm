@@ -82,8 +82,8 @@ def read_inputs(filename):
 
 """
 Checks to be completed:
-Is there one number on the first line (n)
-If so, is the matrix size = n
+Check that first line is a number
+If dense matrix, is the matrix size = n
 Are all entries numbers
 Is the row size of the matrix the same as the vector row size
 """
@@ -92,12 +92,24 @@ Is the row size of the matrix the same as the vector row size
 # DENSE MATRIX TESTS
 # -------------------
 
-# Check that defined matrix size matches actual matrix size
-def corr_matrix_size(matrix_size, matrix_in):
+# Check that first line is a number
+
+def dense_input_test(matrix_size, matrix_in, vector_b):
+    errors = []
+
+    # Check that defined matrix size matches actual matrix size
     if matrix_size == len(matrix_in):
-        return "Defined matrix size and actual matrix size match"
+        pass
     else:
-        return "Defined matrix size and actual matrix size match"
+        errors.append('Defined matrix size and actual matrix size do not match.')
+
+    # Check that matrix size is an integer
+    if matrix_size%1 == 0:
+        pass
+    else:
+        errors.append("Defined matrix size is not an integer")
+
+    return errors
 
 
 def con_to_csr(matrix, matrix_length):

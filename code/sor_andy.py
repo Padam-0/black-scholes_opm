@@ -34,7 +34,9 @@ def main():
 
     matrix_size, matrix_in, vector_b = sor.read_inputs(input_filename)
 
-    print(sor.corr_matrix_size(matrix_size, matrix_in))
+    # Checks for dense input file tests
+    print(sor.dense_input_test(matrix_size, matrix_in, vector_b))
+
 
 
     """
