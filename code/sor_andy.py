@@ -60,11 +60,14 @@ def main():
     tol = 1 * 10 ** (-10)
     n = rowStart.size - 1
     maxits = 100
-    x = np.random.randn(n)
+    #x = np.random.randn(n)
+    x = np.array([1,2,3])
     w = 1.3
+
     #A = original matrix, get rid of this when have resid in CSR sorted
     #solve_axb(val, col, rowStart, vector_b, n, maxits, w, x, A, tol)
 
+    print(sor.calc_csr_residual(val, col, rowStart, vector_b, x))
     # outputs
 
 if __name__=='__main__':
