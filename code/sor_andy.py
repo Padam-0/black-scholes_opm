@@ -9,6 +9,7 @@ from bin import sor
 import sys
 import os
 import numpy as np
+import SOR_solve_kron
 
 
 def divergence(matrix):
@@ -69,6 +70,13 @@ def main():
 
     residual = sor.calc_csr_residual(val, col, rowStart, vector_b, x)
     # outputs
+    A = np.array([[1, 0, 0], [0, 2, 0], [0, 0, 3]])
+    vec_x, stop, maxits, iterations, mach_e, xseqtol, residual, w = SOR_solve_kron.solve_axb_with_best_w(
+        val, col, rowStart, vector_b, n, maxits, w, x, A, tol)
+    # outp = SOR_solve_kron.solve_axb_with_best_w(val, col, rowstart, b, n, maxits, w, x, A, tol)
+
+    sor.output_text_file("output.txt", stop, maxits, iterations, mach_e,
+                         xseqtol, residual, w)
 
 if __name__=='__main__':
     main()

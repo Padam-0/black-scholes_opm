@@ -184,11 +184,6 @@ def value_tests(val, col, rowStart, errors):
     return errors
 
 
-
-def write_outputs(solution_vector, stopping_reason, other_information):
-    pass
-
-
 def matrix_det(matrix):
     # check that matrix determinant is non zero
     if np.linalg.det(matrix) != 0:
@@ -242,6 +237,7 @@ def diag_dominant(val, col, rowStart):
     else:
         return False
 
+
 def con_filename(filename, argNum = 0):
     # Takes a filename and reformats it to be in correct input style
     if os.path.join('a', 'b') == 'a/b':  # Checks if OS is Mac/Unix, which uses
@@ -286,6 +282,7 @@ def con_filename(filename, argNum = 0):
     return os.path.join('.', nf)  # Return the extension in the form
     # '../filename.txt'. On windows, will be '..\filename.txt'
 
+
 def csr_input_tests(val, col, rowStart, b):
     errors = []
     if val.size != col.size:
@@ -294,6 +291,30 @@ def csr_input_tests(val, col, rowStart, b):
     if rowStart.size - 1 != b.size:
         errors.append("Number of columns in matrix is not the same as the "
                       "number of rows in Vector b")
+
+    col_int_err = 0
+    for i in col:
+        if type(i) != int:
+            col_int_err += 1
+    if col_int_err > 0:
+        errors.append("Column vector contains non-integer entries")
+
+    rs_int_err = 0
+    for i in rowStart:
+        if type(i) != int:
+            rs_int_err += 1
+    if rs_int_err > 0:
+        errors.append("RowStart vector contains non-integer entries")
+
+    if rowStart[0] != 0:
+        errors.append("First entry of RowStart vector is not 0")
+
+    if rowStart[-1] != val.size:
+        errors.append("Last entry of RowStart vector is equivalent to the "
+                      "nth entry of val + 1")
+
+    if (rowStart.size - 1) != math.sqrt((max(col) + 1) ** 2):
+        errors.append("Uneven number of rows and columns")
 
 
 def calc_csr_residual(val, col, rowStart, b, x):
@@ -315,3 +336,14 @@ def vectornorm(v):
     for element in v:
         total += element**2
     return math.sqrt(total)
+
+
+def output_text_file(output_file_name, stopping_reason, maxit, iterations, mach_e, x_seq_tol, res_tol,w):
+    f = open(output_file_name, 'w')
+    #  return solution_vector_x, stopping_reason, maxits, #_of_iterations, machine_epsilon, x-seq_tolerance, residual, w
+    f.write("Stopping reason \t\t Max num of iterations \t Number of iterations \t Machine epsilon\t\t\tX seq tolerance \t Residual seq tolerance")
+    f.write("\n")
+    f.write("%s \t %s \t\t\t\t\t %s \t\t\t\t\t\t %s \t\t\t%s\t\t\t\t %s"%(stopping_reason, maxit, iterations, mach_e, x_seq_tol, res_tol))
+    f.write("\n")
+    f.write(str(x))
+    f.close()
