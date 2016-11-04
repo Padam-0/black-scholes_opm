@@ -69,8 +69,8 @@ def main():
     x = solve_sor.create_initial_x(val, col, rowStart, vector_b, n)
     e = np.finfo(float).eps
 
-    #x, stop, maxits, iterations, xseqtol, residual = \
-    #solve_sor.sor(val, col, rowStart, vector_b, n, maxits, w, x, e, tol)
+    x, stop, maxits, iterations, xseqtol, residual = \
+    solve_sor.sor(val, col, rowStart, vector_b, n, maxits, w, x, e, tol)
 
     print(x)
 

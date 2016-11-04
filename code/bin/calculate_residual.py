@@ -8,7 +8,7 @@ def residual(val, col, rowStart, b, x):
     c = np.zeros(n)
     for i in range(n):
         sum = 0
-        for j in range(rowStart[i], rowStart[i + 1]):
+        for j in range(int(rowStart[i]), int(rowStart[i + 1])):
             sum = sum + val[j] * x[int(col[j])]
         c[i] = c[i] + sum
     residual = vector_norm.vectornorm(b-c)
