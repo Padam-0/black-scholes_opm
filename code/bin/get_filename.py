@@ -2,26 +2,19 @@ import os
 import re
 
 def check_CM_args(cmArgs):
-    in_names = []
-    while len(in_names) != 2:
+    file_names = []
+    while len(file_names) != 2:
         if len(cmArgs) == 1:
             question = input('Would you like to define an input and output '
                              'filename? [y/n]: ').upper()
             if question == 'Y':
-                in_names.append(input("Please enter an input file name: "))
-                if not check_file_exists(in_names[0]):
-                    if input(
-                        "I can't find that file. Would you like to try "
-                        "again? [y/n]: ").upper() == 'Y':
-                        continue
-                    else:
-                        exit(0)
-                in_names.append(input("Please enter an output file name: "))
+                file_names.append(input("Please enter an input file name: "))
+                file_names.append(input("Please enter an output file name: "))
             elif question == 'N':
                 if input('Is using the default file names ok? [y/n]: '
                                      '').upper() =='Y':
-                    in_names.append('nas_In.out')
-                    in_names.append('nas_Sor.out')
+                    file_names.append('nas_In.out')
+                    file_names.append('nas_Sor.out')
                 else:
                     if input('Would you like to exit? [y/n]: ').upper() == 'Y':
                         exit("Default Exit Message")
@@ -35,25 +28,47 @@ def check_CM_args(cmArgs):
                     exit(0)
 
         elif len(cmArgs) == 2:
-            in_names.append(cmArgs[1])
-            in_names.append('nas_Sor.out')
+            file_names.append(cmArgs[1])
+            file_names.append('nas_Sor.out')
         elif len(cmArgs) == 3:
-            in_names.append(cmArgs[1])
-            in_names.append(cmArgs[2])
+            file_names.append(cmArgs[1])
+            file_names.append(cmArgs[2])
         else:
-            in_names = ['nas_Sor.in', 'nas_Sor.out']
+            file_names = ['nas_Sor.in', 'nas_Sor.out']
 
-    input_file = con_filename(in_names[0], 1)
-    output_file = con_filename(in_names[1], 2)
+         #if not check_file_exists(con_filename(file_names[0], 1)):
+        if not check_file_exists(file_names[0]):
+            if input("I can't find that file. Would you like to try "
+                "again? [y/n]: ").upper() == 'Y':
+                continue
+            else:
+                exit(0)
+
+    input_file, sample_file = con_filename(file_names[0], 1)
+    output_file = con_filename(file_names[1], 2, sample_file)[0]
     return input_file, output_file
 
 
 def check_file_exists(filename):
-    return os.path.isfile(filename)
+    file_exists = False
+    if os.path.isfile(filename):
+        file_exists = True
+    if os.path.isfile(os.path.join('sample_inputs', filename)):
+        file_exists = True
+    return file_exists
 
 
-def con_filename(filename, argNum = 0):
+
+def con_filename(filename, argNum = 0, sample_file = False):
     # Takes a filename and reformats it to be in correct input style
+
+    if 'sample_inputs' in filename:
+        sample_file = True
+    elif os.path.isfile(filename):
+        sample_file = False
+    elif os.path.isfile(os.path.join('sample_inputs', filename)):
+        sample_file = True
+
     if os.path.join('a', 'b') == 'a/b':  # Checks if OS is Mac/Unix, which uses
         #  the '/' character in directory paths
         # os is unix
@@ -93,5 +108,11 @@ def con_filename(filename, argNum = 0):
         nf += '.in'  # Replace the file extension with '.in'
     elif argNum == 2:
         nf += '.out'  # Replace the file extension with '.out'
-    return os.path.join('.', nf)  # Return the extension in the form
-    # '../filename.txt'. On windows, will be '..\filename.txt'
+
+    if sample_file == True and argNum == 1:
+        nf = os.path.join('sample_inputs', nf)
+    elif sample_file == True and argNum == 2:
+        nf = os.path.join('sample_outputs', nf)
+
+    return os.path.join('.', nf), sample_file  # Return the extension in the form
+    # './filename.in'. On windows, will be '.\filename.in'
