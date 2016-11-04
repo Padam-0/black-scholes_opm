@@ -11,7 +11,9 @@ try:
     import os.path
     import re
     import math
-    from bin import *
+    from bin import get_filename, raw_input_check, read_inputs, input_tests, \
+    convert_to_csr, value_tests
+
 except ImportError as import_err:
     print(import_err)
     print("Unable to import required libraries. Please check installation of "
@@ -42,7 +44,7 @@ def main():
 
         errors.extend(input_tests.csr_input_tests(val, col, rowStart, vector_b))
 
-    errors.extend(matrix_value_tests.value_tests(val, col, rowStart, errors))
+    #errors.extend(value_tests.value_tests(val, col, rowStart, errors))
 
     if len(errors) != 0:
         print("The following errors were identified:")
@@ -66,18 +68,16 @@ def main():
     # A = original matrix, get rid of this when have resid in CSR sorted
     # solve_axb(val, col, rowStart, vector_b, n, maxits, w, x, A, tol)
 
-    residual = calculate_residual.calc_csr_residual(val, col, rowStart,
-                                                 vector_b, x)
-    # outputs
-    A = np.array([[1, 0, 0], [0, 2, 0], [0, 0, 3]])
+    """
     vec_x, stop, maxits, iterations, mach_e, xseqtol, residual, w = \
         solve_sor.solve_axb_with_best_w(val, col, rowStart, vector_b, n,
-                                             maxits, w, x, A, tol)
+                                             maxits, w, x, tol)
 
+    # outputs
     write_output.output_text_file("output.txt", stop, maxits, iterations,
                                   mach_e,
                             xseqtol, residual, w)
-
+    """
 
 if __name__ == '__main__':
     main()

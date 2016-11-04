@@ -33,10 +33,8 @@ def diag_dominant(val, col, rowStart):
     for i in range(len(rowStart) - 1):
         # 0 through 2
         r = col[rowStart[i]:rowStart[i + 1]]
-
         if i in r:
             diags.append(val[rowStart[i] + int(np.where(r == i)[0])])
-
         c_sum = 0
         for j in range(len(col)):
             if col[j] == i:
@@ -45,7 +43,7 @@ def diag_dominant(val, col, rowStart):
 
         row_sums.append(sum(val[rowStart[i]:rowStart[i + 1]]))
 
-    diags = np.asarray(diags)
+    diags = np.array(diags)
     col_sums = np.array(col_sums) - diags
     row_sums = np.array(row_sums) - diags
 
@@ -55,13 +53,13 @@ def diag_dominant(val, col, rowStart):
         return False
 
 
-def matrix_value_tests(val, col, rowStart, errors):
+def value_tests(val, col, rowStart, errors):
     if not zero_diag(val, col, rowStart):
         errors.append("There are zeros on the diagonal")
-    if not check_diagonal_dominance.diag_dominant(val, col, rowStart):
+    if not diag_dominant(val, col, rowStart):
         errors.append("The matrix is not row and column diagonally dominant")
     """
-    if not calculate_matrix_det.matrix_det(val, col, rowStart):
+    if not matrix_det(val, col, rowStart):
         errors.append("The determinant of the matrix is 0")
     """
     return errors

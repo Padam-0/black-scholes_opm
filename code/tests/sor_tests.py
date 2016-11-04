@@ -1,12 +1,13 @@
 from nose.tools import *
-# import bsm
-# import numpy.testing
-# import numpy as np
-
-from bin import *
+import numpy.testing
+import numpy as np
+import bsm
+from bin import get_filename, raw_input_check, read_inputs, input_tests, \
+    convert_to_csr, value_tests
 
 def test_check_CM_args():
-    res1 = sor.check_CM_args(["sor_andy.py", "nas_Sor.in", "nas_out.out"])
+    res1 = get_filename.check_CM_args(["sor_andy.py", "nas_Sor.in",
+                                     "nas_out.out"])
 
     assert_equal(res1, [["nas_Sor.in", "nas_out.out"]])
 
@@ -17,21 +18,21 @@ def test_check_file_exists():
     c = '/nas_Sor.in'
     d = './nas_Sor.in'
 
-    res1 = sor.check_file_exists(a)
-    res2 = sor.check_file_exists(b)
-    res3 = sor.check_file_exists(c)
-    res4 = sor.check_file_exists(d)
+    res1 = get_filename.check_file_exists(a)
+    res2 = get_filename.check_file_exists(b)
+    res3 = get_filename.check_file_exists(c)
+    res4 = get_filename.check_file_exists(d)
 
     assert_equal(res1, True)
     assert_equal(res2, False)
     assert_equal(res3, False)
     assert_equal(res4, True)
 
-
+"""
 def test_solve_axb():
     A = np.array([[12, 0, 0], [4, 11, 0], [7, 8, 16]])
     n = 3
-    val, col, rowstart = sor_andy.con_to_csr(A, n)
+    val, col, rowstart = convert_to_csr.con_to_csr(A, n)
     print(type(val))
     b=np.array([1,2,3])
     w=1.3
@@ -46,7 +47,6 @@ def test_solve_axb():
     # numpy.testing.assert_array_equal(res1[2], np.array([0, 1, 3, 6]))
 
 
-
 def test_solve_axb():
     res1 = SOR_solve_kron.solve_axb(np.array([[12, 0, 0], [4, 11, 0], [7, 8, 16]]),
                                3.0)
@@ -55,17 +55,8 @@ def test_solve_axb():
     numpy.testing.assert_array_equal(res1[1],
                                      np.array([0, 0, 1, 0, 1, 2]))
     numpy.testing.assert_array_equal(res1[2], np.array([0, 1, 3, 6]))
-
 
 """
-def test_solve_axb():
-    res1 = SOR_solve_kron.solve_axb(np.array([[12, 0, 0], [4, 11, 0], [7, 8, 16]]),
-                               3.0)
-    numpy.testing.assert_array_equal(res1[0],
-                                     np.array([12, 4, 11, 7, 8, 16]))
-    numpy.testing.assert_array_equal(res1[1],
-                                     np.array([0, 0, 1, 0, 1, 2]))
-    numpy.testing.assert_array_equal(res1[2], np.array([0, 1, 3, 6]))
 
 
 def test_create_BS_matrix():
@@ -91,7 +82,8 @@ def test_create_BS_matrix():
 
 
 def test_con_to_csr():
-    res1 = sor.con_to_csr(np.array([[12, 0, 0], [4, 11, 0],[7, 8, 16]]),
+    res1 = convert_to_csr.con_to_csr(np.array(
+            [[12, 0, 0], [4, 11, 0],[7, 8, 16]]),
                                 3.0)
 
     numpy.testing.assert_array_equal(res1[0],
@@ -102,40 +94,41 @@ def test_con_to_csr():
 
 
 def test_zero_diag():
-    res1 = sor.con_to_csr(np.array([[12, 0, 0], [4, 11, 0], [7, 8, 16]]),
+    res1 = convert_to_csr.con_to_csr(np.array(
+            [[12, 0, 0], [4, 11, 0], [7, 8, 16]]),
                                 3.0)
-    res2 = sor.con_to_csr(np.array([[12, 0, 0, 5], [4, 11, 0, 4],
-                                         [7, 8, 16, 12], [1,1,1,1]]),
-                               4.0)
-    res3 = sor.con_to_csr(np.array([[12, 0, 0, 5, 7], [4, 11, 0, 4, 12],
-                                         [7, 8, 0, 12, 14], [1, 1, 1, 1, 1],
-                                         [2, 2, 2, 2, 2]]),
-                               5.0)
+    res2 = convert_to_csr.con_to_csr(np.array(
+            [[13, 0, 3, 5], [4, 11, 0, 4],
+             [7, 8, 19, 1], [1, 1, 1, 11]]),
+                                4.0)
+    res3 = convert_to_csr.con_to_csr(np.array(
+            [[12, 0, 0, 5, 7], [4, 11, 0, 4, 12],
+             [7, 8, 1, 12, 14], [1, 1, 1, 1, 1],
+             [2, 2, 2, 2, 2]]),
+                                5.0)
 
-    assert_equal(sor.zero_diag(res1[0], res1[1], res1[2]), True)
-    assert_equal(sor.zero_diag(res2[0], res2[1], res2[2]), True)
-    assert_equal(sor.zero_diag(res3[0], res3[1], res3[2]), False)
+    assert_equal(value_tests.zero_diag(res1[0], res1[1], res1[2]), True)
+    assert_equal(value_tests.zero_diag(res2[0], res2[1], res2[2]), True)
+    assert_equal(value_tests.zero_diag(res3[0], res3[1], res3[2]), False)
 
 
 def test_diag_dominant():
-    res1 = sor.con_to_csr(np.array([[12, 0, 0], [4, 11, 0], [7, 8, 16]]),
+    res1 = convert_to_csr.con_to_csr(np.array(
+            [[12, 0, 0], [4, 11, 0],
+             [7, 8, 16]]),
                                3.0)
-    res2 = sor.con_to_csr(np.array([[13, 0, 3, 5], [4, 11, 0, 4],
-                                         [7, 8, 19, 1], [1, 1, 1, 11]]),
+    res2 = convert_to_csr.con_to_csr(np.array(
+            [[13, 0, 3, 5], [4, 11, 0, 4],
+             [7, 8, 19, 1], [1, 1, 1, 11]]),
                                4.0)
-    res3 = sor.con_to_csr(np.array([[12, 0, 0, 5, 7], [4, 11, 0, 4, 12],
-                                         [7, 8, 1, 12, 14], [1, 1, 1, 1, 1],
-                                         [2, 2, 2, 2, 2]]),
+    res3 = convert_to_csr.con_to_csr(np.array(
+            [[12, 0, 0, 5, 7], [4, 11, 0, 4, 12],
+             [7, 8, 1, 12, 14], [1, 1, 1, 1, 1],
+             [2, 2, 2, 2, 2]]),
                                5.0)
-    assert_equal(sor.diag_dominant(res1[0], res1[1], res1[2]), True)
-    assert_equal(sor.diag_dominant(res2[0], res2[1], res2[2]), True)
-    assert_equal(sor.diag_dominant(res3[0], res3[1], res3[2]), False)
-
-
-
-
-
-
+    assert_equal(value_tests.diag_dominant(res1[0], res1[1], res1[2]), True)
+    assert_equal(value_tests.diag_dominant(res2[0], res2[1], res2[2]), True)
+    assert_equal(value_tests.diag_dominant(res3[0], res3[1], res3[2]), False)
 
 
 def test_con_filename():
@@ -149,15 +142,15 @@ def test_con_filename():
     g = '/nas_Sor.out'
     h = './nas_Sor.out'
 
-    res1 = sor.check_file_exists(sor.con_filename(a,1))
-    res2 = sor.check_file_exists(sor.con_filename(b,1))
-    res3 = sor.check_file_exists(sor.con_filename(c,1))
-    res4 = sor.check_file_exists(sor.con_filename(d,1))
+    res1 = sor.check_file_exists(get_filename.con_filename(a,1))
+    res2 = sor.check_file_exists(get_filename.con_filename(b,1))
+    res3 = sor.check_file_exists(get_filename.con_filename(c,1))
+    res4 = sor.check_file_exists(get_filename.con_filename(d,1))
 
-    res5 = sor.check_file_exists(sor.con_filename(e, 2))
-    res6 = sor.check_file_exists(sor.con_filename(f, 2))
-    res7 = sor.check_file_exists(sor.con_filename(g, 2))
-    res8 = sor.check_file_exists(sor.con_filename(h, 2))
+    res5 = sor.check_file_exists(get_filename.con_filename(e, 2))
+    res6 = sor.check_file_exists(get_filename.con_filename(f, 2))
+    res7 = sor.check_file_exists(get_filename.con_filename(g, 2))
+    res8 = sor.check_file_exists(get_filename.con_filename(h, 2))
 
     assert_equal(res1, True)
     assert_equal(res2, True)
@@ -175,7 +168,7 @@ def test_con_filename():
 
 
 
-
+"""
 #Sample Tests:
 
 
