@@ -1,6 +1,30 @@
 import os
 import re
 
+"""
+get_filename.py
+
+This module contains 3 functions:
+
+check_CM_args();
+check_file_exists(); and
+con_filename().
+
+check_CM_args() takes 1 argument:
+
+cmArgs, a list of strings of arguments passed to another module (in this
+case sor.py) via the command line.
+
+check_CM_args() checks for the existence and validity of these arguments,
+which should represent input file names passed to the function by the user.
+Firstly, the function checks for the existence of command line arguments. By
+default, the first is always the name of the module called. If there are two
+more specified
+
+
+"""
+
+
 def check_CM_args(cmArgs):
     file_names = []
     while len(file_names) != 2:
@@ -29,7 +53,19 @@ def check_CM_args(cmArgs):
 
         elif len(cmArgs) == 2:
             file_names.append(cmArgs[1])
-            file_names.append('nas_Sor.out')
+            question = input('Would you like to define an output '
+                             'filename? [y/n]: ').upper()
+            if question == 'Y':
+                file_names.append(input("Please enter an output file name: "))
+            elif question == 'N':
+                if input('Is using the default file name ok? [y/n]: '
+                                     '').upper() =='Y':
+                    file_names.append('nas_Sor.out')
+                else:
+                    if input('Would you like to exit? [y/n]: ').upper() == 'Y':
+                        exit("Default Exit Message")
+                    else:
+                        continue
         elif len(cmArgs) == 3:
             file_names.append(cmArgs[1])
             file_names.append(cmArgs[2])
