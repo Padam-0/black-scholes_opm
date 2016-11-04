@@ -41,19 +41,19 @@ def main():
 
         val, col, rowStart = convert_to_csr.con_to_csr(matrix_in, matrix_size)
     else:
-        val, col, rowStart, vector_b = read_inputs.read_inputs(
-            input_filename)[1:]
+        val, col, rowStart, vector_b = \
+            read_inputs.read_inputs(input_filename)[1:]
 
-        #errors.extend(input_tests.csr_input_tests(val, col, rowStart,
-        # vector_b))
+        errors.extend(input_tests.csr_input_tests(
+            val, col, rowStart, vector_b))
 
-    #errors.extend(value_tests.value_tests(val, col, rowStart, errors))
+    errors = value_tests.value_tests(val, col, rowStart, errors)
 
     if len(errors) != 0:
-        print("The following errors were identified:")
+        print("The following errors were identified:\n")
         for i in errors:
-            print(i)
-        exit("Please correct these errors and restart the program")
+            print('   - ' + i)
+        exit("\nPlease correct these errors and restart the program")
 
     # Set tolerance
     tol = 1 * 10 ** (-10)

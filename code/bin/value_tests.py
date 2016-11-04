@@ -54,10 +54,13 @@ def diag_dominant(val, col, rowStart):
 
 
 def value_tests(val, col, rowStart, errors):
+
     if not zero_diag(val, col, rowStart):
         errors.append("There are zeros on the diagonal")
+
     if not diag_dominant(val, col, rowStart):
         errors.append("The matrix is not row and column diagonally dominant")
+
     """
     if not matrix_det(val, col, rowStart):
         errors.append("The determinant of the matrix is 0")
