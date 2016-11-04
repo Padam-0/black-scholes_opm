@@ -3,7 +3,7 @@ from nose.tools import *
 # import numpy.testing
 # import numpy as np
 
-from bin import sor
+from bin import *
 
 def test_check_CM_args():
     res1 = sor.check_CM_args(["sor_andy.py", "nas_Sor.in", "nas_out.out"])
@@ -28,21 +28,34 @@ def test_check_file_exists():
     assert_equal(res4, True)
 
 
-def test_read_inputs():
-    a = 'sample.in'
-    b = 'sample'
-    c = '/sample.in'
-    d = './sa1ple.in'
+def test_solve_axb():
+    A = np.array([[12, 0, 0], [4, 11, 0], [7, 8, 16]])
+    n = 3
+    val, col, rowstart = sor_andy.con_to_csr(A, n)
+    print(type(val))
+    b=np.array([1,2,3])
+    w=1.3
+    x=np.array([1,1,1])
+    tol = 1*10**-6
+    maxits = 50
+    res1 = SOR_solve_kron.solve_axb(val,col,rowstart,b, n, maxits, w, x, A, tol)
+    numpy.testing.assert_array_equal(res1[0],
+                                     np.array([1/12, 5/33, 53/704]))
+    # numpy.testing.assert_array_equal(res1[1],
+    #                                  np.array([0, 0, 1, 0, 1, 2]))
+    # numpy.testing.assert_array_equal(res1[2], np.array([0, 1, 3, 6]))
 
-    res1 = sor.read_inputs(a)
-    res2 = sor.read_inputs(b)
-    res3 = sor.read_inputs(c)
-    res4 = sor.read_inputs(d)
 
-    assert_equal(res1, outputsTBC)
-    assert_equal(res2, outputsTBC)
-    assert_equal(res3, outputsTBC)
-    assert_equal(res4, "File doesn't exist!")
+
+def test_solve_axb():
+    res1 = SOR_solve_kron.solve_axb(np.array([[12, 0, 0], [4, 11, 0], [7, 8, 16]]),
+                               3.0)
+    numpy.testing.assert_array_equal(res1[0],
+                                     np.array([12, 4, 11, 7, 8, 16]))
+    numpy.testing.assert_array_equal(res1[1],
+                                     np.array([0, 0, 1, 0, 1, 2]))
+    numpy.testing.assert_array_equal(res1[2], np.array([0, 1, 3, 6]))
+
 
 """
 def test_solve_axb():

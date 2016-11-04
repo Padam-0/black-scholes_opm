@@ -5,101 +5,79 @@ Ax = b
 with A a nxn matrix in R and x, b nx1 vectors in R
 """
 
-import numpy as np
-
-def read_inputs(filename):
-    # Reads in matrix size from header
-    matrix_size = np.genfromtxt(filename, max_rows=1)
-    mat_size_int = int(matrix_size)
-
-    # Reads in the matrix A from lines between head and footer
-    matrix_in = np.genfromtxt(filename, skip_header=1, skip_footer=1)
-
-    # Reads in vector b from footer
-    vector_b = np.genfromtxt(filename, skip_header=(mat_size_int - 1))
-
-    return matrix_size, matrix_in, vector_b
-
-
-def write_outputs(solution_vector, stopping_reason, other_information):
-    pass
-
-
-def calc_vector_norms(vector):
-    pass
-
-
-def zero_diag(matrix):
-    # Check if there are 0's on the diagonal of the input matrix
-    pass
-    """
-    if some_condition:
-        return True
-    else:
-        return False
-    """
-
-def s_diag_dominant(matrix):
-    # Check if the diagonal value is larger than the sum of all
-    # other entries in that row/column
-    pass
-    """
-    if some_condition:
-        return True
-    else:
-        return False
-    """
-
-def divergence(matrix):
-    # Check for divergence in successive matrix norms
-
-    # I think this actually needs to go inside solve_matrix()
-    # but I'll leave it here for now
-    pass
-
-
-def solve_matrix(A):
-    # Check for cycling
-
-    # Define maxits?
-
-    # Stop when maxits reached
-    pass
+try:
+    import numpy as np
+    import sys
+    import os.path
+    import re
+    import math
+    from bin import *
+except ImportError as import_err:
+    print(import_err)
+    print("Unable to import required libraries. Please check installation of "
+          "sys, numpy, os & re libraries for python 3.5")
+    exit(0)
 
 
 def main():
-    # Read input file containing A and b
-    # If the user provides an argument to the program, use that as filename
-    A = read_inputs('nas_Sor.in')
+    input_filename, output_filename = get_filename.check_CM_args(sys.argv)
 
-    # # Solve (if possible) Ax = b
-    # """
-    # Check if:
-    #     There are no zeros on the diagonal
-    #     If the matrix is strictly row or column diagonally dominant
-    #         C := -(D + L)^-1 * U has spectral radius r(C)<1
-    #     Check for divergence (cycling or ||x^(k)-x^(k-1)||
-    #
-    # """
-    # if zero_diag(A):
-    #     # There are 0's on the diagonal, so quit
-    #     write_outputs('', "Zero on diagonal", '')
-    #     exit(0)
-    # elif s_diag_dominant(A) == False:
-    #     # Matrix isn't diagonally dominant, so quit
-    #     exit(0)
-    # elif divergence(A):
-    #     # The matrix divergences, so quit
-    #     exit(0)
-    # else:
-    #     # solve the matrix using SOR
-    #     sol_vector, stop_r, other_inf = solve_matrix(A)
-    #
-    #
-    # # write computed solution vector x, reason for stopping
-    # # and other information
-    # write_outputs(sol_vector, stop_r, other_inf)
+    if not raw_input_check.read_raw_inputs(input_filename):
+        exit("There is a non-decimal entry in the input file. Please amend "
+             "the input according to the guidelines in README.md")
+
+    errors = []
+
+    if read_inputs.read_inputs(input_filename)[0] == "Dense":
+        matrix_size, matrix_in, vector_b = read_inputs.read_inputs(
+            input_filename)[1:]
+
+        errors.extend(input_tests.dense_input_test(matrix_size, matrix_in,
+                                               vector_b))
+
+        val, col, rowStart = convert_to_csr.con_to_csr(matrix_in, matrix_size)
+    else:
+        val, col, rowStart, vector_b = read_inputs.read_inputs(
+            input_filename)[1:]
+
+        errors.extend(input_tests.csr_input_tests(val, col, rowStart, vector_b))
+
+    errors.extend(matrix_value_tests.value_tests(val, col, rowStart, errors))
+
+    if len(errors) != 0:
+        print("The following errors were identified:")
+        for i in errors:
+            print(i)
+        exit("Please correct these errors and restart the program")
+
+    # Set tolerance
+    tol = 1 * 10 ** (-10)
+
+    # Calculate n
+    n = rowStart.size - 1
+
+    # Set maximum iterations
+    maxits = 100
+
+    # x = np.random.randn(n)
+    x = np.array([1, 2, 3])
+    w = 1.3
+
+    # A = original matrix, get rid of this when have resid in CSR sorted
+    # solve_axb(val, col, rowStart, vector_b, n, maxits, w, x, A, tol)
+
+    residual = calculate_residual.calc_csr_residual(val, col, rowStart,
+                                                 vector_b, x)
+    # outputs
+    A = np.array([[1, 0, 0], [0, 2, 0], [0, 0, 3]])
+    vec_x, stop, maxits, iterations, mach_e, xseqtol, residual, w = \
+        solve_sor.solve_axb_with_best_w(val, col, rowStart, vector_b, n,
+                                             maxits, w, x, A, tol)
+
+    write_output.output_text_file("output.txt", stop, maxits, iterations,
+                                  mach_e,
+                            xseqtol, residual, w)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
