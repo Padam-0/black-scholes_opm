@@ -41,11 +41,12 @@ def main():
 
         val, col, rowStart = convert_to_csr.con_to_csr(matrix_in, matrix_size)
     else:
+
         val, col, rowStart, vector_b = \
             read_inputs.read_inputs(input_filename)[1:]
 
-        errors.extend(input_tests.csr_input_tests(
-            val, col, rowStart, vector_b))
+        #errors.extend(input_tests.csr_input_tests(
+        #    val, col, rowStart, vector_b))
 
     errors = value_tests.value_tests(val, col, rowStart, errors)
 
@@ -68,8 +69,8 @@ def main():
     x = solve_sor.create_initial_x(val, col, rowStart, vector_b, n)
     e = np.finfo(float).eps
 
-    x, stop, maxits, iterations, xseqtol, residual = \
-    solve_sor.sor(val, col, rowStart, vector_b, n, maxits, w, x, e, tol)
+    #x, stop, maxits, iterations, xseqtol, residual = \
+    #solve_sor.sor(val, col, rowStart, vector_b, n, maxits, w, x, e, tol)
 
     print(x)
 

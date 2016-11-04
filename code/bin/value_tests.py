@@ -6,7 +6,7 @@ def zero_diag(val, col, rowStart):
     row = 0
     tf = True
     for i in range(len(rowStart)-1):
-        r = col[rowStart[i]:rowStart[i+1]]
+        r = col[int(rowStart[i]):int(rowStart[i+1])]
         if row not in r:
             tf = False
         row += 1
@@ -31,17 +31,21 @@ def diag_dominant(val, col, rowStart):
     col_sums = []
     row_sums = []
     for i in range(len(rowStart) - 1):
-        # 0 through 2
-        r = col[rowStart[i]:rowStart[i + 1]]
+        r = col[int(rowStart[i]):int(rowStart[i + 1])]
+
         if i in r:
-            diags.append(val[rowStart[i] + int(np.where(r == i)[0])])
+            diags.append(val[int(rowStart[i] + np.where(r == i)[0])])
         c_sum = 0
         for j in range(len(col)):
             if col[j] == i:
                 c_sum += val[j]
         col_sums.append(c_sum)
 
-        row_sums.append(sum(val[rowStart[i]:rowStart[i + 1]]))
+        r_sum = 0
+        for k in range(int(rowStart[i]), int(rowStart[i + 1])):
+            r_sum += val[k]
+
+        row_sums.append(r_sum)
 
     diags = np.array(diags)
     col_sums = np.array(col_sums) - diags
