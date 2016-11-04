@@ -12,7 +12,8 @@ try:
     import re
     import math
     from bin import get_filename, raw_input_check, read_inputs, input_tests, \
-    convert_to_csr, value_tests
+        convert_to_csr, value_tests, solve_sor, vector_norm, \
+        calculate_residual, write_output
 
 except ImportError as import_err:
     print(import_err)
@@ -61,22 +62,19 @@ def main():
     # Set maximum iterations
     maxits = 100
 
-    # x = np.random.randn(n)
-    x = np.array([1, 2, 3])
     w = 1.3
+    x = solve_sor.create_initial_x(val, col, rowStart, vector_b, n)
+    e = np.finfo(float).eps
 
-    # A = original matrix, get rid of this when have resid in CSR sorted
-    # solve_axb(val, col, rowStart, vector_b, n, maxits, w, x, A, tol)
+    x, stop, maxits, iterations, xseqtol, residual = \
+    solve_sor.sor(val, col, rowStart, vector_b, n, maxits, w, x, e, tol)
+
+    print(x)
 
     """
-    vec_x, stop, maxits, iterations, mach_e, xseqtol, residual, w = \
-        solve_sor.solve_axb_with_best_w(val, col, rowStart, vector_b, n,
-                                             maxits, w, x, tol)
-
     # outputs
-    write_output.output_text_file("output.txt", stop, maxits, iterations,
-                                  mach_e,
-                            xseqtol, residual, w)
+    write_output.output_text_file(output_filename, stop, maxits, iterations,
+                                  e, xseqtol, residual ,w, x)
     """
 
 if __name__ == '__main__':

@@ -1,6 +1,7 @@
-import vectornorm
+import numpy as np
+from bin import vector_norm
 
-def calc_csr_residual(val, col, rowStart, b, x):
+def residual(val, col, rowStart, b, x):
     #solve b - Ax
     # Let Ax = c, then b - c
     n = rowStart.size - 1
@@ -10,7 +11,7 @@ def calc_csr_residual(val, col, rowStart, b, x):
         for j in range(rowStart[i], rowStart[i + 1]):
             sum = sum + val[j] * x[int(col[j])]
         c[i] = c[i] + sum
-    residual = vectornorm(b-c)
+    residual = vector_norm.vectornorm(b-c)
     return residual
 
 """
