@@ -71,6 +71,17 @@ w = 1.22
 """
 From test_solve_axb
 
+# #input two vectors and epilson to test for x convergence
+# def x_convergence(val1,val2,e,x,k):
+#     if vectornorm(abs(val1-val2))<e:
+#         return "x-convergence. solution vector = %s . k=%s . e=%s"%(x, k,e)
+
+
+# need the value of n (the size of the n*n matrix) stored from previously for this function
+# need machine epsilon
+# check if diverged: //xk-x(k-1)\\ increasing with each iteration
+# ^^ for this, need function to calculate vector norms
+
 
 # val = np.array([1.,2.,3.])
 # col = np.array([0.,1.,2.])

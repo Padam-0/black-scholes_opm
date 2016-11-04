@@ -1,22 +1,9 @@
-# need the value of n (the size of the n*n matrix) stored from previously for this function
-# need machine epsilon
-# check if diverged: //xk-x(k-1)\\ increasing with each iteration
-# ^^ for this, need function to calculate vector norms
-
 import numpy as np
-import math
 from bin import calculate_residual, vector_norm
 
 
-# #input two vectors and epilson to test for x convergence
-# def x_convergence(val1,val2,e,x,k):
-#     if vectornorm(abs(val1-val2))<e:
-#         return "x-convergence. solution vector = %s . k=%s . e=%s"%(x, k,e)
-
-
-# Find a good x initial vector
-
 def create_initial_x(val, col, rowStart, b, n):
+    # Find a good x initial vector
     l=[]
     for i in range(50):
         # Create 50 random initial vectors of size n
@@ -31,50 +18,49 @@ def create_initial_x(val, col, rowStart, b, n):
     return best
 
 
-
 def sor(val, col, rowStart, b, n, maxits, w, x, e, tol):
 
     l = []
 
-    """
-    val= val.astype(float)
-    col = col.astype(float)
-    rowStart = rowStart.astype(float)
     b = b.astype(float)
     x = x.astype(float)
-    """
+
 
     k = 0
     while k <= maxits:
-        x1 = np.array(x.tolist()) #store x(k)th vector in x1
+        x1 = x.copy()
+
         for i in range(0, n):
             sum1 = 0
             for j in range(int(rowStart[i]), int(rowStart[i+1])):
-                sum1=sum1+val[j] *x[int(col[j])]
+                sum1=sum1+val[j] * x[int(col[j])]
                 if col[j] == i:  # identify and store diagonal entry
                     d = val[j]
             x[i] = x[i] + w * (b[i] - sum1) / d
 
-        x2 = np.array(x.tolist()) #store x(k-1)th vector in x2
+        x2 = x #store x(k-1)th vector in x2
 
         r = calculate_residual.residual(val, col, rowStart, b, x)
 
         l.append(vector_norm.vectornorm(abs(x1 - x2)))
 
-        #  return solution_vector_x, stopping_reason, maxits, #_of_iterations, machine_epsilon, x-seq_tolerance, residual, w
-        if r==0:
+        # Return solution_vector_x, stopping_reason, maxits, #_of_iterations,
+        # machine_epsilon, x-seq_tolerance, residual, w
+        if r == 0:
             return x, "Residual convergence", maxits, k+1, tol, r
             # ^^ have to return residual tolerance used..?
 
         elif vector_norm.vectornorm(abs(x1-x2)) < tol-4*e:
             #x-convergence
             return x, "x Sequence Convergence", maxits, k+1, tol, r
-        #divergence
+
         elif k > 0 and l[k]>l[k-1]:
+            # divergence
             return x, "Divergence",  maxits, k+1, tol, r
+
         else:
             k += 1
-            if k== maxits:
+            if k == maxits:
                 return x, "Max Iterations Reached", maxits, k, tol, r
 
 
