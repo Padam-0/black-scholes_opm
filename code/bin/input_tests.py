@@ -34,25 +34,10 @@ def csr_input_tests(val, col, rowStart, b):
     if (rowStart.size - 1) != math.sqrt((max(col) + 1) ** 2):
         errors.append("Uneven number of rows and columns")
 
+    return errors
 
-"""
-Checks to be completed:
-Check that first line is an integer
-Check row size
-"""
 
 def dense_input_test(matrix_size, matrix_in, vector_b):
-    """
-    Checks to be completed:
-    Check that first line is a number
-    If dense matrix, is the matrix size = n
-    Are all entries numbers
-    Is the row size of the matrix the same as the vector row size
-    """
-
-    # -------------------
-    # DENSE MATRIX TESTS
-    # -------------------
 
     # Check that first line is a number
     errors = []
