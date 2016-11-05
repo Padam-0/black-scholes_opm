@@ -36,21 +36,15 @@ def test_calculate_residual():
     numpy.testing.assert_almost_equal(res1, 2.5404391594785375e-10, decimal=5)
 
 
-
-"""
 ### convert_to_csr tests ###
-This function contains values to test the
-"""
-
+# Two test cases set up to test
 
 def test_con_to_csr():
     res1 = convert_to_csr.con_to_csr(np.array(
-            [[12, 0, 0], [4, 11, 0],[7, 8, 16]]),
-                                3.0)
+            [[12, 0, 0], [4, 11, 0],[7, 8, 16]]), 3.0)
 
     res2 = convert_to_csr.con_to_csr(np.array(
         [[13, 0, 0, 4], [4, 11, 0, 4], [7, 8, 20, 4], [1, 0, 1, 14]]), 4)
-
 
 
     # 3x3 Matrix Tests
@@ -64,12 +58,16 @@ def test_con_to_csr():
     numpy.testing.assert_array_equal(res2[2], np.array([0, 2, 5, 9, 12]))
 
 
+### get_filename check_CM_args ###
+
 def test_check_CM_args():
     res1 = get_filename.check_CM_args(["sor_andy.py", "nas_Sor.in",
-                                     "nas_out.out"])
+                                     "nas_Sor.out"])
 
-    assert_equal(res1, [["nas_Sor.in", "nas_out.out"]])
+    assert_equal(res1, ("nas_Sor.in", "nas_Sor.out"))
 
+
+### get_filename check_file_exists ###
 
 def test_check_file_exists():
     a = 'nas_Sor.in'
@@ -87,35 +85,21 @@ def test_check_file_exists():
     assert_equal(res3, False)
     assert_equal(res4, True)
 
-"""
-def test_solve_axb():
-    A = np.array([[12, 0, 0], [4, 11, 0], [7, 8, 16]])
-    n = 3
-    val, col, rowstart = convert_to_csr.con_to_csr(A, n)
-    print(type(val))
-    b=np.array([1,2,3])
-    w=1.3
-    x=np.array([1,1,1])
-    tol = 1*10**-6
-    maxits = 50
-    res1 = SOR_solve_kron.solve_axb(val,col,rowstart,b, n, maxits, w, x, A, tol)
-    numpy.testing.assert_array_equal(res1[0],
-                                     np.array([1/12, 5/33, 53/704]))
-    # numpy.testing.assert_array_equal(res1[1],
-    #                                  np.array([0, 0, 1, 0, 1, 2]))
-    # numpy.testing.assert_array_equal(res1[2], np.array([0, 1, 3, 6]))
 
+### get_filename con_filename ###
 
-def test_solve_axb():
-    res1 = SOR_solve_kron.solve_axb(np.array([[12, 0, 0], [4, 11, 0], [7, 8, 16]]),
-                               3.0)
-    numpy.testing.assert_array_equal(res1[0],
-                                     np.array([12, 4, 11, 7, 8, 16]))
-    numpy.testing.assert_array_equal(res1[1],
-                                     np.array([0, 0, 1, 0, 1, 2]))
-    numpy.testing.assert_array_equal(res1[2], np.array([0, 1, 3, 6]))
+def test_con_filename():
+    a = 'nas_Sor2.in'
+    b = 'nas_Sor3.in'
+    c = 'nas_Ros.in'
 
-"""
+    res1 = get_filename.con_filename(a)
+    res2 = get_filename.con_filename(b)
+    res3 = get_filename.con_filename(c)
+
+    assert_equal(res1, True)
+    assert_equal(res2, True)
+    assert_equal(res3, False)
 
 
 def test_create_BS_matrix():
@@ -214,6 +198,35 @@ def test_con_filename():
 
 
 
+"""
+def test_solve_axb():
+    A = np.array([[12, 0, 0], [4, 11, 0], [7, 8, 16]])
+    n = 3
+    val, col, rowstart = convert_to_csr.con_to_csr(A, n)
+    print(type(val))
+    b=np.array([1,2,3])
+    w=1.3
+    x=np.array([1,1,1])
+    tol = 1*10**-6
+    maxits = 50
+    res1 = SOR_solve_kron.solve_axb(val,col,rowstart,b, n, maxits, w, x, A, tol)
+    numpy.testing.assert_array_equal(res1[0],
+                                     np.array([1/12, 5/33, 53/704]))
+    # numpy.testing.assert_array_equal(res1[1],
+    #                                  np.array([0, 0, 1, 0, 1, 2]))
+    # numpy.testing.assert_array_equal(res1[2], np.array([0, 1, 3, 6]))
+
+
+def test_solve_axb():
+    res1 = SOR_solve_kron.solve_axb(np.array([[12, 0, 0], [4, 11, 0], [7, 8, 16]]),
+                               3.0)
+    numpy.testing.assert_array_equal(res1[0],
+                                     np.array([12, 4, 11, 7, 8, 16]))
+    numpy.testing.assert_array_equal(res1[1],
+                                     np.array([0, 0, 1, 0, 1, 2]))
+    numpy.testing.assert_array_equal(res1[2], np.array([0, 1, 3, 6]))
+
+"""
 
 
 
