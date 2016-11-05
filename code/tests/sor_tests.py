@@ -1,8 +1,11 @@
+import sys
+sys.path.insert(0, '../bin')
+
 from nose.tools import *
 import numpy.testing
 import numpy as np
-import bsm
-from bin import get_filename, raw_input_check, read_inputs, input_tests, \
+from code import bsm
+from code.bin import get_filename, raw_input_check, read_inputs, input_tests, \
     convert_to_csr, value_tests
 
 def test_check_CM_args():

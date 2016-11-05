@@ -112,7 +112,6 @@ b = X [3.33, 0, 0] 0
 
 import math
 import numpy as np
-from testy_mctestface import ssor
 
 def create_BS_matrix(M, k, r, theta):
     if M < 3:

@@ -50,29 +50,62 @@ The sample inputs allows testing of multiple files without having them all
 present in the upper level 'code' directory.
 
 
+con_filename() takes 3 arguments:
+
+filename - A string containing the location of the input or output file the
+user wants to use.
+argNum - The n-th argument (integer) that the user provided on the command
+line, defaults to 0.
+sample_file - Boolean True if the input file is contained in the
+sample_inputs folder, defaults to False.
+
+con_filename() checks if a file is present in the working directory,
+or is present in sample_inputs. Depending on the location of the file that is
+found, will convert the file name to the proper form.
+
+The function returns the corrected file name and whether the input file was
+found in the sample_inputs folder or not.
+
 """
 
-
 def check_CM_args(cmArgs):
+    # Checks if command line arguments are present, and if not, collects
+    # input and output file names. Checks if input files exist.
+
+    # Initialize blank file names list
     file_names = []
+
+    # Until there are 2 entries in the file names list (one input, one output):
     while len(file_names) != 2:
+        # If there is only 1 command line argument ('sor.py') and no file
+        # names:
         if len(cmArgs) == 1:
+            # Ask the user to define input and output file names
             question = input('Would you like to define an input and output '
                              'filename? [y/n]: ').upper()
+            # If the user wants to enter file names:
             if question == 'Y':
+                # Append input and output file names to the file name list
                 file_names.append(input("Please enter an input file name: "))
                 file_names.append(input("Please enter an output file name: "))
+            # If the user doesn't want to enter file names:
             elif question == 'N':
+                # Asks the user if they want to use the default file names
                 if input('Is using the default file names ok? [y/n]: '
                                      '').upper() =='Y':
+                    # Append default file names to the file name list
                     file_names.append('nas_In.out')
                     file_names.append('nas_Sor.out')
+                # If not, ask to exit
                 else:
+                    # If user elects to exit
                     if input('Would you like to exit? [y/n]: ').upper() == 'Y':
-                        exit("Default Exit Message")
+                        exit()
+                    # If not, restart while loop
                     else:
                         continue
             else:
+                # If user answers neither Y or N
                 if input('Looks like an error. Would you like to try '
                                     'again? [y/n]: ').upper() =='Y':
                     continue
@@ -120,79 +153,19 @@ def check_file_exists(filename):
 
 
 def con_filename(filename, argNum = 0, sample_file = False):
-    # Takes a filename and reformats it to be in correct input style
+    # Takes a filename and re-formats it to be in correct input style
 
-    if os.path.join('a', 'b') == 'a/b':  # Checks if OS is Mac/Unix, which uses
-        #  the '/' character in directory paths
-        # os is unix
-
-        # Count number of '/' characters in the string
-        c = filename.count('/')
-
-        # If there are not 0 '/' characters present:
-        if c != 0:
-            # If '/' characters are present, replaces all but the last of
-            # these. Then finds the index of the last '/'
-            i = filename.replace('/', '|', c - 1).find('/')
-            # Strips all information prior to and including the last '/',
-            # leaving only the filename without a path.
-            nf = filename[i + 1:]
-        else:
-            # If no '/' characters are found, filename is left unchanged
-            nf = filename
-    else:
-        # os is windows
-
-        # Count number of '\' characters in the string
-        c = filename.count('\\')
-
-        # If there are not 0 '\' characters present:
-        if c != 0:
-            # If '\' characters are present, replaces all but the last of
-            # these. Then finds the index of the last '\'
-            i = filename.replace('\\', '|', c - 1).find('\\')
-            # Strips all information prior to and including the last '\',
-            # leaving only the filename without a path
-            nf = filename[i + 1:]
-        else:
-            # If no '\' characters are found, filename is left unchanged
-            nf = filename
-
-    nf = format_extension(nf, argNum)
-
-    if 'sample_inputs' in filename:
-        sample_file = True
-    elif os.path.isfile(nf):
-        sample_file = False
-    elif os.path.isfile(os.path.join('sample_inputs', nf)):
+    # Checks if the file is in the sample_inputs file
+    if 'sample_inputs' in filename or os.path.isfile(os.path.join(
+            'sample_inputs', filename)):
         sample_file = True
 
-    # If all else fails
-    filename = format_extension(filename, argNum)
-    if os.path.isfile(filename):
-        return filename, sample_file
+    # If the input file is in sample_inputs directory but path is incorrect,
+    # prepends the correct path
+    if 'sample_inputs' not in filename and sample_file == True:
+        if argNum == 1:
+            filename = os.path.join('sample_inputs', filename)
+        elif argNum == 2:
+            filename = os.path.join('sample_outputs', filename)
 
-    if sample_file == True and argNum == 1:
-        nf = os.path.join('sample_inputs', nf)
-    elif sample_file == True and argNum == 2:
-        nf = os.path.join('sample_outputs', nf)
-
-    return os.path.join('.', nf), sample_file  # Return the extension in the form
-    # './filename.in'. On windows, will be '.\filename.in'
-
-def format_extension(filename, argNum):
-
-    pattern = re.compile(r'\..+$')  # Compile a Regular Expression (Regex)
-    # pattern to identify the '.' character, followed by one or more other
-    # characters at the end of a string
-    if re.search(pattern, filename) != None:
-        # If the pattern returns a result, find the length of the match
-        a = len(re.findall(pattern, filename)[0])
-        nf = filename[:-a]  # Remove the file extension from the end of the
-        # filename
-    if argNum == 1:
-        filename += '.in'  # Replace the file extension with '.in'
-    elif argNum == 2:
-        filename += '.out'  # Replace the file extension with '.out'
-
-    return filename
+    return filename, sample_file
