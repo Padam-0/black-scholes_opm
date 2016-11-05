@@ -73,6 +73,7 @@ def main():
 
     print(calculate_residual.residual(val, col, rowStart, vector_b, x))
 
+
     """
     # outputs
     write_output.output_text_file(output_filename, stop, maxits, iterations,

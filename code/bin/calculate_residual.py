@@ -1,5 +1,5 @@
 import numpy as np
-from bin import vector_norm
+from code.bin import vector_norm
 
 """
 calculate_residual.py
