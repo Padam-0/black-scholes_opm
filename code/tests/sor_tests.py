@@ -8,28 +8,25 @@ from code import bsm
 from code.bin import get_filename, raw_input_check, read_inputs, input_tests, \
     convert_to_csr, value_tests, calculate_residual
 
-# ------------------------
-# calculate_residual tests
-# ------------------------
-
 """
-##### Issue with importing vector norm module #####
+# calculate_residual tests
 
 This function contains values to test the residual function with calculate_residual.py
-
+"""
 
 def test_calculate_residual():
     val = [13.0, 4.0, 4.0, 11.0, 4.0, 7.0, 8.0, 20.0, 4.0, 1.0, 1.0, 14.0]
     col = np.array([0,  3,  0,  1,  3,  0,  1,  2,  3,  0,  2,  3])
-    rowStart = np.array(0, 2, 5, 9, 12)
+    rowStart = np.array([0, 2, 5, 9, 12])
     b = np.array([1, 2, 3, 4] )
     x = np.array([-0.00979992, 0.08289098, 0.06390363, 0.28184973])
 
     res1 = calculate_residual.residual(val, col, rowStart, b, x)
 
-    numpy.testing.assert_almost_equal(res1, 2.5404391594785375e-10, decimal=10)
+    numpy.testing.assert_almost_equal(res1, 2.5404391594785375e-10, decimal=3)
 
-    Test data generated from current nas_Sor.in file
+"""
+Test data generated from current nas_Sor.in file
     Contents of nas_Sor.in:
     4
     13 0 0 4
@@ -37,12 +34,13 @@ def test_calculate_residual():
     7 8 20 4
     1 0 1 14
     1 2 3 4
+"""
 
-    """
-
-# --------------------
+"""
 # convert_to_csr tests
-# --------------------
+This function contains values to test the
+"""
+
 
 def test_con_to_csr():
     res1 = convert_to_csr.con_to_csr(np.array(
