@@ -88,18 +88,51 @@ def test_check_file_exists():
 
 ### get_filename con_filename ###
 
-def test_con_filename():
-    a = 'nas_Sor2.in'
-    b = 'nas_Sor3.in'
-    c = 'nas_Ros.in'
+"""
+Test not showing up when nosetest is run
+"""
+# Needs more work
 
-    res1 = get_filename.con_filename(a)
-    res2 = get_filename.con_filename(b)
-    res3 = get_filename.con_filename(c)
+def test_con_filename():
+    a = 'nas_Sor.in'
+    b = 'nas_Sor'
+    c = '/nas_Sor.in'
+    d = './nas_Sor.in'
+    i = 'san_Ros.ni'
+
+    e = 'nas_Sor.out'
+    f = 'nas_Sor'
+    g = '/nas_Sor.out'
+    h = './nas_Sor.out'
+    j = 'san_Ros.tuo'
+
+
+    res1 = get_filename.con_filename(a,1)
+    res2 = get_filename.con_filename(b,1)
+    res3 = get_filename.con_filename(c,1)
+    res4 = get_filename.con_filename(d,1)
+    res9 = get_filename.con_filename(i,1)
+
+    res5 = get_filename.con_filename(e, 2)
+    res6 = get_filename.con_filename(f, 2)
+    res7 = get_filename.con_filename(g, 2)
+    res8 = get_filename.con_filename(h, 2)
+    res10 = get_filename.con_filename(j,2)
 
     assert_equal(res1, True)
     assert_equal(res2, True)
-    assert_equal(res3, False)
+    assert_equal(res3, True)
+    assert_equal(res4, True)
+    assert_equal(res5, True)
+    assert_equal(res6, True)
+    assert_equal(res7, True)
+    assert_equal(res8, True)
+    assert_equal(res9, False)
+    assert_equal(res10, False)
+
+
+def test_csr_input_tests():
+    pass
 
 
 def test_create_BS_matrix():
@@ -165,35 +198,7 @@ def test_diag_dominant():
     assert_equal(value_tests.diag_dominant(res3[0], res3[1], res3[2]), False)
 
 
-def test_con_filename():
-    a = 'nas_Sor.in'
-    b = 'nas_Sor'
-    c = '/nas_Sor.in'
-    d = './nas_Sor.in'
 
-    e = 'nas_Sor.out'
-    f = 'nas_Sor'
-    g = '/nas_Sor.out'
-    h = './nas_Sor.out'
-
-    res1 = sor.check_file_exists(get_filename.con_filename(a,1))
-    res2 = sor.check_file_exists(get_filename.con_filename(b,1))
-    res3 = sor.check_file_exists(get_filename.con_filename(c,1))
-    res4 = sor.check_file_exists(get_filename.con_filename(d,1))
-
-    res5 = sor.check_file_exists(get_filename.con_filename(e, 2))
-    res6 = sor.check_file_exists(get_filename.con_filename(f, 2))
-    res7 = sor.check_file_exists(get_filename.con_filename(g, 2))
-    res8 = sor.check_file_exists(get_filename.con_filename(h, 2))
-
-    assert_equal(res1, True)
-    assert_equal(res2, True)
-    assert_equal(res3, True)
-    assert_equal(res4, True)
-    assert_equal(res5, True)
-    assert_equal(res6, True)
-    assert_equal(res7, True)
-    assert_equal(res8, True)
 
 
 
