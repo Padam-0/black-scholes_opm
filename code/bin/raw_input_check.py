@@ -1,5 +1,7 @@
 import re
 
+
+
 def read_raw_inputs(filename):
     with open(filename, 'r') as myfile:
         data = myfile.read().replace('\n', ' ')
