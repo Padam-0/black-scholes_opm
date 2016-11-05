@@ -74,7 +74,7 @@ def main():
     solve_sor.sor(val, col, rowStart, vector_b, n, maxits, w, x, e, tol)
 
     print(calculate_residual.residual(val, col, rowStart, vector_b, x))
-    print(type(calculate_residual.residual(val, col, rowStart, vector_b, x)))
+
 
     """
     # outputs
