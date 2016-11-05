@@ -14,7 +14,6 @@ try:
     from bin import get_filename, raw_input_check, read_inputs, input_tests, \
         convert_to_csr, value_tests, solve_sor, vector_norm, \
         calculate_residual, write_output
-
 except ImportError as import_err:
     print(import_err)
     print("Unable to import required libraries. Please check installation of "
