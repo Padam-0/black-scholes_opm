@@ -112,6 +112,7 @@ b = X [3.33, 0, 0] 0
 
 import math
 import numpy as np
+from code.bin import solve_sor
 
 def create_BS_matrix(M, k, r, theta):
     if M < 3:
@@ -164,16 +165,25 @@ def main():
     r = 0.01  # Risk free rate (% per day)
     theta = 0.3  # Volatility
 
+    maxits = 100
+    e = np.finfo(float).eps
+    w = 1.3
+    tol = 1 * 10 ** (-10)
+
     # Define spacing conditions
     M = 30  # Number of Timesteps
     k = T / M
 
     val, col, rowStart = create_BS_matrix(M, k, r, theta)
+    n = rowStart.size - 1
+
+    x = solve_sor.create_initial_x(val, col, rowStart, b, n)
     b = create_BS_b(M, X, Smax)
 
-    it, sol = ssor(val, col, rowStart, b)
-    print(it)
-    print(sol)
+    x, stop, maxits, iterations, xseqtol, residual = \
+    solve_sor.sor(val, col, rowStart, b, n, maxits, w, x, e, tol)
+
+    print(x)
 
     """
     for m in range(M - 1, -1, -1):
