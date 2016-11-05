@@ -1,3 +1,6 @@
+import sys
+sys.path.append("..")
+
 import numpy as np
 from bin import vector_norm
 
