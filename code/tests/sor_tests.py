@@ -146,6 +146,16 @@ def test_csr_input_tests():
     assert_equal(res2, "Value and column vectors are not the same length")
 
 
+def test_dense_input_test():
+    matrix_size =
+    matrix_in =
+    vector_b =
+
+    res1 = input_tests.dense_input_test(matrix_size, matrix_in, vector_b)
+
+    assert_equal(res1, None)
+
+
 def test_create_BS_matrix():
     Mn = -3
     M0 = 2
