@@ -4,7 +4,7 @@ from bin import vector_norm
 """
 calculate_residual.py
 
-This module contains 1 function, residual(), which takes 5 argumentss. These
+This module contains 1 function, residual(), which takes 5 arguments. These
 are:
 
 val - A 1 dimensional numpy array containing the input matrix (A) values in
