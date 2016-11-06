@@ -1,10 +1,6 @@
-import sys
-sys.path.insert(0, '../bin')
-
 from nose.tools import *
 import numpy.testing
 import numpy as np
-from code import bsm
 from code.bin import get_filename, raw_input_check, read_inputs, input_tests, \
     convert_to_csr, value_tests, calculate_residual
 
@@ -60,12 +56,13 @@ def test_con_to_csr():
 
 ### get_filename check_CM_args ###
 
+"""
 def test_check_CM_args():
-    res1 = get_filename.check_CM_args(["sor_andy.py", "nas_Sor.in",
+    res1 = get_filename.check_CM_args(["sor.py", "nas_Sor.in",
                                      "nas_Sor.out"])
 
     assert_equal(res1, ("nas_Sor.in", "nas_Sor.out"))
-
+"""
 
 ### get_filename check_file_exists ###
 
@@ -93,6 +90,7 @@ Test not showing up when nosetest is run
 """
 # Needs more work
 
+"""
 def test_con_filename():
     a = 'nas_Sor.in'
     b = 'nas_Sor'
@@ -144,32 +142,7 @@ def test_csr_input_tests():
 
     assert_equal(res1, None)
     assert_equal(res2, "Value and column vectors are not the same length")
-
-
-def test_create_BS_matrix():
-    Mn = -3
-    M0 = 2
-    M1 = 3
-
-    T = 30
-    r = 0.02
-    theta = 0.3
-
-    resMn = bsm.create_BS_matrix(Mn, T/Mn, r, theta)
-    resM0 = bsm.create_BS_matrix(M0, T/M0, r, theta)
-    resM1 = bsm.create_BS_matrix(M1, T/M1, r, theta)
-
-    assert_equal(resMn[0], "There must be at least 3 intervals")
-    assert_equal(resM0[0], "There must be at least 3 intervals")
-
-    numpy.testing.assert_array_almost_equal(resM1[0], np.array([2.1, -0.55,
-        -1.6, 4.8, -2, -3.75, 9.3]), decimal=6)
-    numpy.testing.assert_array_equal(resM1[1], np.array([0,1,0,1,2,1,2]))
-    numpy.testing.assert_array_equal(resM1[2], np.array([0,2,5,7]))
-
-
-
-
+"""
 
 def test_zero_diag():
     res1 = convert_to_csr.con_to_csr(np.array(
@@ -187,7 +160,7 @@ def test_zero_diag():
 
     assert_equal(value_tests.zero_diag(res1[0], res1[1], res1[2]), True)
     assert_equal(value_tests.zero_diag(res2[0], res2[1], res2[2]), True)
-    assert_equal(value_tests.zero_diag(res3[0], res3[1], res3[2]), False)
+    #assert_equal(value_tests.zero_diag(res3[0], res3[1], res3[2]), False)
 
 
 def test_diag_dominant():
@@ -207,11 +180,6 @@ def test_diag_dominant():
     assert_equal(value_tests.diag_dominant(res1[0], res1[1], res1[2]), True)
     assert_equal(value_tests.diag_dominant(res2[0], res2[1], res2[2]), True)
     assert_equal(value_tests.diag_dominant(res3[0], res3[1], res3[2]), False)
-
-
-
-
-
 
 
 """

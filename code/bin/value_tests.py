@@ -25,7 +25,7 @@ def matrix_det(matrix):
 
 def diag_dominant(val, col, rowStart):
     # Check if the diagonal value is larger than the sum of all
-    # other entries in that row/column
+    # other entries in that row or column
 
     diags = []
     col_sums = []
@@ -51,10 +51,8 @@ def diag_dominant(val, col, rowStart):
     col_sums = np.array(col_sums) - diags
     row_sums = np.array(row_sums) - diags
 
-    if np.greater(diags, col_sums).all() and np.greater(diags,row_sums).all():
-        return True
-    else:
-        return False
+    return np.greater(diags, col_sums).all() or \
+           np.greater(diags,row_sums).all()
 
 
 def value_tests(val, col, rowStart, errors):
