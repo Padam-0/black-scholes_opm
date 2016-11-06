@@ -34,16 +34,16 @@ def diag_dominant(val, col, rowStart):
         r = col[int(rowStart[i]):int(rowStart[i + 1])]
 
         if i in r:
-            diags.append(val[int(rowStart[i] + np.where(r == i)[0])])
+            diags.append(abs(val[int(rowStart[i] + np.where(r == i)[0])]))
         c_sum = 0
         for j in range(len(col)):
             if col[j] == i:
-                c_sum += val[j]
+                c_sum += abs(val[j])
         col_sums.append(c_sum)
 
         r_sum = 0
         for k in range(int(rowStart[i]), int(rowStart[i + 1])):
-            r_sum += val[k]
+            r_sum += abs(val[k])
 
         row_sums.append(r_sum)
 
