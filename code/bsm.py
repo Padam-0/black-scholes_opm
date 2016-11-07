@@ -1,5 +1,5 @@
 """
-We start by defining the region in which we want to solve teh PDE. There are
+We start by defining the region in which we want to solve the PDE. There are
 two independent variables, S (stock price) and t (time), so this is a region
 in R^2. The value of f(S,t) can be graphed along a third (vertical) axis.
 
