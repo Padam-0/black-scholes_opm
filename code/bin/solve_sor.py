@@ -25,7 +25,6 @@ def sor(val, col, rowStart, b, n, maxits, w, x, e, tol):
     b = b.astype(float)
     x = x.astype(float)
 
-
     k = 0
     while k <= maxits:
         x1 = x.copy()
