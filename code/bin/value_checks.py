@@ -103,7 +103,7 @@ def diag_dominant(val, col, rowStart):
         # Create r, a list of all column values for that row
         r = col[int(rowStart[i]):int(rowStart[i + 1])]
         # For each non-zero column entry in a row
-        """
+
         if i in r:
             # Append the diagonal entry (row number = column number) to the
             # diags list
@@ -137,7 +137,6 @@ def diag_dominant(val, col, rowStart):
     # column sum, return True
     return np.greater(diags, col_sums).all() or \
            np.greater(diags,row_sums).all()
-    """
 
 
 def value_tests(val, col, rowStart, errors):
