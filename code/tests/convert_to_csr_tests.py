@@ -1,7 +1,7 @@
 from nose.tools import *
 import numpy.testing
 import numpy as np
-from bin import  convert_to_csr
+from sor_modules import  convert_to_csr
 
 ### convert_to_csr tests ###
 # Two test cases set up to test

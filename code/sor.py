@@ -8,9 +8,9 @@ with A a nxn matrix in R and x, b nx1 vectors in R
 try:
     import numpy as np
     import sys
-    from bin import get_filename, raw_input_check, read_inputs, \
+    from sor_modules import get_filename, raw_input_check, read_inputs, \
         input_checks, convert_to_csr, value_checks, solve_sor, vector_norm, \
-        calculate_residual, write_output
+        calculate_residual, write_output, print_errors
 except ImportError as import_err:
     print(import_err)
     print("Unable to import required libraries. Please check installation of "
@@ -19,28 +19,32 @@ except ImportError as import_err:
 
 
 def main():
+    # Get input and outfile file names from command line arguments or the
+    # user and check files exist
     input_filename, output_filename = get_filename.check_CM_args(sys.argv)
 
+    # Check for any non-decimal entries in the input file
     if not raw_input_check.read_raw_inputs(input_filename):
         exit("There is a non-decimal entry in the input file. Please amend "
              "the input according to the guidelines in README.md")
 
-    errors = []
-
-
+    # Read val, col and rowStart vectors from the specified filename
     val, col, rowStart, vector_b = read_inputs.read_inputs(input_filename)
 
+    # Initialize empty errors list
+    errors = []
 
+    # Add top level formatting errors to errors list
     errors.extend(input_checks.csr_input_checks(val, col, rowStart, vector_b))
 
+    # Return errors
+    print_errors.print_errors(errors)
 
+    # Add complex value checks to the errors list
     errors = value_checks.value_tests(val, col, rowStart, errors)
 
-    if len(errors) != 0:
-        print("The following errors were identified:\n")
-        for i in errors:
-            print('   - ' + i)
-        exit("\nPlease correct these errors and restart the program")
+    # Return errors
+    print_errors.print_errors(errors)
 
     # Set Tolerance
     tol = 1 * 10 ** (-10)

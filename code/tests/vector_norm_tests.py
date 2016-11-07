@@ -1,7 +1,7 @@
 from nose.tools import *
 import numpy as np
 import math
-from bin import vector_norm
+from sor_modules import vector_norm
 import pytest
 
 """

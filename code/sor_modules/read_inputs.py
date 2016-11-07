@@ -73,7 +73,7 @@ Required: numpy, convert_to_csr
 
 import numpy as np
 import scipy.io
-from bin import convert_to_csr
+from sor_modules import convert_to_csr
 
 def read_inputs(filename):
     # Open a file and extract data

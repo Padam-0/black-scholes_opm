@@ -112,7 +112,7 @@ b = X [3.33, 0, 0] 0
 
 import math
 import numpy as np
-from bin import solve_sor
+from sor_modules import solve_sor
 
 def create_BS_matrix(M, k, r, theta):
     if M < 3:
@@ -185,7 +185,6 @@ def main():
 
     for m in range(M - 1, -1, -1):
         # Iterate through each timestamp from M-1 to 0
-        b = solve_sor.sor(val, col, rowStart, b, n, maxits, w, x, e, tol)[0]
 
     print(b)
 
