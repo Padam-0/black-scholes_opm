@@ -64,7 +64,15 @@ def test_diag_dominant():
 
 def test_value_tests():
     a = np.array([[12, 0, 0], [4, 0, 0], [7, 8, 16]])
+    b = np.array([[12, 0, 0], [4, 4, 0], [7, 8, 16]])
+    c = np.array([[12, 0, 13], [4, 4, 0], [7, 8, 16]])
 
     res1 = value_checks.value_tests(a)
+    res2 = value_checks.value_tests(b)
+    res3 = value_checks.value_tests(c)
+
 
     assert_equal(res1, "There are zeros on the diagonal")
+    assert_equal(res2, None)
+    assert_equal(res3, "The matrix is not row and column diagonally dominant")
+
