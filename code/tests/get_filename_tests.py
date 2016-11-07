@@ -14,10 +14,7 @@ test_check_CM_args();
 test_check_file_exists(); and
 test_con_filename()
 
-
-
-
-
+test_check_CM_args() has one test scenario
 
 test_con_file() has six test cases which test input filename and output
 filename scenarios
@@ -25,8 +22,10 @@ filename scenarios
 """
 
 def test_check_CM_args():
+
     res1 = get_filename.check_CM_args(["sor.py", "nas_Sor.in",
                                      "nas_Sor.out"])
+
 
     assert_equal(res1, ("nas_Sor.in", "nas_Sor.out"))
 
