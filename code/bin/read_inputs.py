@@ -77,8 +77,7 @@ from bin import convert_to_csr
 
 def read_inputs(filename):
     # Open a file and extract data
-    print(filename[-4:])
-    if filename[-3:] == 'mtx':
+    if filename[-4:] == '.mtx':
         A = scipy.io.mmread(filename)
         A = A.tocsr()
         val = A.data
@@ -119,10 +118,6 @@ def read_inputs(filename):
         val = np.array(val)
         col = np.array(col)
         rowStart = np.array(rowStart)
-
-        print(val)
-        print(col)
-        print(rowStart)
 
         # Extract vector_b from file
         vector_b = np.genfromtxt(filename, skip_header = matrix_size + 1)
