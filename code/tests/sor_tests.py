@@ -4,54 +4,9 @@ import numpy as np
 from code.bin import get_filename, raw_input_check, read_inputs, input_checks, \
     convert_to_csr, value_checks, calculate_residual
 
-"""
-### calculate_residual tests ###
-
-This function contains values to test the residual function with calculate_residual.py
-
-Test data generated from current nas_Sor.in file
-    Contents of nas_Sor.in:
-    4
-    13 0 0 4
-    4 11 0 4
-    7 8 20 4
-    1 0 1 14
-    1 2 3 4
-
-"""
-
-def test_calculate_residual():
-    val = [13.0, 4.0, 4.0, 11.0, 4.0, 7.0, 8.0, 20.0, 4.0, 1.0, 1.0, 14.0]
-    col = np.array([0,  3,  0,  1,  3,  0,  1,  2,  3,  0,  2,  3])
-    rowStart = np.array([0, 2, 5, 9, 12])
-    b = np.array([1, 2, 3, 4] )
-    x = np.array([-0.00979992, 0.08289098, 0.06390363, 0.28184973])
-
-    res1 = calculate_residual.residual(val, col, rowStart, b, x)
-
-    numpy.testing.assert_almost_equal(res1, 2.5404391594785375e-10, decimal=5)
 
 
-### convert_to_csr tests ###
-# Two test cases set up to test
 
-def test_con_to_csr():
-    res1 = convert_to_csr.con_to_csr(np.array(
-            [[12, 0, 0], [4, 11, 0],[7, 8, 16]]), 3.0)
-
-    res2 = convert_to_csr.con_to_csr(np.array(
-        [[13, 0, 0, 4], [4, 11, 0, 4], [7, 8, 20, 4], [1, 0, 1, 14]]), 4)
-
-
-    # 3x3 Matrix Tests
-    numpy.testing.assert_array_equal(res1[0], np.array([12,4,11,7,8,16]))
-    numpy.testing.assert_array_equal(res1[1], np.array([0,0,1,0,1,2]))
-    numpy.testing.assert_array_equal(res1[2], np.array([0,1,3,6]))
-
-    #4x4 Matrix Tests
-    numpy.testing.assert_array_equal(res2[0], np.array([13.0, 4.0, 4.0, 11.0, 4.0, 7.0, 8.0, 20.0, 4.0, 1.0, 1.0, 14.0]))
-    numpy.testing.assert_array_equal(res2[1], np.array([0, 3, 0, 1, 3, 0, 1, 2, 3, 0, 2, 3]))
-    numpy.testing.assert_array_equal(res2[2], np.array([0, 2, 5, 9, 12]))
 
 
 ### get_filename check_CM_args ###
