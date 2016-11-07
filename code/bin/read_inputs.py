@@ -6,8 +6,13 @@ def read_inputs(filename):
         input_type = "Dense"
         # Open a file and extract data
         matrix_size = np.genfromtxt(filename, max_rows=1)
-
-        matrix_in = np.genfromtxt(filename, skip_header=1, skip_footer=1)
+        try:
+            matrix_in = np.genfromtxt(filename, skip_header=1, skip_footer=1)
+        except ValueError:
+            print(
+                "Input matrix is not square. Please ensure that all rows of "
+                "the matrix have the same number of entries.")
+            exit(0)
 
         col_len = len(np.genfromtxt(filename, usecols=0))
 
