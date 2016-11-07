@@ -1,5 +1,4 @@
 """
-
 input_checks.py
 
 This module contains 2 functions:

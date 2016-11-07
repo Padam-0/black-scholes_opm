@@ -21,28 +21,15 @@ except ImportError as import_err:
 def main():
     input_filename, output_filename = get_filename.check_CM_args(sys.argv)
 
-
     if not raw_input_check.read_raw_inputs(input_filename):
         exit("There is a non-decimal entry in the input file. Please amend "
              "the input according to the guidelines in README.md")
 
     errors = []
 
-    if read_inputs.read_inputs(input_filename)[0] == "Dense":
-        matrix_size, matrix_in, vector_b = read_inputs.read_inputs(
-            input_filename)[1:]
+    val, col, rowStart, vector_b = read_inputs.read_inputs(input_filename)
 
-        errors.extend(input_checks.dense_input_checks(matrix_size, matrix_in,
-                                               vector_b))
-
-        val, col, rowStart = convert_to_csr.con_to_csr(matrix_in, matrix_size)
-    else:
-
-        val, col, rowStart, vector_b = \
-            read_inputs.read_inputs(input_filename)[1:]
-
-        errors.extend(input_checks.csr_input_checks(
-            val, col, rowStart, vector_b))
+    errors.extend(input_checks.csr_input_checks(val, col, rowStart, vector_b))
 
     #errors = value_checks.value_tests(val, col, rowStart, errors)
 

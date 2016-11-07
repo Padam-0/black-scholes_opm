@@ -42,13 +42,11 @@ Requirements: numpy
 
 import numpy as np
 
-def con_to_csr(matrix, matrix_length):
+def con_to_csr(vector, matrix_size, last_row_start):
     # Convert an numpy array to Compressed Sparse Row Structure
 
-    # Reformat initial matrix A into a continuous vector
-    val = np.ndarray.flatten(matrix)
     # Remove non-zero entries in val
-    val = [i for i in val if i != 0]
+    val = [i for i in vector if i != 0]
 
     # Initialize empty col and rowStart lists
     col = []
@@ -59,18 +57,17 @@ def con_to_csr(matrix, matrix_length):
     zeros = 0
 
     # For each entry in the initial matrix A:
-    for entry in np.nditer(matrix):
+    for entry in np.nditer(vector):
         # If the entry is not equal to 0:
         if entry != 0:
             # Add the column index of the entry (remainder of the current
             # position divided by the total number of columns) to the col list
-            col.append((pos) % matrix_length)
+            col.append((pos) % matrix_size)
 
             # if the current entry is the last in a given row:
-            if pos % matrix_length == 0:
-
+            if pos % matrix_size == 0:
                 # Add the current position index to the rowStart list
-                rowStart.append(pos - zeros)
+                rowStart.append(last_row_start + pos - zeros)
         # If the entry is equal to 0:
         else:
             # Add 1 to the zeros counter
@@ -78,15 +75,5 @@ def con_to_csr(matrix, matrix_length):
 
         # Add 1 to the position counter
         pos += 1
-
-    # After all value indices have been added to the col and rowStart vectors,
-    # the final value of rowStart is t, the length of the col list.
-    rowStart.append(len(col))
-
-    # Convert to the col list to a numpy array
-    col = np.array(col)
-
-    # Convert to the rowStart list to a numpy array
-    rowStart = np.array(rowStart)
 
     return val, col, rowStart
