@@ -4,7 +4,7 @@ import numpy as np
 from bin import value_checks, convert_to_csr
 
 """
-value_check
+value_check.py
 
 
 
@@ -32,7 +32,15 @@ def test_zero_diag():
 
 
 def test_matrix_det():
-    pass
+    import numpy as np
+    a = np.matrix('12 0 0; 4 11 0; 7 8 16')
+    b = np.matrix('12 0 0; 4 0 4; 5 5 5')
+
+    res1 = value_checks.matrix_det(a)
+    res2 = value_checks.matrix_det(b)
+
+    numpy.testing.assert_equal(res1, True)
+    numpy.testing.assert_equal(res2, False)
 
 
 def test_diag_dominant():
