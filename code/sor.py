@@ -1,8 +1,28 @@
 """
-Write a program to implement the Spare-SOR algorithm for solving a system of n
-linear equations in n unknowns.
+sor.py
+
+This module contains 1 function, main(), which takes no inputs.
+
+main() is a wrapper function to implement the Sparse-Successive Over
+Relaxation for solving a system of linear equations in n unknowns.
+
 Ax = b
-with A a nxn matrix in R and x, b nx1 vectors in R
+
+with A a nxn matrix in R (reals) and x, b n x 1 vectors in R.
+
+main() retrieves file names from the command line or user, and imports the
+file data, reformatting it to CSR format if necessary (from dense or .mtx
+formats). A series of error checks are conducted, returning faults to the
+user for them to fix.
+
+If there are no formatting or value errors (zeros on the diagonal or the
+matrix is not strictly row or column diagonally dominant), a number of
+parameters are set and the system of linear equations solved using Successive
+Over Relaxation.
+
+Outputs are printed in a text file, the name of which is provided by the user.
+
+Requirements: numpy, sys
 """
 
 try:
