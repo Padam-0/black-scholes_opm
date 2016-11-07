@@ -63,4 +63,8 @@ def test_diag_dominant():
 
 
 def test_value_tests():
-    pass
+    a = np.array([[12, 0, 0], [4, 0, 0], [7, 8, 16]])
+
+    res1 = value_checks.value_tests(a)
+
+    assert_equal(res1, "There are zeros on the diagonal")
