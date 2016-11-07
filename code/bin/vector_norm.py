@@ -1,5 +1,3 @@
-import math
-
 """
 raw_input_check.py
 
@@ -18,7 +16,11 @@ of the vector.
 
 vectornorm() returns a float value that is the norm of the vector v.
 
+Requirements: math
+
 """
+
+import math
 
 def vectornorm(vector):
     # Calculate the norm of the input vector

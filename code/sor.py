@@ -31,7 +31,7 @@ def main():
 
     errors.extend(input_checks.csr_input_checks(val, col, rowStart, vector_b))
 
-    #errors = value_checks.value_tests(val, col, rowStart, errors)
+    errors = value_checks.value_tests(val, col, rowStart, errors)
 
     if len(errors) != 0:
         print("The following errors were identified:\n")

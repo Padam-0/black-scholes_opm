@@ -7,24 +7,24 @@ read_inputs().
 
 read_inputs() takes 1 arguments:
 
-filename - A string containing the path to the required input file
+  - filename - A string containing the path to the required input file
 
 read_inputs() imports data from an input file in one of two formats. First is
 a dense matrix format:
 
-First row contains 1 integer, the size of the matrix n
-Rows 2 - (n + 1) all contain n floats, the entries of the dense matrix A
-Row n + 2 (final row) contains n floats, the vector b
+  - First row contains 1 integer, the size of the matrix n
+  - Rows 2 - (n + 1) all contain n floats, the entries of the dense matrix A
+  - Row n + 2 (final row) contains n floats, the vector b
 
 The second is a Compressed Sparse Row matrix format:
 
-First row contains t floats, entries of the val array (non-zero entries of
+  - First row contains t floats, entries of the val array (non-zero entries of
 the matrix A)
-Row 2 contains t integers, the column indices associated with the
+  - Row 2 contains t integers, the column indices associated with the
 corresponding entries of val in the matrix A
-Row 3 contains n + 1 integers, the indices of the entries of val that
+  - Row 3 contains n + 1 integers, the indices of the entries of val that
 correspond to a new line of the matrix A
-row 4 contains n floats, the vector b
+  - Row 4 contains n floats, the vector b
 
 read_inputs() differentiates between these input types and imports them. It
 does this by checking the number of entries in row 1. If there are more than
@@ -40,11 +40,22 @@ using np.genfromtext().
 
 Both methods return 4 vectors:
 
-val containing the non-zero values of the input matrix
-col containing the associated column indices of these entries
-rowStart containing the indices associated with each new row of the matrix
-vector_b, the vector b
+  - val containing the non-zero values of the input matrix
+  - col containing the associated column indices of these entries
+  - rowStart containing the indices associated with each new row of the matrix
+  - vector_b, the vector b
 
+Note 1: Appending values to a growing list is a simple way to deal with the
+iterative nature of building the col and rowStart arrays, Numpy arrays do not
+deal well with having entries appended to them, as each new array is written
+into memory individually. As such, col and rowStart are created and grown as
+lists, then converted into numpy arrays when their contents will not be
+changed.
+
+Note 2: Traditional CSR refers to the first entry of each row as being in column
+1. However, due to Python using 0-indexing, the first column of this matrix
+is referred to in this function as column 0. As such, the last entry of
+rowStart is simply t, not t + 1, and so on.
 
 Required: numpy, convert_to_csr
 
@@ -71,14 +82,19 @@ def read_inputs(filename):
                 exit(0)
             else:
                 last_rowS = rowStart[-1]
-                val.append(convert_to_csr(line_in, matrix_size, last_rowS)[0])
-                col.append(convert_to_csr(line_in, matrix_size, last_rowS)[1])
-                rowStart.append(convert_to_csr(line_in, matrix_size,
-                                               last_rowS)[2])
+
+                val.extend(convert_to_csr.con_to_csr(line_in, matrix_size,
+                                                last_rowS)[0])
+                col.extend(convert_to_csr.con_to_csr(line_in, matrix_size,
+                                                last_rowS)[1])
+                rowStart.append(convert_to_csr.con_to_csr(line_in, matrix_size,
+                                                last_rowS)[2])
 
         # After all value indices have been added to the col and rowStart
-        # vectors, the final value of rowStart is t, the length of the col list.
-        rowStart.append(len(col))
+        # vectors, the final value of rowStart is t, the length of the col
+        # list.
+
+        val  = np.array(val)
 
         # Convert to the col list to a numpy array
         col = np.array(col)
