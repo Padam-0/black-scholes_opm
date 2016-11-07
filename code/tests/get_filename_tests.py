@@ -14,7 +14,12 @@ test_check_CM_args();
 test_check_file_exists(); and
 test_con_filename()
 
-test_check_CM_args() has one test scenario
+test_check_CM_args() has one test scenario where both input and output
+file names are given as arguments. Test scenarios for zero or one input
+arguments cannot be checked as these prompt command line inputs
+
+test_check_file_exists() has four test cases checking whether input file
+names are available either the code or the sample_inputs folder
 
 test_con_file() has six test cases which test input filename and output
 filename scenarios
@@ -23,13 +28,10 @@ filename scenarios
 
 def test_check_CM_args():
 
-    res1 = get_filename.check_CM_args(["sor.py", "nas_Sor.in",
-                                     "nas_Sor.out"])
-
+    res1 = get_filename.check_CM_args(["sor.py", "nas_Sor.in", "nas_Sor.out"])
 
     assert_equal(res1, ("nas_Sor.in", "nas_Sor.out"))
 
-### get_filename check_file_exists ###
 
 def test_check_file_exists():
     a = 'nas_Sor.in'
@@ -46,9 +48,6 @@ def test_check_file_exists():
     assert_equal(res2, False)
     assert_equal(res3, False)
     assert_equal(res4, True)
-
-
-### get_filename con_filename ###
 
 
 def test_con_filename():
