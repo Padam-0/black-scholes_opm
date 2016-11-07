@@ -52,7 +52,7 @@ def csr_input_checks(val, col, rowStart, b):
     # Count number of non-integer entries in col
     col_int_err = 0
     for i in col:
-        if type(i) != int:
+        if i % 1 != 0:
             col_int_err += 1
     if col_int_err > 0:
         errors.append("Column vector contains non-integer entries")
@@ -60,7 +60,7 @@ def csr_input_checks(val, col, rowStart, b):
     # Count number of non-integer entries in rowStart
     rs_int_err = 0
     for i in rowStart:
-        if type(i) != int:
+        if i % 1 != 0:
             rs_int_err += 1
     if rs_int_err > 0:
         errors.append("RowStart vector contains non-integer entries")
