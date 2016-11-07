@@ -1,7 +1,7 @@
 from nose.tools import *
 import numpy.testing
 import numpy as np
-from code.bin import raw_input_check
+from code.bin import write_output
 
-def test_read_raw_inputs():
+def test_output_test_file():
     pass
