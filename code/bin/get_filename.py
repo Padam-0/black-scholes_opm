@@ -190,6 +190,12 @@ def con_filename(filename, argNum = 0, sample_file = False):
             'sample_inputs', filename)):
         sample_file = True
 
+
+    # Checks if the file is in the sample_outputs file
+    if 'sample_outputs' in filename or os.path.isfile(os.path.join(
+            'sample_outputs', filename)):
+        sample_file = True
+
     # If the input file is in sample_inputs directory but path is incorrect,
     # prepends the correct path
     if 'sample_inputs' not in filename and sample_file == True:
