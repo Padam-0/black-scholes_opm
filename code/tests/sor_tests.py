@@ -1,7 +1,7 @@
 from nose.tools import *
 import numpy.testing
 import numpy as np
-from bin import get_filename, raw_input_check, read_inputs, input_checks, \
+from sor_modules import get_filename, raw_input_check, read_inputs, input_checks, \
     convert_to_csr, value_checks, calculate_residual
 
 

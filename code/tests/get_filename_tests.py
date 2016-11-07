@@ -1,7 +1,7 @@
 from nose.tools import *
 import numpy.testing
 import numpy as np
-from bin import get_filename
+from sor_modules import get_filename
 
 ### get_filename check_CM_args ###
 

@@ -1,7 +1,7 @@
 from nose.tools import *
 import numpy.testing
 import numpy as np
-import bsm
+from bsm_modules import create_BS_b, create_BS_matrix
 
 def test_create_BS_matrix():
     Mn = -3
@@ -12,9 +12,9 @@ def test_create_BS_matrix():
     r = 0.02
     theta = 0.3
 
-    resMn = bsm.create_BS_matrix(Mn, T/Mn, r, theta)
-    resM0 = bsm.create_BS_matrix(M0, T/M0, r, theta)
-    resM1 = bsm.create_BS_matrix(M1, T/M1, r, theta)
+    resMn = create_BS_matrix.create_BS_matrix(Mn, T/Mn, r, theta)
+    resM0 = create_BS_matrix.create_BS_matrix(M0, T/M0, r, theta)
+    resM1 = create_BS_matrix.create_BS_matrix(M1, T/M1, r, theta)
 
     assert_equal(resMn[0], "There must be at least 3 intervals")
     assert_equal(resM0[0], "There must be at least 3 intervals")

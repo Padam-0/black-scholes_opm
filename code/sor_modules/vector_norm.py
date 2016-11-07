@@ -9,7 +9,7 @@ This is:
 The purpose of vectornorm() is to calculate the euclidean norm of a given
 vector. In this context, the norm of the vector v (||v||) is defined as:
 
-||v|| = sqrt(v1^2 + v2^2 +... +vn^2)
+                     ||v|| = sqrt(v1^2 + v2^2 +... +vn^2)
 
 Or the square root of the sum of the squares of all the individual entries
 of the vector.

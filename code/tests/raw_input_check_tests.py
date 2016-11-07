@@ -1,7 +1,7 @@
 from nose.tools import *
 import numpy.testing
 import numpy as np
-from bin import raw_input_check
+from sor_modules import raw_input_check
 
 """
 raw_input_check_tests.py

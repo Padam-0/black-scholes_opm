@@ -72,11 +72,18 @@ Required: numpy, convert_to_csr
 """
 
 import numpy as np
-from bin import convert_to_csr
+from sor_modules import convert_to_csr, import_mtx, get_extension
 
 def read_inputs(filename):
     # Open a file and extract data
-    if np.genfromtxt(filename, max_rows=1).size == 1:
+
+    ext = get_extension.get_ext(filename)
+
+    if ext == 'mtx':
+        # Create val, col, rowStart and vector_b from mtx file
+        val, col, rowStart = import_mtx.import_mtx(filename)
+        vector_b = import_mtx.get_mtx_b(filename)
+    elif np.genfromtxt(filename, max_rows=1).size == 1:
 
         # Initialize val, col and rowStart lists
         val, col, rowStart = [], [], [0]
@@ -112,6 +119,7 @@ def read_inputs(filename):
         col = np.array(col)
         rowStart = np.array(rowStart)
 
+<<<<<<< HEAD:code/bin/read_inputs.py
         # # repair arrays
         # val = repr(val)
         # col = repr(col)
@@ -121,6 +129,8 @@ def read_inputs(filename):
         # print(col)
         # print(rowStart)
 
+=======
+>>>>>>> master:code/sor_modules/read_inputs.py
         # Extract vector_b from file
         vector_b = np.genfromtxt(filename, skip_header = matrix_size + 1)
 
