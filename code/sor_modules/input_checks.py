@@ -32,7 +32,6 @@ Requirements: math, numpy
 """
 
 import math
-import numpy as np
 
 def csr_input_checks(val, col, rowStart, b):
 

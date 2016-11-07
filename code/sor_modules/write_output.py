@@ -1,12 +1,30 @@
 """
 write_output.py
 
-This module contains
+This module contains 1 function, output_text_file(), which takes 9 inputs:
+
+  - output_file_name - A string containing the file to write to
+  - stopping_reason - A string of the reason why the iterations stopped
+  - maxits - Maximum integer of iterations allowed
+  - iterations - Integer of iterations performed
+  - mach_e - Machine Epsilon, float, calculated based on the users operating
+system
+  - x_seq_tol - X Sequence tolerance allowed, float
+  - res_tol - Residual test tolerance allowed, float
+  - w - Relaxation factor, float
+  - x - The solution vector x containing n floats, solved using SOR for the
+  given input matrix A (n x n) and vector b, Ax = b.
+
+output_text_file() outputs the results of SOR into a text file with a
+user-specified name.
+
+Requirements: None
+
 """
 
 
-def output_text_file(output_file_name, stopping_reason, maxit, iterations,
-                     mach_e, x_seq_tol, res_tol,w, x):
+def output_text_file(output_file_name, stopping_reason, maxits, iterations,
+                     mach_e, x_seq_tol, res_tol, w, x):
 
     with open(output_file_name, 'w') as f:
         # Output solution_vector_x, stopping_reason, maxits, #_of_iterations,
@@ -18,7 +36,7 @@ def output_text_file(output_file_name, stopping_reason, maxit, iterations,
                       ["Residual Sequence Tolerance", 30]]
 
         second_line = [[stopping_reason, 24],
-                      [maxit, 30],
+                      [maxits, 30],
                       [iterations, 22], [mach_e, 22],
                       [x_seq_tol, 22],
                       [res_tol, 30]]

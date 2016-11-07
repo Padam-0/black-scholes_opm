@@ -166,7 +166,7 @@ def check_CM_args(cmArgs):
                 "again? [y/n]: ").upper() == 'Y':
                 # Restart loop
                 continue
-            # If the user does not want to try agiain
+            # If the user does not want to try again
             else:
                 # Exit
                 exit(0)

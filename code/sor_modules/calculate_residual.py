@@ -31,7 +31,7 @@ Requirements: numpy, vector_norm
 """
 
 import numpy as np
-from bin import vector_norm
+from sor_modules import vector_norm
 
 def residual(val, col, rowStart, b, x):
     # Solve ||b - Ax||

@@ -99,88 +99,46 @@ and so on until the timestep 0 is solved.
 
 
 
-b = f_0,m [f_(1,m),...,f_(N-1,m)] f_N,m
-b =   X  [] 0
-f_(n,m) = max{X-nh, 0}, h = S_max / N
-
-Let S_max = 20
-
-b =   X  [10 - 1*6.66, 0, 0] 0
-b = X [3.33, 0, 0] 0
 
 """
 
-import math
-import numpy as np
-from bin import solve_sor
-
-def create_BS_matrix(M, k, r, theta):
-    if M < 3:
-        return "There must be at least 3 intervals", None, None
-    else:
-        # Create matrix in CSR form:
-        val = []
-        col = []
-        rowStart = [1]
-
-        for n in range(1, 3 * (M-2) + 5):
-            # 1 through 8
-            row = math.floor(n / 3) + 1
-            if n % 3 == 1:
-                value = 1 + (k * r) + k * ((theta) ** 2) * ((row) ** 2)
-                column = row
-            elif n % 3 == 2:
-                value = ((-1 * row * k)/2) * (row * (theta ** 2) + r)
-                column = row + 1
-            else:
-                value = ((-1 * row * k)/2) * (row * (theta ** 2) - r)
-                column = row - 1
-                rowStart.append(n)
-            val.append(value)
-            col.append(column)
-
-        rowStart.append(3 * (M-2) + 5)
-
-        val = np.array(val)
-        col = np.array(col) - 1
-        rowStart = np.array(rowStart) - 1
-
-        return val, col, rowStart
-
-def create_BS_b(M, X, Smax):
-    h = Smax / M
-    b = []
-    for n in range(M):
-        if X - (n+1) * h > 0:
-            b.append(X - (n+1) * h)
-        else:
-            b.append(0)
-
-    b = np.array(b)
-
-    return b
+try:
+    import numpy as np
+    import math
+    from sor_modules import solve_sor
+    from bsm_modules import create_BS_matrix, create_BS_b
+except ImportError as import_err:
+    print(import_err)
+    print("Unable to import required libraries. Please check installation of "
+          "numpy and math libraries for python 3.5")
+    exit(0)
 
 def main():
+
     # Define inital conditions
     X = 20  # Strike Price, in Dollars
     Smax = 100
     T = 30  # Maturity Date, Days from now
     r = 0.01  # Risk free rate (% per day)
     theta = 0.3  # Volatility
-
-    maxits = 100
-    e = np.finfo(float).eps
-    w = 1.3
-    tol = 1 * 10 ** (-10)
+    maxits = 100 # Maximum iterations
+    e = np.finfo(float).eps # Machine Epsilon
+    w = 1.3 # Relaxation factor
+    tol = 1 * 10 ** (-10) # X sequence tolerance
 
     # Define spacing conditions
-    M = 90  # Number of Timesteps
-    k = T / M
+    M = 90  # Number of timesteps
+    k = T / M # Step distance
 
-    val, col, rowStart = create_BS_matrix(M, k, r, theta)
+    # Create Black-Scholes matrix in CSR format
+    val, col, rowStart = create_BS_matrix.create_BS_matrix(M, k, r, theta)
+    # Set matrix size
     n = rowStart.size - 1
 
-    b = create_BS_b(M, X, Smax)
+    # Create initial matrix b
+    b = create_BS_b.create_BS_b(M, X, Smax, k, theta, r)
+
+    # Create optimized initial vector x
     x = solve_sor.create_initial_x(val, col, rowStart, b, n)
 
     for m in range(M - 1, -1, -1):
