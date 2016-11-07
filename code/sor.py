@@ -28,7 +28,12 @@ def main():
     errors = []
 
     val, col, rowStart, vector_b = read_inputs.read_inputs(input_filename)
+    print('Val: ', val, type(val))
+    print('Col: ', col, type(col))
+    print('rowStart: ', rowStart, type(rowStart))
+    print('vector_b: ', vector_b, type(vector_b))
 
+    """
     errors.extend(input_checks.csr_input_checks(val, col, rowStart, vector_b))
 
     errors = value_checks.value_tests(val, col, rowStart, errors)
@@ -58,6 +63,10 @@ def main():
     # outputs
     write_output.output_text_file(output_filename, stop, maxits, iterations,
                                   e, xseqtol, residual ,w, x)
+    """
+
+
+
 
 
 if __name__ == '__main__':

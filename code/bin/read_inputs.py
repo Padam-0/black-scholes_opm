@@ -106,14 +106,20 @@ def read_inputs(filename):
                 col.extend(res_c2c[1])
                 rowStart.append(res_c2c[2])
 
+
         # Convert to the lists to a numpy arrays
         val = np.array(val)
         col = np.array(col)
         rowStart = np.array(rowStart)
 
-        print(val)
-        print(col)
-        print(rowStart)
+        # # repair arrays
+        # val = repr(val)
+        # col = repr(col)
+        # rowStart = repr(rowStart)
+
+        # print(val)
+        # print(col)
+        # print(rowStart)
 
         # Extract vector_b from file
         vector_b = np.genfromtxt(filename, skip_header = matrix_size + 1)
@@ -125,4 +131,4 @@ def read_inputs(filename):
         rowStart = np.genfromtxt(filename, skip_header=2, skip_footer=1)
         vector_b = np.genfromtxt(filename, skip_header=3)
 
-    return val, col, rowStart, vector_b
+    print(val, col, rowStart, vector_b)
