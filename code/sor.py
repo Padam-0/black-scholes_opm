@@ -11,8 +11,8 @@ try:
     import os.path
     import re
     import math
-    from bin import get_filename, raw_input_check, read_inputs, input_tests, \
-        convert_to_csr, value_tests, solve_sor, vector_norm, \
+    from bin import get_filename, raw_input_check, read_inputs, input_checks, \
+        convert_to_csr, value_checks, solve_sor, vector_norm, \
         calculate_residual, write_output
 except ImportError as import_err:
     print(import_err)
@@ -35,7 +35,7 @@ def main():
         matrix_size, matrix_in, vector_b = read_inputs.read_inputs(
             input_filename)[1:]
 
-        errors.extend(input_tests.dense_input_test(matrix_size, matrix_in,
+        errors.extend(input_checks.dense_input_test(matrix_size, matrix_in,
                                                vector_b))
 
         val, col, rowStart = convert_to_csr.con_to_csr(matrix_in, matrix_size)
@@ -47,7 +47,7 @@ def main():
         #errors.extend(input_tests.csr_input_tests(
         #    val, col, rowStart, vector_b))
 
-    errors = value_tests.value_tests(val, col, rowStart, errors)
+    errors = value_checks.value_tests(val, col, rowStart, errors)
 
     if len(errors) != 0:
         print("The following errors were identified:\n")
