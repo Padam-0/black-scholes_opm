@@ -2,6 +2,7 @@ from nose.tools import *
 import numpy as np
 import math
 from bin import vector_norm
+import pytest
 
 """
 vector_norm_tests.py
@@ -20,10 +21,11 @@ vectornorm function and tests that a TypeError is returned
 
 """
 
+
 def test_vectornorm():
     v1 = np.array([1, 1, 1, 1, 1])
     v2 = np.array([-1, 3, 5, -7])
-    v3 = np.array(['a', 'b', 3])
+    #v3 = np.array(['a', 'b', 3])
 
     res1 = vector_norm.vectornorm(v1)
     res2 = vector_norm.vectornorm(v2)
@@ -32,4 +34,7 @@ def test_vectornorm():
 
     assert_equal(res1, math.sqrt(5))
     assert_equal(res2, math.sqrt(84))
-    #assert_raises(TypeError, res3)
+    #assert_raises(TypeError, vector_norm.vectornorm(), np.array(['a', 'b', 3]))
+
+
+
