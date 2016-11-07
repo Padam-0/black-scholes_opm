@@ -72,11 +72,20 @@ Required: numpy, convert_to_csr
 """
 
 import numpy as np
+import scipy.io
 from bin import convert_to_csr
 
 def read_inputs(filename):
     # Open a file and extract data
-    if np.genfromtxt(filename, max_rows=1).size == 1:
+    print(filename[-4:])
+    if filename[-3:] == 'mtx':
+        A = scipy.io.mmread(filename)
+        A = A.tocsr()
+        val = A.data
+        col = A.indices
+        rowStart = A.indptr
+
+    elif np.genfromtxt(filename, max_rows=1).size == 1:
 
         # Initialize val, col and rowStart lists
         val, col, rowStart = [], [], [0]
