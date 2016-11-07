@@ -1,7 +1,7 @@
 """
 write_output.py
 
-
+This module contains
 """
 
 
@@ -23,12 +23,15 @@ def output_text_file(output_file_name, stopping_reason, maxit, iterations,
                       [x_seq_tol, 22],
                       [res_tol, 30]]
 
-        spacing = 30
-
+        # Output headings
         f.write('| '.join(["%s" % (heading[0].ljust(heading[1])) for heading in
                            first_line]))
         f.write("\n")
+        # Output values from second_line
         f.write('| '.join(["%s" % (str(value[0]).ljust(value[1])) for value in
                            second_line]))
-        f.write("\n")
-        f.write(', '.join(["%s" % (str(value)) for value in x]))
+
+        # If convergence, print x
+        if stopping_reason != "Divergence":
+            f.write("\n")
+            f.write(' '.join(["%s" % (str(value)) for value in x]))
