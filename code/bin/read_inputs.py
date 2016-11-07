@@ -86,32 +86,36 @@ def read_inputs(filename):
         val, col, rowStart = [], [], [0]
 
         # Open a file and extract matrix size data
-
-
-
         matrix_size = int(np.genfromtxt(filename, max_rows=1))
-        for i in range(matrix_size):
-            line_in = np.genfromtxt(filename, skip_header=i+1, max_rows = 1)
-            if line_in.size != matrix_size:
-                print("Input matrix is not square. Please ensure that all rows of "
-                "the matrix have the same number of entries.")
-                exit(0)
-            else:
-                # Set the rowStart index for the current row equal to the
-                # last entry of the row
 
-                val.extend(convert_to_csr.con_to_csr(line_in, matrix_size,
-                                rowStart[-1])[0])
-                col.extend(convert_to_csr.con_to_csr(line_in, matrix_size,
-                                rowStart[-1])[1])
-                rowStart.append(convert_to_csr.con_to_csr(line_in, matrix_size,
-                                rowStart[-1])[2])
+        # For for the next n lines
+        for i in range(matrix_size):
+            # Read the line into memory
+            line_in = np.genfromtxt(filename, skip_header=i+1, max_rows = 1)
+
+            # If the line length is not equal to the number of rows in the
+            # matrix:
+            if line_in.size != matrix_size:
+                # Exit with error
+                exit("Input matrix is not square. Please ensure that all rows of "
+                "the matrix have the same number of entries.")
+            else:
+                # Extend the val, col and rowStart lists with the outputs
+                # from con_to_csr
+
+                res_c2c = convert_to_csr.con_to_csr(line_in, matrix_size,
+                                rowStart[-1])
+
+                val.extend(res_c2c[0])
+                col.extend(res_c2c[0])
+                rowStart.extend(res_c2c[0])
 
         # Convert to the lists to a numpy arrays
         val = np.array(val)
         col = np.array(col)
         rowStart = np.array(rowStart)
 
+        # Extract vector_b from file
         vector_b = np.genfromtxt(filename, skip_header = matrix_size + 1)
 
     else:
