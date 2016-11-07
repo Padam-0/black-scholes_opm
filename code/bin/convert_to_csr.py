@@ -1,5 +1,3 @@
-import numpy as np
-
 """
 convert_to_csr.py
 
@@ -38,8 +36,11 @@ Note 2: Traditional CSR refers to the first entry of each row as being in column
 is referred to in this function as column 0. As such, the last entry of
 rowStart is simply t, not t + 1, and so on.
 
+Requirements: numpy
+
 """
 
+import numpy as np
 
 def con_to_csr(matrix, matrix_length):
     # Convert an numpy array to Compressed Sparse Row Structure
