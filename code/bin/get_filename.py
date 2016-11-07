@@ -4,13 +4,13 @@ get_filename.py
 
 This module contains 3 functions:
 
-check_CM_args();
-check_file_exists(); and
-con_filename().
+  - check_CM_args();
+  - check_file_exists(); and
+  - con_filename().
 
 check_CM_args() takes 1 argument:
 
-cmArgs, a list of strings of arguments passed to another module (in this
+  - cmArgs, a list of strings of arguments passed to another module (in this
 case sor.py) via the command line.
 
 check_CM_args() checks for the existence and validity of these arguments,
@@ -33,7 +33,7 @@ given the option to try again, or exit.
 
 check_file_exists() takes 1 argument:
 
-filename - A string containing the location of the input or output file the
+  - filename - A string containing the location of the input or output file the
 user wants to use.
 
 The function checks two locations to see if this file exists, using the
@@ -41,8 +41,8 @@ os.path.isfile() function from the os package. This function returns true if
 the file exists, and false if it does not. check_file_exists() searches for
 the existence of the file name provided in two locations:
 
-./nas_Adam_Ellis_McSweeney_prog2/code/
-./nas_Adam_Ellis_McSweeney_prog2/code/sample_inputs
+  - ./nas_Adam_Ellis_McSweeney_prog2/code/
+  - ./nas_Adam_Ellis_McSweeney_prog2/code/sample_inputs
 
 The sample inputs allows testing of multiple files without having them all
 present in the upper level 'code' directory.
@@ -50,11 +50,11 @@ present in the upper level 'code' directory.
 
 con_filename() takes 3 arguments:
 
-filename - A string containing the location of the input or output file the
+  - filename - A string containing the location of the input or output file the
 user wants to use.
-argNum - The n-th argument (integer) that the user provided on the command
+  - argNum - The n-th argument (integer) that the user provided on the command
 line, defaults to 0.
-sample_file - Boolean True if the input file is contained in the
+  - sample_file - Boolean True if the input file is contained in the
 sample_inputs folder, defaults to False.
 
 con_filename() checks if a file is present in the working directory,
