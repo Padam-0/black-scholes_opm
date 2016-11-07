@@ -56,14 +56,12 @@ def main():
     print('rowStart: ', rowStart, type(rowStart))
     print('vector_b: ', vector_b, type(vector_b))
 
-<<<<<<< HEAD
     """
-=======
     # Initialize empty errors list
     errors = []
 
     # Add top level formatting errors to errors list
->>>>>>> master
+
     errors.extend(input_checks.csr_input_checks(val, col, rowStart, vector_b))
 
     # Return errors
