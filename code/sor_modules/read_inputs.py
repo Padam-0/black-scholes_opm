@@ -72,18 +72,17 @@ Required: numpy, convert_to_csr
 """
 
 import numpy as np
-import scipy.io
-from sor_modules import convert_to_csr
+from sor_modules import convert_to_csr, import_mtx, get_extension
 
 def read_inputs(filename):
     # Open a file and extract data
-    if filename[-4:] == '.mtx':
-        A = scipy.io.mmread(filename)
-        A = A.tocsr()
-        val = A.data
-        col = A.indices
-        rowStart = A.indptr
 
+    ext = get_extension.get_ext(filename)
+
+    if ext == 'mtx':
+        # Create val, col, rowStart and vector_b from mtx file
+        val, col, rowStart = import_mtx.import_mtx(filename)
+        vector_b = import_mtx.get_mtx_b(filename)
     elif np.genfromtxt(filename, max_rows=1).size == 1:
 
         # Initialize val, col and rowStart lists
