@@ -1,12 +1,10 @@
-import re
-
 """
 raw_input_check.py
 
 This module contains 1 function, read_raw_inputs(), which takes 1 argument.
 This is:
 
-filename - A string containing the location of the input or output file the
+  - filename - A string containing the location of the input or output file the
 user wants to use.
 
 read_raw_inputs() aims to check all values of the input file to ensure they
@@ -18,7 +16,11 @@ definition can only take a single data type.
 read_raw_inputs() returns a boolean value, denoting whether the input file
 contains only the allowed characters or not.
 
+Requirements: re
+
 """
+
+import re
 
 def read_raw_inputs(filename):
     # Open the input file

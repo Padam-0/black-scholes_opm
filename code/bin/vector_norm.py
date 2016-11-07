@@ -4,7 +4,7 @@ raw_input_check.py
 This module contains 1 function, vectornorm(), which takes 1 argument.
 This is:
 
-v - A 1 Dimensional Numpy array containing n elements, all floats.
+  - v - A 1 Dimensional Numpy array containing n elements, all floats.
 
 The purpose of vectornorm() is to calculate the euclidean norm of a given
 vector. In this context, the norm of the vector v (||v||) is defined as:

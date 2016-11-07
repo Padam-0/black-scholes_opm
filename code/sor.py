@@ -55,14 +55,9 @@ def main():
     x, stop, maxits, iterations, xseqtol, residual = \
     solve_sor.sor(val, col, rowStart, vector_b, n, maxits, w, x, e, tol)
 
-    print(calculate_residual.residual(val, col, rowStart, vector_b, x))
-
-
-    """
     # outputs
     write_output.output_text_file(output_filename, stop, maxits, iterations,
                                   e, xseqtol, residual ,w, x)
-    """
 
 
 if __name__ == '__main__':

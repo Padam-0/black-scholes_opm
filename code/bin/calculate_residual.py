@@ -4,14 +4,14 @@ calculate_residual.py
 This module contains 1 function, residual(), which takes 5 arguments. These
 are:
 
-val - A 1 dimensional numpy array containing the input matrix (A) values in
+  - val - A 1 dimensional numpy array containing the input matrix (A) values in
 CRS format.
-col - A 1 dimensional numpy array containing the column references for the
+  - col - A 1 dimensional numpy array containing the column references for the
 input matrix (A) entries in val.
-rowStart - A 1 dimensional numpy array containing the reference indices for
+  - rowStart - A 1 dimensional numpy array containing the reference indices for
 the beginning of each new row of the the input matrix (A)
-b - A 1 dimensional numpy array that represents the solution vector b
-x - A 1 dimensional numpy array that is the calculated solution to the
+  - b - A 1 dimensional numpy array that represents the solution vector b
+  - x - A 1 dimensional numpy array that is the calculated solution to the
 equation Ax = b for the given input matrix A and vector b.
 
 residual() solves the equation b - Ax for the given input vector b, calculated

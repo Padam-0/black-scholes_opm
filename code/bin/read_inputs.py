@@ -1,11 +1,7 @@
 """
 read_inputs.py
 
-This module contains 1 function:
-
-read_inputs().
-
-read_inputs() takes 1 arguments:
+This module contains 1 function read_inputs() which takes 1 arguments:
 
   - filename - A string containing the path to the required input file
 
@@ -107,13 +103,17 @@ def read_inputs(filename):
                                 rowStart[-1])
 
                 val.extend(res_c2c[0])
-                col.extend(res_c2c[0])
-                rowStart.extend(res_c2c[0])
+                col.extend(res_c2c[1])
+                rowStart.append(res_c2c[2])
 
         # Convert to the lists to a numpy arrays
         val = np.array(val)
         col = np.array(col)
         rowStart = np.array(rowStart)
+
+        print(val)
+        print(col)
+        print(rowStart)
 
         # Extract vector_b from file
         vector_b = np.genfromtxt(filename, skip_header = matrix_size + 1)
