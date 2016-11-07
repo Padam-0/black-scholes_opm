@@ -6,24 +6,18 @@ are:
 
   - vector - An 1 dimensional numpy array containing values corresponding to
 the input matrix A.
-  - matrix_length - An integer representing the number of rows / columns n,
+  - matrix_size - An integer representing the number of rows / columns n,
 in the n x n input matrix A.
+  - row_start - An integer representing the current val index of the
+beginning of the current row.
 
-Compressed Sparse Row formatting, or CSR, is an efficient storage algorithm
-for sparse matrices. It takes a n x n matrix and converts it to 3 vectors,
-2 of length t (number of non-zero entries in the input matrix A) and one of
-length n + 1. These are:
+con_to_csr() is run on each row of the input matrix A, represented as the
+input vector. For this row, the non-zero entries are comprehended to val,
+and returned. For each entry in the vector, the column index is added to the
+col list, which is also returned.
 
-  - val - A vector of length t that contains all the non-zero entries of
-matrix A.
-  - col - A vector of length t that contains the column indices of all the
-non-zero entries of matrix A.
-  - rowStart - A vector of length n + 1 that contains the indices of the
-entries of val which correspond to the first entry of each row of A. The
-first entry is always 0, and the last entry is t + 1, which corresponds to
-the first entry of the (n + 1)th row of the matrix, or the end of the matrix.
-
-con_to_csr() returns these 3 vectors as numpy arrays.
+con_to_csr() returns the the val and col lists for the given row, as well as
+the index of the last value in the list.
 
 Requirements: numpy
 
@@ -34,10 +28,8 @@ import numpy as np
 def con_to_csr(vector, matrix_size, row_start):
     # Convert an numpy array to Compressed Sparse Row Structure
 
-    # Remove non-zero entries in val
-    val = [i for i in vector if i != 0]
-
-    # Initialize empty col lists
+    # Initialize empty val and col lists
+    val = []
     col = []
 
     #Set position counter and number of 0's counter to 0
@@ -48,6 +40,9 @@ def con_to_csr(vector, matrix_size, row_start):
     for entry in np.nditer(vector):
         # If the entry is not equal to 0:
         if entry != 0:
+            # Add the value (non-zero) to the val list
+            val.append(entry)
+
             # Add the column index of the entry (remainder of the current
             # position divided by the total number of columns) to the col list
             col.append(pos % matrix_size)
@@ -60,4 +55,6 @@ def con_to_csr(vector, matrix_size, row_start):
         # Add 1 to the position counter
         pos += 1
 
-    return val, col, row_start + pos - zeros
+    # Return the val and col lists, and add the length of the array to the
+    # index of the beginning index of the row
+    return val, col, row_start + len(val)

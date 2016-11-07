@@ -9,6 +9,20 @@ read_inputs() takes 1 arguments:
 
   - filename - A string containing the path to the required input file
 
+Compressed Sparse Row formatting, or CSR, is an efficient storage algorithm
+for sparse matrices. It takes a n x n matrix and converts it to 3 vectors,
+2 of length t (number of non-zero entries in the input matrix A) and one of
+length n + 1. These are:
+
+  - val - A vector of length t that contains all the non-zero entries of
+matrix A.
+  - col - A vector of length t that contains the column indices of all the
+non-zero entries of matrix A.
+  - rowStart - A vector of length n + 1 that contains the indices of the
+entries of val which correspond to the first entry of each row of A. The
+first entry is always 0, and the last entry is t + 1, which corresponds to
+the first entry of the (n + 1)th row of the matrix, or the end of the matrix.
+
 read_inputs() imports data from an input file in one of two formats. First is
 a dense matrix format:
 
@@ -46,15 +60,15 @@ Both methods return 4 vectors:
   - vector_b, the vector b
 
 Note 1: Appending values to a growing list is a simple way to deal with the
-iterative nature of building the col and rowStart arrays, Numpy arrays do not
-deal well with having entries appended to them, as each new array is written
-into memory individually. As such, col and rowStart are created and grown as
-lists, then converted into numpy arrays when their contents will not be
-changed.
+iterative nature of building the val, col and rowStart arrays, Numpy arrays
+do not deal well with having entries appended to them, as each new array is
+written into memory individually. As such, col and rowStart are created and
+grown as lists, then converted into numpy arrays when their contents will
+not be changed.
 
-Note 2: Traditional CSR refers to the first entry of each row as being in column
-1. However, due to Python using 0-indexing, the first column of this matrix
-is referred to in this function as column 0. As such, the last entry of
+Note 2: Traditional CSR refers to the first entry of each row as being in
+column 1. However, due to Python using 0-indexing, the first column of this
+matrix is referred to in this function as column 0. As such, the last entry of
 rowStart is simply t, not t + 1, and so on.
 
 Required: numpy, convert_to_csr
@@ -67,11 +81,13 @@ from bin import convert_to_csr
 def read_inputs(filename):
     # Open a file and extract data
     if np.genfromtxt(filename, max_rows=1).size == 1:
-        # Input type is dense
+
+        # Initialize val, col and rowStart lists
+        val, col, rowStart = [], [], [0]
 
         # Open a file and extract matrix size data
 
-        val, col, rowStart = [], [], [0]
+
 
         matrix_size = int(np.genfromtxt(filename, max_rows=1))
         for i in range(matrix_size):
@@ -81,25 +97,19 @@ def read_inputs(filename):
                 "the matrix have the same number of entries.")
                 exit(0)
             else:
-                last_rowS = rowStart[-1]
+                # Set the rowStart index for the current row equal to the
+                # last entry of the row
 
                 val.extend(convert_to_csr.con_to_csr(line_in, matrix_size,
-                                                last_rowS)[0])
+                                rowStart[-1])[0])
                 col.extend(convert_to_csr.con_to_csr(line_in, matrix_size,
-                                                last_rowS)[1])
+                                rowStart[-1])[1])
                 rowStart.append(convert_to_csr.con_to_csr(line_in, matrix_size,
-                                                last_rowS)[2])
+                                rowStart[-1])[2])
 
-        # After all value indices have been added to the col and rowStart
-        # vectors, the final value of rowStart is t, the length of the col
-        # list.
-
-        val  = np.array(val)
-
-        # Convert to the col list to a numpy array
+        # Convert to the lists to a numpy arrays
+        val = np.array(val)
         col = np.array(col)
-
-        # Convert to the rowStart list to a numpy array
         rowStart = np.array(rowStart)
 
         vector_b = np.genfromtxt(filename, skip_header = matrix_size + 1)
