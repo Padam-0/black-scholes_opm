@@ -8,11 +8,8 @@ with A a nxn matrix in R and x, b nx1 vectors in R
 try:
     import numpy as np
     import sys
-    import os.path
-    import re
-    import math
-    from bin import get_filename, raw_input_check, read_inputs, input_checks, \
-        convert_to_csr, value_checks, solve_sor, vector_norm, \
+    from bin import get_filename, raw_input_check, read_inputs, \
+        input_checks, convert_to_csr, value_checks, solve_sor, vector_norm, \
         calculate_residual, write_output
 except ImportError as import_err:
     print(import_err)
@@ -44,8 +41,8 @@ def main():
         val, col, rowStart, vector_b = \
             read_inputs.read_inputs(input_filename)[1:]
 
-        #errors.extend(input_tests.csr_input_tests(
-        #    val, col, rowStart, vector_b))
+        errors.extend(input_checks.csr_input_tests(
+            val, col, rowStart, vector_b))
 
     errors = value_checks.value_tests(val, col, rowStart, errors)
 
@@ -80,5 +77,8 @@ def main():
                                   e, xseqtol, residual ,w, x)
     """
 
+
 if __name__ == '__main__':
     main()
+    import nose
+    nose.run(argv=[__file__, '-vv'])

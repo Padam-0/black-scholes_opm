@@ -1,5 +1,5 @@
 import numpy as np
-from code.bin import calculate_residual, vector_norm
+from bin import calculate_residual, vector_norm
 
 
 def create_initial_x(val, col, rowStart, b, n):

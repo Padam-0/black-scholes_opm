@@ -1,7 +1,7 @@
 from nose.tools import *
 import numpy.testing
 import numpy as np
-from code.bin import calculate_residual
+from bin import calculate_residual
 
 """
 ### calculate_residual tests ###

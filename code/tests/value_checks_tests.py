@@ -1,7 +1,7 @@
 from nose.tools import *
 import numpy.testing
 import numpy as np
-from code.bin import value_checks, convert_to_csr
+from bin import value_checks, convert_to_csr
 
 """
 value_check
