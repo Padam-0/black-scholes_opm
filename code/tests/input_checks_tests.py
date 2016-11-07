@@ -1,7 +1,7 @@
 from nose.tools import *
 import numpy.testing
 import numpy as np
-from code.bin import input_checks
+from bin import input_checks
 
 def test_csr_input_tests():
     val = np.array([13, 4, 4, 11, 4, 7, 8, 20, 4, 1, 1, 14])

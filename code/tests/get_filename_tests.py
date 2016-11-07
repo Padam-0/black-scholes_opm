@@ -1,7 +1,7 @@
 from nose.tools import *
 import numpy.testing
 import numpy as np
-from code.bin import get_filename
+from bin import get_filename
 
 ### get_filename check_CM_args ###
 

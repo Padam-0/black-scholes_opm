@@ -1,7 +1,7 @@
 from nose.tools import *
 import numpy.testing
 import numpy as np
-from code import bsm
+import bsm
 
 def test_create_BS_matrix():
     Mn = -3
