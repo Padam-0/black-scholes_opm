@@ -32,4 +32,4 @@ def test_vectornorm():
 
     assert_equal(res1, math.sqrt(5))
     assert_equal(res2, math.sqrt(84))
-    #assert_raises(TypeError, res3)
+    assert_raises(TypeError, vector_norm.vectornorm(v3))
