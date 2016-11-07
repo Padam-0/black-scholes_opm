@@ -155,12 +155,15 @@ def create_BS_b(M, X, Smax):
             b.append(X - (n+1) * h)
         else:
             b.append(0)
+
+    b = np.array(b)
+
     return b
 
 def main():
     # Define inital conditions
-    X = 10  # Strike Price, in Dollars
-    Smax = 20
+    X = 20  # Strike Price, in Dollars
+    Smax = 100
     T = 30  # Maturity Date, Days from now
     r = 0.01  # Risk free rate (% per day)
     theta = 0.3  # Volatility
@@ -171,25 +174,20 @@ def main():
     tol = 1 * 10 ** (-10)
 
     # Define spacing conditions
-    M = 30  # Number of Timesteps
+    M = 90  # Number of Timesteps
     k = T / M
 
     val, col, rowStart = create_BS_matrix(M, k, r, theta)
     n = rowStart.size - 1
 
-    x = solve_sor.create_initial_x(val, col, rowStart, b, n)
     b = create_BS_b(M, X, Smax)
+    x = solve_sor.create_initial_x(val, col, rowStart, b, n)
 
-    x, stop, maxits, iterations, xseqtol, residual = \
-    solve_sor.sor(val, col, rowStart, b, n, maxits, w, x, e, tol)
-
-    print(x)
-
-    """
     for m in range(M - 1, -1, -1):
         # Iterate through each timestamp from M-1 to 0
-        pass
-    """
+        b = solve_sor.sor(val, col, rowStart, b, n, maxits, w, x, e, tol)[0]
+
+    print(b)
 
 if __name__ == "__main__":
     main()

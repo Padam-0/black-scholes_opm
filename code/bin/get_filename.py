@@ -1,5 +1,3 @@
-import os
-import re
 
 """
 get_filename.py
@@ -66,7 +64,11 @@ found, will convert the file name to the proper form.
 The function returns the corrected file name and whether the input file was
 found in the sample_inputs folder or not.
 
+Requirements: os
+
 """
+
+import os
 
 def check_CM_args(cmArgs):
     # Checks if command line arguments are present, and if not, collects
@@ -94,7 +96,7 @@ def check_CM_args(cmArgs):
                 if input('Is using the default file names ok? [y/n]: '
                                      '').upper() =='Y':
                     # Append default file names to the file name list
-                    file_names.append('nas_In.out')
+                    file_names.append('nas_Sor.in')
                     file_names.append('nas_Sor.out')
                 # If not, ask to exit
                 else:
@@ -151,9 +153,11 @@ def check_CM_args(cmArgs):
             # Append the given file names to the file names list
             file_names.append(cmArgs[1])
             file_names.append(cmArgs[2])
-        # In all other circumstances, use default file names
+        # In all other circumstances, use first two arguments as file names
         else:
-            file_names = ['nas_Sor.in', 'nas_Sor.out']
+            # Append the given file names to the file names list
+            file_names.append(cmArgs[1])
+            file_names.append(cmArgs[2])
 
         # Check given file names are real files that can be opened
         if not check_file_exists(con_filename(file_names[0], 1)[0]):

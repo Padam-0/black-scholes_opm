@@ -32,7 +32,7 @@ def main():
         matrix_size, matrix_in, vector_b = read_inputs.read_inputs(
             input_filename)[1:]
 
-        errors.extend(input_checks.dense_input_test(matrix_size, matrix_in,
+        errors.extend(input_checks.dense_input_checks(matrix_size, matrix_in,
                                                vector_b))
 
         val, col, rowStart = convert_to_csr.con_to_csr(matrix_in, matrix_size)
@@ -41,10 +41,10 @@ def main():
         val, col, rowStart, vector_b = \
             read_inputs.read_inputs(input_filename)[1:]
 
-        errors.extend(input_checks.csr_input_tests(
+        errors.extend(input_checks.csr_input_checks(
             val, col, rowStart, vector_b))
 
-    errors = value_checks.value_tests(val, col, rowStart, errors)
+    #errors = value_checks.value_tests(val, col, rowStart, errors)
 
     if len(errors) != 0:
         print("The following errors were identified:\n")
@@ -80,5 +80,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-    import nose
-    nose.run(argv=[__file__, '-vv'])

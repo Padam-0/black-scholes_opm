@@ -1,6 +1,3 @@
-import numpy as np
-from bin import vector_norm
-
 """
 calculate_residual.py
 
@@ -29,7 +26,12 @@ This represents the 'distance' to the correct value of x from the current
 guess (of x) at an iteration. A smaller value of residual suggests that the
 distance between current guess for x and the true solution is small.
 
+Requirements: numpy, vector_norm
+
 """
+
+import numpy as np
+from bin import vector_norm
 
 def residual(val, col, rowStart, b, x):
     # Solve ||b - Ax||
