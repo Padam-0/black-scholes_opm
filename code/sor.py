@@ -27,9 +27,12 @@ def main():
 
     errors = []
 
+
     val, col, rowStart, vector_b = read_inputs.read_inputs(input_filename)
 
+
     errors.extend(input_checks.csr_input_checks(val, col, rowStart, vector_b))
+
 
     errors = value_checks.value_tests(val, col, rowStart, errors)
 
@@ -39,23 +42,27 @@ def main():
             print('   - ' + i)
         exit("\nPlease correct these errors and restart the program")
 
-    # Set tolerance
+    # Set Tolerance
     tol = 1 * 10 ** (-10)
 
-    # Calculate n
+    # Calculate n based on size of input matrix
     n = rowStart.size - 1
 
-    # Set maximum iterations
+    # Set number of maximum iterations
     maxits = 100
 
+    # Set initial relaxation factor
     w = 1.3
+    # Create initial vector x (if required)
     x = solve_sor.create_initial_x(val, col, rowStart, vector_b, n)
+    # Set Machine Epsilon based on computer specifications
     e = np.finfo(float).eps
 
+    # Solve matrixing using Successive Over Relaxation
     x, stop, maxits, iterations, xseqtol, residual = \
     solve_sor.sor(val, col, rowStart, vector_b, n, maxits, w, x, e, tol)
 
-    # outputs
+    # Output results to specified output file
     write_output.output_text_file(output_filename, stop, maxits, iterations,
                                   e, xseqtol, residual ,w, x)
 
