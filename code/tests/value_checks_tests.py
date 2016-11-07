@@ -33,14 +33,14 @@ def test_zero_diag():
 
 def test_matrix_det():
     import numpy as np
-    a = np.matrix('12 0 0; 4 11 0; 7 8 16')
-    b = np.matrix('12 0 0; 4 0 4; 5 5 5')
+    a = np.array([[12, 0, 0], [4, 11, 0], [7, 8, 16]])
+    b = np.array([[12, 0, 0], [4, 0, 0], [7, 8, 16]])
 
     res1 = value_checks.matrix_det(a)
     res2 = value_checks.matrix_det(b)
 
-    numpy.testing.assert_equal(res1, True)
-    numpy.testing.assert_equal(res2, False)
+    assert_equal(res1, True)
+    assert_equal(res2, False)
 
 
 def test_diag_dominant():
