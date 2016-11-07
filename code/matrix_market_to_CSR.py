@@ -4,7 +4,7 @@ def mm_to_CSR(file1):
     A = scipy.io.mmread(file1)
     size = A.shape[0]
     for i in range(size):
-        b = np.random.randint(-100, 100, size=(n))
+        b = np.random.randint(-100, 100, size=(size))
     A = A.tocsr()
     value = A.data
     column_index = A.indices
