@@ -9,8 +9,8 @@ CRS format.
   - col - A 1 dimensional numpy array containing the column references for the
 input matrix (A) entries in val.
   - rowStart - A 1 dimensional numpy array containing the reference indices for
-the beginning of each new row of the the input matrix (A)
-  - b - A 1 dimensional numpy array that represents the solution vector b
+the beginning of each new row of the the input matrix (A).
+  - b - A 1 dimensional numpy array that represents the solution vector b.
   - x - A 1 dimensional numpy array that is the calculated solution to the
 equation Ax = b for the given input matrix A and vector b.
 
