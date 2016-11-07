@@ -14,7 +14,7 @@ try:
 except ImportError as import_err:
     print(import_err)
     print("Unable to import required libraries. Please check installation of "
-          "sys, numpy, os & re libraries for python 3.5")
+          "sys, numpy, os, scipy.io & re libraries for python 3.5")
     exit(0)
 
 
