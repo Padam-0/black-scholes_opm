@@ -26,7 +26,7 @@ f_N,m = 0
 
 f_(n,m) = max{X-nh, 0} where h = S_max / N
 
-Returns the intial array b based on inputs.
+Returns the initial array b based on inputs.
 
 Requirements: numpy
 

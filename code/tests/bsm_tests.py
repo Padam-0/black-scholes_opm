@@ -1,13 +1,13 @@
 from nose.tools import *
 import numpy.testing
 import numpy as np
-from bsm_modules import create_BS_b, create_BS_matrix
+from bsm_modules import create_BS_matrix
 
 """
 
 bsm_tests.py
 
-The test module has four test cases
+The test module has four test cases:
 
 - Test 1 tests an invalid argument, M = 2. A SystemExit is the expected return
 - Test 2 tests another invalid argument M = -2. A SystemExit is the expected return
@@ -22,8 +22,7 @@ def test_create_BS_matrix():
     M1 = 2
     M2 = -2
     M3 = 5
-    X = 12
-    S_Max = 20
+
     k1 = 5
     k2 = "string"
     r = 0.02
