@@ -55,8 +55,7 @@ def test_con_filename():
     b = 'Input_descriptions.txt'
     c = 'san_Ros.ni'
     d = 'sample_inputs/nas_Sor3.in'
-    e = 'output.txt'
-    f = 'input.txt'
+    e = 'input.txt'
 
 
     res1 = get_filename.con_filename(a, 1)
@@ -64,12 +63,10 @@ def test_con_filename():
     res3 = get_filename.con_filename(c, 0)
     res4 = get_filename.con_filename(d, 0)
     res5 = get_filename.con_filename(e, 2)
-    res6 = get_filename.con_filename(f, 2)
 
 
     assert_equal(res1, ("sample_inputs/nas_Sor2.in", True))
     assert_equal(res2, ("Input_descriptions.txt", True))
     assert_equal(res3, ("san_Ros.ni",False))
     assert_equal(res4, ("sample_inputs/nas_Sor3.in", True))
-    assert_equal(res5, ("sample_outputs/output.txt", True))
-    assert_equal(res6, ("input.txt", False))
+    assert_equal(res5, ("input.txt", False))
