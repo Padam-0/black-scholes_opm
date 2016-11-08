@@ -4,18 +4,11 @@ import numpy as np
 from sor_modules import calculate_residual
 
 """
-### calculate_residual tests ###
+calculate_residual tests
 
-This function contains values to test the residual function with calculate_residual.py
+This test module has one test case:
 
-Test data generated from current nas_Sor.in file
-    Contents of nas_Sor.in:
-    4
-    13 0 0 4
-    4 11 0 4
-    7 8 20 4
-    1 0 1 14
-    1 2 3 4
+- Test case 1 reads in test data from nas_Sor.in which has all valid inputs
 
 """
 
@@ -28,4 +21,5 @@ def test_calculate_residual():
 
     res1 = calculate_residual.residual(val, col, rowStart, b, x)
 
-    numpy.testing.assert_almost_equal(res1, 2.5404391594785375e-10, decimal=5)
+    # test case 1
+    numpy.testing.assert_almost_equal(res1, 2.5404391594785375e-10, decimal=6)
