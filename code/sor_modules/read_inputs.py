@@ -119,18 +119,6 @@ def read_inputs(filename):
         col = np.array(col)
         rowStart = np.array(rowStart)
 
-<<<<<<< HEAD:code/bin/read_inputs.py
-        # # repair arrays
-        # val = repr(val)
-        # col = repr(col)
-        # rowStart = repr(rowStart)
-
-        # print(val)
-        # print(col)
-        # print(rowStart)
-
-=======
->>>>>>> master:code/sor_modules/read_inputs.py
         # Extract vector_b from file
         vector_b = np.genfromtxt(filename, skip_header = matrix_size + 1)
 
@@ -141,4 +129,4 @@ def read_inputs(filename):
         rowStart = np.genfromtxt(filename, skip_header=2, skip_footer=1)
         vector_b = np.genfromtxt(filename, skip_header=3)
 
-    print(val, col, rowStart, vector_b)
+    return val, col, rowStart, vector_b
