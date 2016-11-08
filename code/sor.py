@@ -51,12 +51,7 @@ def main():
 
     # Read val, col and rowStart vectors from the specified filename
     val, col, rowStart, vector_b = read_inputs.read_inputs(input_filename)
-    print('Val: ', val, type(val))
-    print('Col: ', col, type(col))
-    print('rowStart: ', rowStart, type(rowStart))
-    print('vector_b: ', vector_b, type(vector_b))
 
-    """
     # Initialize empty errors list
     errors = []
 
@@ -96,10 +91,6 @@ def main():
     # Output results to specified output file
     write_output.output_text_file(output_filename, stop, maxits, iterations,
                                   e, xseqtol, residual ,w, x)
-    """
-
-
-
 
 
 if __name__ == '__main__':
