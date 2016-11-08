@@ -29,7 +29,7 @@ Requirements: numpy, scipy.io
 
 """
 
-from sor_modules import get_filename
+import get_filename
 import numpy as np
 import scipy.io
 

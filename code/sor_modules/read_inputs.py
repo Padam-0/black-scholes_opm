@@ -72,7 +72,7 @@ Required: numpy, convert_to_csr
 """
 
 import numpy as np
-from sor_modules import convert_to_csr, import_mtx, get_extension
+import convert_to_csr, import_mtx, get_extension
 
 def read_inputs(filename):
     # Open a file and extract data
@@ -130,3 +130,9 @@ def read_inputs(filename):
         vector_b = np.genfromtxt(filename, skip_header=3)
 
     return val, col, rowStart, vector_b
+
+val, col, rowStart, vector_b = read_inputs('code/nas_Sor.in')
+print("val: ", val, type(val))
+print("col: ", col, type(col))
+print("rowStart: ", rowStart, type(rowStart))
+print("vector_b: ", vector_b, type(vector_b))
