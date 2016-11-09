@@ -52,9 +52,9 @@ difference.
 
 This gives:
 
-f_(n, m+1) = -nk/2(n*theta^2-r) * f_(n-1,m)
-    + (1 + kr + k * theta^2 * n^2)* f_(n,m)
-    - nk/2(n* theta^2 + r) * f_(n+1, m)
+f_(n, m+1) = -nk/2(n*sigma^2-r) * f_(n-1,m)
+    + (1 + kr + k * sigma^2 * n^2)* f_(n,m)
+    - nk/2(n* sigma^2 + r) * f_(n+1, m)
 
 This represents 4 grid points, and as the value of f_(n, m+1) is known,
 the others represent a system of linear equations.
@@ -83,9 +83,9 @@ and allow us to start
 We first form a system of linear equations for the timestep m = M - 1 and solve
 the resulting equation Af = b. This gives:
 
-f_(n, M) = -nk/2(n*theta^2-r) * f_(n-1,M-1)
-    + (1 + kr + k * theta^2 * n^2)* f_(n,M-1)
-    - nk/2(n* theta^2 + r) * f_(n+1, M-1)
+f_(n, M) = -nk/2(n*sigma^2-r) * f_(n-1,M-1)
+    + (1 + kr + k * sigma^2 * n^2)* f_(n,M-1)
+    - nk/2(n* sigma^2 + r) * f_(n+1, M-1)
 
 for n = 1,...,N-1, and we know all the numbers on the RHS from the boundary
 conditions and 'final' condition when t = T so we can solve this
@@ -120,7 +120,7 @@ def main():
     Smax = 100
     T = 30  # Maturity Date, Days from now
     r = 0.01  # Risk free rate (% per day)
-    theta = 0.3  # Volatility sugma
+    sigma = 0.3  # Volatility
     maxits = 100 # Maximum iterations
     e = np.finfo(float).eps # Machine Epsilon
     w = 1.3 # Relaxation factor
@@ -131,12 +131,12 @@ def main():
     k = T / M # Step distance
 
     # Create Black-Scholes matrix in CSR format
-    val, col, rowStart = create_BS_matrix.create_BS_matrix(M, k, r, theta)
+    val, col, rowStart = create_BS_matrix.create_BS_matrix(M, k, r, sigma)
     # Set matrix size
     n = rowStart.size - 1
 
     # Create initial matrix b
-    b = create_BS_b.create_BS_b(M, X, Smax, k, theta, r)
+    b = create_BS_b.create_BS_b(M, X, Smax, k, sigma, r)
 
     # Create optimized initial vector x
     x = solve_sor.create_initial_x(val, col, rowStart, b, n)

@@ -13,7 +13,7 @@ is of the form:
 
 f_0,m
 [
-f_(1, m+1) + k/2(theta^2 - r)X
+f_(1, m+1) + k/2(sigma^2 - r)X
 f_(2, m+1)
 f_(3, m+1)
 ...
@@ -34,7 +34,7 @@ Requirements: numpy
 
 import numpy as np
 
-def create_BS_b(M, X, S_max, k, theta, r):
+def create_BS_b(M, X, S_max, k, sigma, r):
     # Set matrix partition as the division of S_max over M intervals
     h = S_max / M
 
@@ -46,7 +46,7 @@ def create_BS_b(M, X, S_max, k, theta, r):
         # For the first iteration:
         if n == 0:
             # Append the option value to the list
-            b.append((X - (n + 1) * h) + k/2 * (theta ** 2 - r) * X)
+            b.append((X - (n + 1) * h) + k/2 * (sigma ** 2 - r) * X)
         # If the value of the option is positive:
         elif X - (n+1) * h > 0:
             # Append the option value to the list
