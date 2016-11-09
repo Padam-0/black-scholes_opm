@@ -106,7 +106,7 @@ try:
     import numpy as np
     import math
     from sor_modules import solve_sor
-    from bsm_modules import create_BS_matrix, create_BS_b
+    from bsm_modules import create_BS_matrix, create_BS_b, get_bsm_inputs
 except ImportError as import_err:
     print(import_err)
     print("Unable to import required libraries. Please check installation of "
@@ -116,18 +116,24 @@ except ImportError as import_err:
 def main():
 
     # Define inital conditions
-    X = 20  # Strike Price, in Dollars
-    Smax = 100
-    T = 30  # Maturity Date, Days from now
-    r = 0.01  # Risk free rate (% per day)
-    sigma = 0.3  # Volatility
+    testing = True
+    if testing == False:
+        s, X, T, sigma, r, = get_bsm_inputs.get_bsm_inputs()
+    else:
+        s = 10
+        X = 20  # Strike Price, in Dollars
+        T = 30  # Maturity Date, Days from now
+        r = 0.01  # Risk free rate (% per day)
+        sigma = 0.3  # Volatility
+
+    Smax = min([100, 10 * max(X, s)])
     maxits = 100 # Maximum iterations
     e = np.finfo(float).eps # Machine Epsilon
     w = 1.3 # Relaxation factor
     tol = 1 * 10 ** (-10) # X sequence tolerance
 
     # Define spacing conditions
-    M = 90  # Number of timesteps
+    M = 5 * T  # Number of timesteps
     k = T / M # Step distance
 
     # Create Black-Scholes matrix in CSR format
@@ -137,6 +143,8 @@ def main():
 
     # Create initial matrix b
     b = create_BS_b.create_BS_b(M, X, Smax, k, sigma, r)
+
+    print(b)
 
     # Create optimized initial vector x
     x = solve_sor.create_initial_x(val, col, rowStart, b, n)
