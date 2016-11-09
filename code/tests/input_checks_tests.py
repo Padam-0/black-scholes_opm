@@ -26,4 +26,4 @@ def test_dense_input_test():
 
     #res1 = input_checks.dense_input_checks(matrix_size, matrix_in, vector_b)
 
-    #assert_equal(res1, None)
+    assert_equal(res1, None)

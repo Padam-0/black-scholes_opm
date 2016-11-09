@@ -106,6 +106,10 @@ def read_inputs(filename):
                 # Extend the val, col and rowStart lists with the outputs
                 # from con_to_csr
 
+                print("line_in: ", line_in, type(line_in))
+                print("matrix_size: ", matrix_size, type(matrix_size))
+                print("rowStart: ", rowStart[-1], type(rowStart))
+
                 res_c2c = convert_to_csr.con_to_csr(line_in, matrix_size,
                                 rowStart[-1])
 
@@ -130,9 +134,3 @@ def read_inputs(filename):
         vector_b = np.genfromtxt(filename, skip_header=3)
 
     return val, col, rowStart, vector_b
-
-val, col, rowStart, vector_b = read_inputs('code/nas_Sor.in')
-print("val: ", val, type(val))
-print("col: ", col, type(col))
-print("rowStart: ", rowStart, type(rowStart))
-print("vector_b: ", vector_b, type(vector_b))

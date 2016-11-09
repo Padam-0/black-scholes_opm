@@ -1,32 +1,36 @@
 from nose.tools import *
 import numpy.testing
 import numpy as np
-from sor_modules import  convert_to_csr
+from sor_modules import convert_to_csr
 
-### convert_to_csr tests ###
-# Two test cases set up to test
+"""
+con_to_csr.py
+
+This module contains four test cases. All four contain different valid tests that
+are expected to pass and raise no errors
+
+"""
 
 def test_con_to_csr():
-    res1 = convert_to_csr.con_to_csr(np.array(
-            [[12, 0, 0], [4, 11, 0],[7, 8, 16]]), 3.0)
 
-    res2 = convert_to_csr.con_to_csr(np.array(
-        [[13, 0, 0, 4], [4, 11, 0, 4], [7, 8, 20, 4], [1, 0, 1, 14]]), 4)
+    vector1 = np.array([13., 0., 0., 4.])
+    vector2 = np.array([4., 11., 0., 4.])
+    vector3 = np.array([7., 8., 20., 4.])
+    vector4 = np.array([1., 0., 1., 14.])
 
-    val = [12, 0, 0, 4, 11, 0, 7, 8, 16]
-    num = 3
-    rowStart = np.array([1, 3, 4, 7, 8, 9])
+    matrix_size = 4
 
-    res3 = convert_to_csr.con_to_csr(val, num, rowStart)
+    rowStart1 = 0
+    rowStart2 = 2
+    rowStart3 = 5
+    rowStart4 = 9
 
-    #assert_equal(res3, ([val], [col], ))
+    res1 = convert_to_csr.con_to_csr(vector1, matrix_size, rowStart1)
+    res2 = convert_to_csr.con_to_csr(vector2, matrix_size, rowStart2)
+    res3 = convert_to_csr.con_to_csr(vector3, matrix_size, rowStart3)
+    res4 = convert_to_csr.con_to_csr(vector4, matrix_size, rowStart4)
 
-    # # 3x3 Matrix Tests
-    # numpy.testing.assert_array_equal(res1[0], np.array([12,4,11,7,8,16]))
-    # numpy.testing.assert_array_equal(res1[1], np.array([0,0,1,0,1,2]))
-    # numpy.testing.assert_array_equal(res1[2], np.array([0,1,3,6]))
-    #
-    # #4x4 Matrix Tests
-    # numpy.testing.assert_array_equal(res2[0], np.array([13.0, 4.0, 4.0, 11.0, 4.0, 7.0, 8.0, 20.0, 4.0, 1.0, 1.0, 14.0]))
-    # numpy.testing.assert_array_equal(res2[1], np.array([0, 3, 0, 1, 3, 0, 1, 2, 3, 0, 2, 3]))
-    # numpy.testing.assert_array_equal(res2[2], np.array([0, 2, 5, 9, 12]))
+    assert_equal(res1, ([np.array([13]), np.array([4])], [0, 3], 2))
+    assert_equal(res2, ([np.array([4]), np.array([11]), np.array([4])], [0, 1, 3], 5))
+    assert_equal(res3, ([np.array([7]), np.array([8]), np.array([20]), np.array([4])], [0, 1, 2, 3], 9))
+    assert_equal(res4, ([np.array([1]), np.array([1]), np.array([14])], [0, 2, 3], 12))
