@@ -6,24 +6,65 @@ This module contains two functions:
 - create_initial_x(); and
 - sor().
 
-create_initial_x() takes 5 arguments, these are:
- - val - A 1 dimensional numpy array containing the input matrix (A) values in
+create_initial_x() takes 5 arguments. These are:
+
+  - val - A 1 dimensional numpy array containing the input matrix (A) values in
 CRS format.
   - col - A 1 dimensional numpy array containing the column references for the
 input matrix (A) entries in val.
   - rowStart - A 1 dimensional numpy array containing the reference indices for
 the beginning of each new row of the the input matrix (A).
   - b - A 1 dimensional numpy array that represents the solution vector b.
-  - x - A 1 dimensional numpy array that is the calculated solution to the
-equation Ax = b for the given input matrix A and vector b.
+  - n - an integer the size of the x vector to be created.
 
-- val - the CSR entries of the input matrix
-- col - the CSR column value of the input matrix
-- rowStart - the
-- b
-- n
+create_initial_x() creates 50 initial x-vectors made up of n random
+integers whose values range from -100 to 100. The function residual()
+is imported to calculate residuals. Each x-vector and its residual is appended
+to a list.
+
+Whichever x-vector has the lowest residual returned to be used as the initial x-vector in SOR.
+
+Requirements: numpy and calculate_residual
+
+sor() takes 10 arguments. These are:
+
+  - val - A 1 dimensional numpy array containing the input matrix (A) values in
+CRS format.
+  - col - A 1 dimensional numpy array containing the column references for the
+input matrix (A) entries in val.
+  - rowStart - A 1 dimensional numpy array containing the reference indices for
+the beginning of each new row of the the input matrix (A).
+  - b - A 1 dimensional numpy array that represents the solution vector b.
+  - n - an integer the size of the x vector to be created.
+  - maxits - Maximum integer of iterations allowed.
+  - w - Relaxation factor, float.
+  - x - A 1 dimensional numpy array created from create_initial_x() which is the
+initial solution to Ax=b.
+  - e - the machine epsilon to be used, float.
+  - tol - X Sequence tolerance allowed, float.
+
+what does it do
+Sor() solves Ax=b for x when the matrix A is in CSR format. It creates a while loop
+which iterates a maximum number of times (equal to maxits), improving the initial
+guess for the x-vector each time. After each iteration the function checks whether
+there was residual convergence, x-sequence convergence, or divergence and stops if
+any of these are true. If after maxits number of iterations none of these conditions
+are true then the loop stops.
 
 
+The function will return:
+
+- the solution vector_x
+- the stopping reason
+- the maximum number of iterations
+- the actual number of iterations
+- machine epsilon
+- the tolerance allowed
+- the current residual
+- and w, the relaxation factor.
+
+
+Requirements: numpy, vector_norm
 """
 
 import numpy as np
@@ -75,9 +116,9 @@ def sor(val, col, rowStart, b, n, maxits, w, x, e, tol):
         # machine_epsilon, x-seq_tolerance, residual, w
         if r == 0:
             return x, "Residual convergence", maxits, k+1, tol, r
-            # ^^ have to return residual tolerance used..?
+            # ^^ have to return residual tolerance used..? residual tolerance = ||r|| / ||b|| ?
 
-        elif vector_norm.vectornorm(abs(x1-x2)) < tol-4*e:
+        elif vector_norm.vectornorm(abs(x1-x2)) < tol+4*e:
             #x-convergence
             return x, "x Sequence Convergence", maxits, k+1, tol, r
 
