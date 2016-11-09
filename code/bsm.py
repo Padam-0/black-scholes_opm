@@ -120,7 +120,7 @@ def main():
     Smax = 100
     T = 30  # Maturity Date, Days from now
     r = 0.01  # Risk free rate (% per day)
-    theta = 0.3  # Volatility
+    theta = 0.3  # Volatility sugma
     maxits = 100 # Maximum iterations
     e = np.finfo(float).eps # Machine Epsilon
     w = 1.3 # Relaxation factor
