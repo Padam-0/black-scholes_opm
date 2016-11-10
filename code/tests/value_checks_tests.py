@@ -29,18 +29,6 @@ def test_zero_diag():
     assert_equal(res2, False)
     assert_equal(res3, True)
 
-def test_matrix_det():
-    import numpy as np
-    a = np.array([[12, 0, 0], [4, 11, 0], [7, 8, 16]])
-    b = np.array([[12, 0, 0], [4, 0, 0], [7, 8, 16]])
-
-    res1 = value_checks.matrix_det(a)
-    res2 = value_checks.matrix_det(b)
-
-    assert_equal(res1, True)
-    assert_equal(res2, False)
-
-
 def test_diag_dominant():
     res1 = convert_to_csr.con_to_csr(np.array(
             [[12, 0, 0], [4, 11, 0],
