@@ -106,10 +106,6 @@ def read_inputs(filename):
                 # Extend the val, col and rowStart lists with the outputs
                 # from con_to_csr
 
-                print("line_in: ", line_in, type(line_in))
-                print("matrix_size: ", matrix_size, type(matrix_size))
-                print("rowStart: ", rowStart[-1], type(rowStart))
-
                 res_c2c = convert_to_csr.con_to_csr(line_in, matrix_size,
                                 rowStart[-1])
 
