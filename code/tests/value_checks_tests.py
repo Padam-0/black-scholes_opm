@@ -8,9 +8,9 @@ value_check.py
 
 """
 # Matrix Values
-val1 = [13.0, 4.0, 4.0, 11.0, 4.0, 7.0, 8.0, 20.0, 4.0, 1.0, 1.0, 14.0]
-val2 = [13.0, 4.0, 4.0, 11.0, 4.0, 7.0, 8.0, 4.0, 1.0, 1.0, 14.0]
-val3 = [3.0, 4.0, 4.0, 11.0, 4.0, 7.0, 8.0, 20.0, 4.0, 1.0, 1.0, 14.0]
+val1 = np.array([13.0, 4.0, 4.0, 11.0, 4.0, 7.0, 8.0, 20.0, 4.0, 1.0, 1.0, 14.0])
+val2 = np.array([13.0, 4.0, 4.0, 11.0, 4.0, 7.0, 8.0, 4.0, 1.0, 1.0, 14.0])
+val3 = np.array([3.0, 4.0, 4.0, 11.0, 4.0, 7.0, 8.0, 20.0, 4.0, 1.0, 1.0, 14.0])
 
 col1 = np.array([0, 3, 0, 1, 3, 0, 1, 2, 3, 0, 2, 3])
 col2 = np.array([0, 3, 0, 1, 3, 0, 1, 3, 0, 2, 3])
@@ -47,7 +47,7 @@ def test_value_tests():
     res2 = value_checks.value_tests(val2, col2, rowStart2, errors)
     res3 = value_checks.value_tests(val3, col3, rowStart3, errors)
 
-    assert_equal(res1, None)
-    assert_equal(res2, "There are zeros on the diagonal")
-    assert_equal(res3, "The matrix is not row and column diagonally dominant")
+    assert_equal(res1, [])
+    assert_equal(res2, ["There are zeros on the diagonal"])
+    assert_equal(res3, ["The matrix is not strictly row or column diagonally dominant"])
 

@@ -70,9 +70,8 @@ rowStart is simply t, not t + 1, and so on.
 Required: numpy, convert_to_csr
 
 """
-
+from sor_modules import convert_to_csr, import_mtx, get_extension
 import numpy as np
-import convert_to_csr, import_mtx, get_extension
 
 def read_inputs(filename):
     # Open a file and extract data
