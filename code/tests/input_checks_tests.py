@@ -25,7 +25,7 @@ val3 = np.array([3.0, 4.0, 4.0, 11.0, 4.0, 7.0, 8.0, 20.0, 4.0, 1.0, 1.0, 14.0, 
 
 col1 = np.array([0, 3, 0, 1, 3, 0, 1, 2, 3, 0, 2, 3])
 col2 = np.array([0, 3, 0, 1, 3, 0, 1, 3, 0, 2, 3, 4])
-col3 = np.array([0, 3.5, 0, 1, 3, 0, 1, 2, 3, 0, 2, 3])
+col3 = np.array([0, 3, 0, 3.5, 3, 0, 1, 2, 3, 0, 2, 3])
 
 rowStart1 = np.array([0, 2, 5, 9, 12])
 rowStart2 = np.array([0, 2, 5, 8, 10])
@@ -58,4 +58,4 @@ def test_csr_input_checks():
     assert_equal(res6, ["RowStart vector contains non-integer entries"])
     assert_equal(res7, ["Value and column vectors do not have the same number "
                       "of entries"])
-    assert_equal(res8, ["Column vector contains non-integer entries"])
+    assert_equal(res8, ["Column vector contains non-integer entries", "Uneven number of rows and columns"])
