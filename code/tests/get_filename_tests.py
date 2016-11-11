@@ -3,8 +3,6 @@ import numpy.testing
 import numpy as np
 from sor_modules import get_filename
 
-### get_filename check_CM_args ###
-
 """
 get_filename_tests.py
 

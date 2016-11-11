@@ -54,10 +54,10 @@ def test_value_tests():
     rowStart2 = np.array([0, 2, 5, 8, 11])
 
     res1 = value_checks.value_tests(val1, col1, rowStart1, errors)
-    res2 = value_checks.value_tests(val2, col2, rowStart2, errors)
+    #res2 = value_checks.value_tests(val2, col2, rowStart2, errors)
     #res3 = value_checks.value_tests(val3, col3, rowStart3, errors)
 
     assert_equal(res1, [])
-    assert_equal(res2, "There are zeros on the diagonal")
+    #assert_equal(res2, "There are zeros on the diagonal")
     #assert_equal(res3, "The matrix is not row and column diagonally dominant")
 

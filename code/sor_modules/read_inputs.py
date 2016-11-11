@@ -70,9 +70,8 @@ rowStart is simply t, not t + 1, and so on.
 Required: numpy, convert_to_csr
 
 """
-
+from sor_modules import convert_to_csr, import_mtx, get_extension
 import numpy as np
-import convert_to_csr, import_mtx, get_extension
 
 def read_inputs(filename):
     # Open a file and extract data
@@ -130,9 +129,3 @@ def read_inputs(filename):
         vector_b = np.genfromtxt(filename, skip_header=3)
 
     return val, col, rowStart, vector_b
-
-val, col, rowStart, vector_b = read_inputs('sample_mtx.mtx')
-print('Val: ', val, type(val))
-print('Col: ', col, type(col))
-print('rowStart: ', rowStart, type(rowStart))
-print('vector_b: ', vector_b, type(vector_b))
