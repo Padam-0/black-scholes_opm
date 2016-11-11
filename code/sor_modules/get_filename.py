@@ -178,10 +178,6 @@ def check_CM_args(cmArgs):
     # Return file names
     return input_file, output_file
 
-inp, outp = check_CM_args(["sor.py", "nas_Sor.in", "nas_Sor.out"])
-print(inp)
-print(outp)
-
 
 def check_file_exists(filename):
     # Return True if the file exists in ./code/ or ./code/sample_inputs/

@@ -56,3 +56,5 @@ def output_text_file(output_file_name, stopping_reason, maxits, iterations,
         if stopping_reason != "Divergence":
             f.write("\n")
             f.write(' '.join(["%s" % (str(value)) for value in x]))
+
+

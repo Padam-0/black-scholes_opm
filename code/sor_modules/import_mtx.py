@@ -126,8 +126,3 @@ def get_mtx_b(val, rowStart):
 
     # Return b
     return vector_b
-
-
-val, col, rowStart = import_mtx('sample_mtx.mtx')
-vector_b = get_mtx_b(val, rowStart)
-print(vector_b)
