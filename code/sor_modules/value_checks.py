@@ -144,9 +144,8 @@ def value_tests(val, col, rowStart, errors):
     if not zero_diag(val, col, rowStart):
         # If it does, append the error message to the list
         errors.append("There are zeros on the diagonal")
-
     # Check if the matrix is strictly row or column diagonally dominant:
-    if not diag_dominant(val, col, rowStart):
+    elif not diag_dominant(val, col, rowStart):
         # If it is not, append the error message to the list
         errors.append("The matrix is not strictly row or column diagonally "
                       "dominant")
