@@ -46,11 +46,11 @@ def create_BS_b(M, X, S_max, k, sigma, r):
         # For the first iteration:
         if n == 0:
             # Append the option value to the list
-            b.append((X - (n + 1) * h) + k/2 * (sigma ** 2 - r) * X)
+            b.append((S_max - (n + 1) * h) - X)
         # If the value of the option is positive:
-        elif X - (n+1) * h > 0:
+        elif (S_max - (n+1) * h) - X > 0:
             # Append the option value to the list
-            b.append(X - (n+1) * h)
+            b.append(S_max - (n+1) * h - X)
         # If the option value is 0 or negative
         else:
             # Append 0
@@ -61,3 +61,5 @@ def create_BS_b(M, X, S_max, k, sigma, r):
 
     # Return b
     return b
+
+""""+ k/2 * (sigma ** 2 - r) * X"""

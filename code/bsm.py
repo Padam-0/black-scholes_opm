@@ -120,21 +120,24 @@ def main():
     if testing == False:
         s, X, T, sigma, r, = get_bsm_inputs.get_bsm_inputs()
     else:
-        s = 10
-        X = 20  # Strike Price, in Dollars
-        T = 30  # Maturity Date, Days from now
-        r = 0.01  # Risk free rate (% per day)
-        sigma = 0.3  # Volatility
+        s = 8  # Stock Price today, in Dollars
+        X = 10  # Strike Price, in Dollars
+        T = 365  # Maturity Date, Days from now
+        r = 0.02  # Risk free rate (% per year)
+        sigma = 0.025  # Volatility
 
-    Smax = min([100, 10 * max(X, s)])
+    #Smax = min([100, 10 * max(X, s)])
+    Smax = 20
     maxits = 100 # Maximum iterations
     e = np.finfo(float).eps # Machine Epsilon
     w = 1.3 # Relaxation factor
     tol = 1 * 10 ** (-10) # X sequence tolerance
 
     # Define spacing conditions
-    M = 5 * T  # Number of timesteps
-    k = T / M # Step distance
+    M = 160 # Number of timesteps
+    N = 160
+    k = T / M # Time Step distance
+    ds = Smax / N # Price Step distance
 
     # Create Black-Scholes matrix in CSR format
     val, col, rowStart = create_BS_matrix.create_BS_matrix(M, k, r, sigma)
@@ -152,8 +155,9 @@ def main():
     for m in range(M - 1, -1, -1):
         # Iterate through each timestamp from M-1 to 0
         b = solve_sor.sor(val, col, rowStart, b, n, maxits, w, x, e, tol)[0]
+        #b[0] += k/2 * (sigma ** 2 - r) * X
 
-    print(b)
+    print(b[int(round(s/(Smax/M),0))])
 
 if __name__ == "__main__":
     main()

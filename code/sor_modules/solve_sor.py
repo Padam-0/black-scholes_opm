@@ -43,7 +43,6 @@ initial solution to Ax=b.
   - e - the machine epsilon to be used, float.
   - tol - X Sequence tolerance allowed, float.
 
-what does it do
 Sor() solves Ax=b for x when the matrix A is in CSR format. It creates a while loop
 which iterates a maximum number of times (equal to maxits), improving the initial
 guess for the x-vector each time. After each iteration the function checks whether
@@ -101,7 +100,7 @@ def sor(val, col, rowStart, b, n, maxits, w, x, e, tol):
         for i in range(0, n):
             sum1 = 0
             for j in range(int(rowStart[i]), int(rowStart[i+1])):
-                sum1=sum1+val[j] * x[int(col[j])]
+                sum1 = sum1 + val[j] * x[int(col[j])]
                 if col[j] == i:  # identify and store diagonal entry
                     d = val[j]
             x[i] = x[i] + w * (b[i] - sum1) / d
@@ -118,7 +117,7 @@ def sor(val, col, rowStart, b, n, maxits, w, x, e, tol):
             return x, "Residual convergence", maxits, k+1, tol, r
             # ^^ have to return residual tolerance used..? residual tolerance = ||r|| / ||b|| ?
 
-        elif vector_norm.vectornorm(abs(x1-x2)) < tol+4*e:
+        elif vector_norm.vectornorm(abs(x1-x2)) < tol + 4*e:
             #x-convergence
             return x, "x Sequence Convergence", maxits, k+1, tol, r
 
