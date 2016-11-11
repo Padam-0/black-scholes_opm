@@ -54,13 +54,16 @@ def import_mtx(filename):
     return val, col, rowStart
 
 
-def get_mtx_b(val, rowStart):
+def get_mtx_b(val, rowStart, rand_b=False):
 
     # Initialize vector b
     vector_b = np.array([])
 
     # While the b vector is empty
     while vector_b.size == 0:
+        if rand_b == True:
+            vector_b = np.random.randint(min(val), max(val), rowStart.size - 1)
+            continue
 
         # If the user wants to provide a file name:
         if input('Would you like to enter a file containing a vector b? '

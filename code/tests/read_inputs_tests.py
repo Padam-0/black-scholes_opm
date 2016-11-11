@@ -13,5 +13,8 @@ def test_read_inputs():
 
     res1 = read_inputs.read_inputs(a)
 
-    assert_equal(res1, (val, col, rowStart, vector_b))
+    numpy.testing.assert_array_equal(res1[0], val)
+    numpy.testing.assert_array_equal(res1[1], col)
+    numpy.testing.assert_array_equal(res1[2], rowStart)
+    numpy.testing.assert_array_equal(res1[3], vector_b)
 

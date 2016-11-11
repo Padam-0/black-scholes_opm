@@ -6,18 +6,21 @@ from sor_modules import import_mtx
 def test_import_mtx():
     a = 'sample_inputs/sample_mtx.mtx'
     res1 = import_mtx.import_mtx(a)
+    print(res1)
 
-    val = np.array([8.04932042e+02, 0.00000000e+00, -1.02927285e-02,..., -4.73610061e+00, 1.90242608e-02, 9.68270142e+00])
-    col = np.array([0, 1, 2,...,90446, 90447, 90448])
-    rowStart = np.array([0, 18, 36,..., 3753429, 3753448, 3753461])
+    val = np.array([1,2,3,4,5,6,7,8,9])
+    col = np.array([0,1,2,0,1,2,0,1,2])
+    rowStart = np.array([0,3,6,9])
 
-    numpy.testing.assert_equal(res1, val, col, rowStart)
+    numpy.testing.assert_equal(res1[0], val)
+    numpy.testing.assert_equal(res1[1], col)
+    numpy.testing.assert_equal(res1[2], rowStart)
 
 def test_get_mtx_b():
-    val = np.array( [8.04932042e+02, 0.00000000e+00, -1.02927285e-02, ..., -4.73610061e+00, 1.90242608e-02, 9.68270142e+00])
-    col = np.array([0, 1, 2, ..., 90446, 90447, 90448])
-    rowStart = np.array([0, 18, 36, ..., 3753429, 3753448, 3753461])
+    a = 'sample_inputs/sample_mtx.mtx'
 
-    res1 = import_mtx.get_mtx_b(val, rowStart)
+    val, col, rowStart = import_mtx.import_mtx(a)
 
-    assert_equal(res1, "Would you like tols enter a file containing a vector b?[y/n]: ")
+    res1 = import_mtx.get_mtx_b(val, rowStart, True)
+
+    assert_equal(res1.size, 3)
