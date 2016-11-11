@@ -42,22 +42,12 @@ def test_diag_dominant():
 
 def test_value_tests():
     errors = []
-    """
-    13 0 0 4
-    4 11 0 4
-    7 8 20 4
-    1 0 1 14
-    """
-
-    val2 = np.array([13.0, 4.0, 4.0, 11.0, 4.0, 7.0, 8.0, 4.0, 1.0, 1.0, 14.0])
-    col2 = np.array([0, 3, 0, 1, 3, 0, 1, 3, 0, 2, 3])
-    rowStart2 = np.array([0, 2, 5, 8, 11])
 
     res1 = value_checks.value_tests(val1, col1, rowStart1, errors)
-    #res2 = value_checks.value_tests(val2, col2, rowStart2, errors)
-    #res3 = value_checks.value_tests(val3, col3, rowStart3, errors)
+    res2 = value_checks.value_tests(val2, col2, rowStart2, errors)
+    res3 = value_checks.value_tests(val3, col3, rowStart3, errors)
 
     assert_equal(res1, [])
-    #assert_equal(res2, "There are zeros on the diagonal")
-    #assert_equal(res3, "The matrix is not row and column diagonally dominant")
+    assert_equal(res2, ["There are zeros on the diagonal"])
+    assert_equal(res3, ["The matrix is not strictly row or column diagonally dominant"])
 
