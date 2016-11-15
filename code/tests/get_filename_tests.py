@@ -72,6 +72,6 @@ def test_con_filename():
 
     assert_equal(res1, ("sample_inputs/nas_Sor2.in", True))
     assert_equal(res2, ("Input_descriptions.txt", True))
-    assert_equal(res3, ("san_Ros.ni",False))
+    assert_equal(res3, ("san_Ros.ni", False))
     assert_equal(res4, ("sample_inputs/nas_Sor3.in", True))
     assert_equal(res5, ("input.txt", False))
