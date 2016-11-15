@@ -107,6 +107,7 @@ try:
     import math
     from sor_modules import solve_sor
     from bsm_modules import create_BS_matrix, create_BS_b, get_bsm_inputs
+    import matplotlib.pyplot as plt
 except ImportError as import_err:
     print(import_err)
     print("Unable to import required libraries. Please check installation of "
@@ -120,44 +121,50 @@ def main():
     if testing == False:
         s, X, T, sigma, r, = get_bsm_inputs.get_bsm_inputs()
     else:
-        s = 8  # Stock Price today, in Dollars
-        X = 10  # Strike Price, in Dollars
-        T = 365  # Maturity Date, Days from now
+        s = 42  # Stock Price today, in Dollars
+        X = 42  # Strike Price, in Dollars
+        T = 90  # Maturity Date, Days from now
         r = 0.02  # Risk free rate (% per year)
-        sigma = 0.025  # Volatility
+        sigma = 0.3  # Volatility
 
     #Smax = min([100, 10 * max(X, s)])
-    Smax = 20
-    maxits = 100 # Maximum iterations
+    S_max = 80
+    maxits = 300 # Maximum iterations
     e = np.finfo(float).eps # Machine Epsilon
     w = 1.3 # Relaxation factor
     tol = 1 * 10 ** (-10) # X sequence tolerance
 
     # Define spacing conditions
-    M = 160 # Number of timesteps
-    N = 160
+    M = 300 # Number of time steps
+    N = 300
     k = T / M # Time Step distance
-    ds = Smax / N # Price Step distance
+    h = S_max / N
 
     # Create Black-Scholes matrix in CSR format
-    val, col, rowStart = create_BS_matrix.create_BS_matrix(M, k, r, sigma)
+    val, col, rowStart = create_BS_matrix.create_BS_matrix(N, k, r, sigma)
     # Set matrix size
     n = rowStart.size - 1
 
-    # Create initial matrix b
-    b = create_BS_b.create_BS_b(M, X, Smax, k, sigma, r)
-
-    print(b)
+    # Create initial vector b, f_n,M
+    b = create_BS_b.create_BS_b(N, X, h, k, sigma, r)
+    print(b[int(N - round(s / (S_max / N), 0) - 1)])
+    print(int(N - round(s / (S_max / N), 0) - 1))
 
     # Create optimized initial vector x
     x = solve_sor.create_initial_x(val, col, rowStart, b, n)
 
+    # Iterate through each timestamp from M-1 to 0
     for m in range(M - 1, -1, -1):
-        # Iterate through each timestamp from M-1 to 0
+        b[0] += k / 2 * (sigma ** 2 - r) * X
         b = solve_sor.sor(val, col, rowStart, b, n, maxits, w, x, e, tol)[0]
-        #b[0] += k/2 * (sigma ** 2 - r) * X
 
-    print(b[int(round(s/(Smax/M),0))])
+
+
+    print(b[int(N - round(s / (S_max / N), 0) - 1)])
+
+    plt.plot(b)
+    plt.show()
+
 
 if __name__ == "__main__":
     main()

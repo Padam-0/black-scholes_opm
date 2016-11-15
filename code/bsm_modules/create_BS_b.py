@@ -34,23 +34,25 @@ Requirements: numpy
 
 import numpy as np
 
-def create_BS_b(M, X, S_max, k, sigma, r):
+def create_BS_b(N, X, h, k, sigma, r):
     # Set matrix partition as the division of S_max over M intervals
-    h = S_max / M
 
     # Initialize b
     b = []
 
-    # For values of b from 0 to M:
-    for n in range(M):
+    # For values of b from 0 to N:
+    for n in range(1,N):
         # For the first iteration:
-        if n == 0:
+        if n == 1:
             # Append the option value to the list
-            b.append((S_max - (n + 1) * h) - X)
+            b.append(X - n * h)
+            #b.append((S_max - (n + 1) * h) - X)
+
         # If the value of the option is positive:
-        elif (S_max - (n+1) * h) - X > 0:
+        elif (X - (n + 1) * h) > 0:
             # Append the option value to the list
-            b.append(S_max - (n+1) * h - X)
+            b.append(X - n * h)
+
         # If the option value is 0 or negative
         else:
             # Append 0
@@ -61,5 +63,3 @@ def create_BS_b(M, X, S_max, k, sigma, r):
 
     # Return b
     return b
-
-""""+ k/2 * (sigma ** 2 - r) * X"""

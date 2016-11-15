@@ -54,7 +54,10 @@ import numpy as np
 def create_BS_matrix(M, k, r, sigma):
     # Check that there are at least 3 intervals
     # If there aren't:
-    if M < 3:
+
+    N = M - 1
+
+    if N < 3:
         # Exit
         exit("There must be at least 3 intervals")
     # If there are:
@@ -67,7 +70,7 @@ def create_BS_matrix(M, k, r, sigma):
         rowStart = [1]
 
         # for 0 through 3 * (M-2) + 5 (total number of matrix entries):
-        for n in range(1, 3 * (M-2) + 5):
+        for n in range(1, 3 * (N-2) + 5):
             # Calculate the row number
             row = math.floor(n / 3) + 1
             # If diagonal value:
@@ -96,7 +99,7 @@ def create_BS_matrix(M, k, r, sigma):
 
         # Append the total number of entries in A to rowStart, as the n+1-th
         # row, or the stopping limit
-        rowStart.append(3 * (M-2) + 5)
+        rowStart.append(3 * (N-2) + 5)
 
         # Convert lists to numpy arrays
         val = np.array(val)
