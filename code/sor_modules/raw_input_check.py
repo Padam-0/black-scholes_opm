@@ -23,14 +23,47 @@ Requirements: re
 import re
 
 def read_raw_inputs(filename):
-    # Open the input file
-    with open(filename, 'r') as myfile:
-        # Replace newline characters with spaces
-        data = myfile.read().replace('\n', ' ')
+    with open(filename) as f:
+        first_line = f.readline().strip()
+
+        # Set errors to 0
+        errors = 0
+
         # Compile a Regular Expression (Regex) to check for any characters
         # that are not digits, the decimal point character, or whitespace.
         pattern = re.compile(r'[^0-9\.\s:]')
+        data = first_line.replace('\n', ' ')
+        if re.search(pattern, data) != None:
+            exit("First line contains non-digit entries. Please fix and try "
+                 "again")
 
-        # Return True if a search of the data returns no matches for
-        # characters other than those allowed, otherwise returns False
-        return re.search(pattern, data) == None
+        # If the matrix is dense
+        if len(first_line.split(' ')) == 1:
+            # For for the next n lines
+            for i in range(int(first_line) + 1):
+                # Read the line into memory
+                line_in = f.readline()
+                # Replace newline characters with spaces
+                data = line_in.replace('\n', ' ')
+                # Return True if a search of the data returns no matches for
+                # characters other than those allowed, otherwise returns False
+                if re.search(pattern, data) != None:
+                    errors += 1
+        # Else if the matrix is CSR
+        else:
+            for i in range(4):
+                # Read the line into memory
+                line_in = f.readline()
+                # Replace newline characters with spaces
+                data = line_in.replace('\n', ' ')
+                # Compile a Regular Expression (Regex) to check for any characters
+                # that are not digits, the decimal point character, or whitespace.
+                pattern = re.compile(r'[^0-9\.\s:]')
+
+                # Return True if a search of the data returns no matches for
+                # characters other than those allowed, otherwise returns False
+                if re.search(pattern, data) != None:
+                    errors += 1
+
+    if errors != 0:
+        return False
