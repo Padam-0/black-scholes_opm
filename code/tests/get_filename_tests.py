@@ -33,11 +33,6 @@ def test_check_CM_args():
 
     """
 
-    # res1 = get_filename.check_CM_args(["sor.py", "nas_Sor.in", "nas_Sor.out"])
-    #
-    # assert_equal(res1, ("nas_Sor.in", "nas_Sor.out"))
-
-
 def test_check_file_exists():
     a = 'nas_Sor.in'
     b = 'nas_Sor'
