@@ -22,4 +22,4 @@ def test_calculate_residual():
     res1 = calculate_residual.residual(val, col, rowStart, b, x)
 
     # test case 1
-    numpy.testing.assert_almost_equal(res1, 2.5404391594785375e-10, decimal=6)
+    assert_equals(res1, 1.1532562570790883e-07)
