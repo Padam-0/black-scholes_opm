@@ -21,8 +21,9 @@ Requirements: re
 """
 
 import re
+from sor_modules import write_output
 
-def read_raw_inputs(filename):
+def read_raw_inputs(filename, output_filename):
     with open(filename) as f:
         first_line = f.readline().strip()
 
@@ -34,6 +35,7 @@ def read_raw_inputs(filename):
         pattern = re.compile(r'[^0-9\.\s:]')
         data = first_line.replace('\n', ' ')
         if re.search(pattern, data) != None:
+            write_output.output_text_file(output_filename, "Cannot Proceed")
             exit("First line contains non-digit entries. Please fix and try "
                  "again")
 

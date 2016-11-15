@@ -29,32 +29,36 @@ Requirements: numpy, scipy.io
 
 """
 
-from sor_modules import get_filename
+from sor_modules import get_filename, write_output
 import numpy as np
 import scipy.io
 
 
-def import_mtx(filename):
-    # Import matrix
-    A = scipy.io.mmread(filename)
+def import_mtx(filename, output_filename):
+    try:
+        # Import matrix
+        A = scipy.io.mmread(filename)
 
-    # Reformat matrix to CSR
-    A = A.tocsr()
+        # Reformat matrix to CSR
+        A = A.tocsr()
 
-    # Set val to the CSR data
-    val = A.data
+        # Set val to the CSR data
+        val = A.data
 
-    # Set val to the CSR indices
-    col = A.indices
+        # Set val to the CSR indices
+        col = A.indices
 
-    # Set rowStart to the CSR row indices
-    rowStart = A.indptr
+        # Set rowStart to the CSR row indices
+        rowStart = A.indptr
 
-    # Return val, col and rowStart vectors
-    return val, col, rowStart
+        # Return val, col and rowStart vectors
+        return val, col, rowStart
+    except:
+        write_output.output_text_file(output_filename, "Cannot Proceed")
+        exit("Unable to import the .mtx file. Please check it and try again")
 
 
-def get_mtx_b(val, rowStart, rand_b=False):
+def get_mtx_b(val, rowStart, output_filename, rand_b=False):
 
     # Initialize vector b
     vector_b = np.array([])
@@ -78,6 +82,8 @@ def get_mtx_b(val, rowStart, rand_b=False):
                     vector_b = np.genfromtxt(b_filename, max_rows=1)
                 # If it doesn't work, let the user know and exit
                 except:
+                    write_output.output_text_file(output_filename, "Cannot "
+                                                                   "Proceed")
                     exit("Error in importing the file. Please check that all "
                           "values are floats and there is no other "
                           "information in the file.")
@@ -95,7 +101,7 @@ def get_mtx_b(val, rowStart, rand_b=False):
                     # If the user doesn't want to try again
                     else:
                         # Exit
-                        exit(0)
+                        exit("User exit. No output file created.")
             # If the file doesn't exist
             else:
                 # If the user wants to try again:
@@ -106,7 +112,7 @@ def get_mtx_b(val, rowStart, rand_b=False):
                 # If the user does not want to try again
                 else:
                     # Exit
-                    exit(0)
+                    exit("User exit. No output file created.")
         # If the user doesn't want to enter a file name
         else:
             # If the user wants to generate a random vector:
@@ -121,7 +127,7 @@ def get_mtx_b(val, rowStart, rand_b=False):
                 # If user elects to exit
                 if input('Would you like to exit? [y/n]: ').upper() == 'Y':
                     # Exit
-                    exit()
+                    exit("User exit. No output file created.")
                 # Otherwise, restart loop
                 else:
                     # Restart loop

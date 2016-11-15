@@ -70,6 +70,7 @@ rowStart is simply t, not t + 1, and so on.
 Required: numpy, convert_to_csr
 
 """
+
 from sor_modules import convert_to_csr, import_mtx, get_extension, write_output
 import numpy as np
 
@@ -80,7 +81,7 @@ def read_inputs(filename, output_filename):
 
     if ext == 'mtx':
         # Create val, col, rowStart and vector_b from mtx file
-        val, col, rowStart = import_mtx.import_mtx(filename)
+        val, col, rowStart = import_mtx.import_mtx(filename, output_filename)
         vector_b = import_mtx.get_mtx_b(filename)
     elif np.genfromtxt(filename, max_rows=1).size == 1:
 
@@ -112,7 +113,6 @@ def read_inputs(filename, output_filename):
                 val.extend(res_c2c[0])
                 col.extend(res_c2c[1])
                 rowStart.append(res_c2c[2])
-
 
         # Convert to the lists to a numpy arrays
         val = np.array(val)
