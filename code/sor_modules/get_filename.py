@@ -199,8 +199,6 @@ def con_filename(filename, argNum = 0, sample_file = False):
     if 'sample_inputs' not in filename and sample_file == True:
         if argNum == 1:
             filename = os.path.join('sample_inputs', filename)
-        elif argNum == 2:
-            filename = os.path.join('sample_outputs', filename)
 
     # Return converted file name and if it is a sample file
     return filename, sample_file
