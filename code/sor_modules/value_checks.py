@@ -142,10 +142,8 @@ def value_tests(val, col, rowStart, errors, output_file_name):
 
     # Check if the matrix has zeros on the diagonal:
     if not zero_diag(val, col, rowStart):
-        stopping_reason = "Zero on diagonal"
-        iterations = 0
         # Write output file
-        write_output.output_text_file(output_file_name, stopping_reason)
+        write_output.output_text_file(output_file_name, "Zero on diagonal")
         # Quit
         exit("There are zeros on the diagonal")
     # Check if the matrix is strictly row or column diagonally dominant:

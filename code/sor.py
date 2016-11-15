@@ -46,6 +46,7 @@ def main():
     # Check for any non-decimal entries in the input file
     if not input_filename[-4:] == '.mtx' and not \
             raw_input_check.read_raw_inputs(input_filename):
+        write_output.output_text_file(output_filename, "Cannot Proceed")
         exit("There is a non-decimal entry in the input file. Please amend "
              "the input according to the guidelines in README.md")
 
@@ -56,14 +57,15 @@ def main():
     errors = []
 
     # Add top level formatting errors to errors list
-
     errors.extend(input_checks.csr_input_checks(val, col, rowStart, vector_b))
 
     # Return errors
-    print_errors.print_errors(errors)
+    if len(errors) != 0:
+        write_output.output_text_file(output_filename, "Cannot Proceed")
+        print_errors.print_errors(errors)
 
     # Add complex value checks to the errors list
-    value_checks.value_tests(val, col, rowStart, errors)
+    value_checks.value_tests(val, col, rowStart, errors, output_filename)
 
     # Set Tolerance
     tol = 1 * 10 ** (-10)

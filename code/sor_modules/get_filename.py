@@ -103,7 +103,7 @@ def check_CM_args(cmArgs):
                     # If user elects to exit
                     if input('Would you like to exit? [y/n]: ').upper() == 'Y':
                         # Exit
-                        exit()
+                        exit("User exit. No output file created.")
                     # If not:
                     else:
                         # Restart loop
@@ -118,7 +118,7 @@ def check_CM_args(cmArgs):
                 # If the user wants to exit
                 else:
                     # Exit
-                    exit(0)
+                    exit("User exit. No output file created.")
         # If 2 command line arguments are given, 'sor.py' and the input file
         # name
         elif len(cmArgs) == 2:
@@ -142,7 +142,7 @@ def check_CM_args(cmArgs):
                 else:
                     # If user elects to exit
                     if input('Would you like to exit? [y/n]: ').upper() == 'Y':
-                        exit()
+                        exit("User exit. No output file created.")
                     # Otherwise, restart loop
                     else:
                         # Restart loop
@@ -169,7 +169,7 @@ def check_CM_args(cmArgs):
             # If the user does not want to try again
             else:
                 # Exit
-                exit(0)
+                exit("User exit. No output file created.")
 
     # Convert the input file name to required format
     input_file, sample_file = con_filename(file_names[0], 1)
