@@ -82,7 +82,7 @@ def read_inputs(filename, output_filename):
     if ext == 'mtx':
         # Create val, col, rowStart and vector_b from mtx file
         val, col, rowStart = import_mtx.import_mtx(filename, output_filename)
-        vector_b = import_mtx.get_mtx_b(filename)
+        vector_b = import_mtx.get_mtx_b(val, rowStart, output_filename)
     elif np.genfromtxt(filename, max_rows=1).size == 1:
 
         # Initialize val, col and rowStart lists
