@@ -51,7 +51,8 @@ def main():
              "the input according to the guidelines in README.md")
 
     # Read val, col and rowStart vectors from the specified filename
-    val, col, rowStart, vector_b = read_inputs.read_inputs(input_filename)
+    val, col, rowStart, vector_b = read_inputs.read_inputs(
+                                        input_filename, output_filename)
 
     # Initialize empty errors list
     errors = []

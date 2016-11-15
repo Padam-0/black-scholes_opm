@@ -70,10 +70,10 @@ rowStart is simply t, not t + 1, and so on.
 Required: numpy, convert_to_csr
 
 """
-from sor_modules import convert_to_csr, import_mtx, get_extension
+from sor_modules import convert_to_csr, import_mtx, get_extension, write_output
 import numpy as np
 
-def read_inputs(filename):
+def read_inputs(filename, output_filename):
     # Open a file and extract data
 
     ext = get_extension.get_ext(filename)
@@ -99,6 +99,7 @@ def read_inputs(filename):
             # matrix:
             if line_in.size != matrix_size:
                 # Exit with error
+                write_output.output_text_file(output_filename, "Cannot Proceed")
                 exit("Input matrix is not square. Please ensure that all rows of "
                 "the matrix have the same number of entries.")
             else:
