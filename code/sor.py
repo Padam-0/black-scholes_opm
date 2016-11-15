@@ -44,8 +44,8 @@ def main():
     input_filename, output_filename = get_filename.check_CM_args(sys.argv)
 
     # Check for any non-decimal entries in the input file
-    if not raw_input_check.read_raw_inputs(input_filename) and not \
-                    input_filename[-4:] == '.mtx':
+    if not input_filename[-4:] == '.mtx' and not \
+            raw_input_check.read_raw_inputs(input_filename):
         exit("There is a non-decimal entry in the input file. Please amend "
              "the input according to the guidelines in README.md")
 
