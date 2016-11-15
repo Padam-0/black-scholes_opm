@@ -60,6 +60,34 @@ You can also define your own output filename if you so desire.
 The default input and output files are nas_Sor.in and nas_Sor.out, these are
 both located in the sample_inputs directory.
 
+File names can also be specified from the command line, by calling:
+python sor.py input_filename.in output_filename.in
+
+Input Format
+------------
+
+Input files can take 1 of three file formats:
+
+- Dense;
+- Compressed Sparse Row; and
+- Matrix Market .mtx
+
+Dense matrix files contain n + 2 lines, where n is the dimension of the 
+matrix. The first is a single integer n, the number of rows and columns 
+in the matrix. The next n lines contain n floats, the entries of the 
+matrix. The final line contains n floats, the entries of the solution
+vector b.
+
+Compressed Sparse Row files contain 4 lines. The first contains t floats,
+the non-zero entries of the matrix. The second line contains t integers, 
+the column indices of the entries in the first line. The third line contains
+n + 1 integers, the indices of the first entry of each line of the matrix.
+The final line contains n floats, the entries of the solution vector b.
+
+
+All Dense and CSR files must be space or tab delimited. See sample_inputs
+for details.
+
 ---------------
 List of Authors
 ---------------
