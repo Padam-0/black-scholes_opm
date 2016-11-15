@@ -58,11 +58,11 @@ value_tests() applies zero_diag() and diag_dominant() to the input matrix,
 and if they fail, appends a given error statement to the errors list. The
 errors list is returned.
 
-Requirements: numpy
+Requirements: numpy, write_output
 
 """
 
-
+from sor_modules import write_output
 import numpy as np
 
 def zero_diag(val, col, rowStart):
@@ -134,21 +134,26 @@ def diag_dominant(val, col, rowStart):
 
     # If the diagonal element or a row / column is greater than the row or
     # column sum, return True
-    return np.greater_equal(diags, col_sums).all() or \
-           np.greater_equal(diags,row_sums).all()
+    return np.greater(diags, col_sums).all() or \
+           np.greater(diags,row_sums).all()
 #changed np.greater() to np.greater_equal on line 137 and 138
 
-def value_tests(val, col, rowStart, errors):
+def value_tests(val, col, rowStart, errors, output_file_name):
 
     # Check if the matrix has zeros on the diagonal:
     if not zero_diag(val, col, rowStart):
-        # If it does, append the error message to the list
-        errors.append("There are zeros on the diagonal")
+        stopping_reason = "Zero on diagonal"
+        iterations = 0
+        # Write output file
+        write_output.output_text_file(output_file_name, stopping_reason)
+        # Quit
+        exit("There are zeros on the diagonal")
     # Check if the matrix is strictly row or column diagonally dominant:
+    """"
     elif not diag_dominant(val, col, rowStart):
-        # If it is not, append the error message to the list
-        errors.append("The matrix is not strictly row or column diagonally "
-                      "dominant")
+        # Write output
 
-    # Return the error message list
-    return errors
+        # Quit
+        exit("The matrix is not strictly row or column diagonally "
+                      "dominant")
+    """

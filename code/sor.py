@@ -63,10 +63,7 @@ def main():
     print_errors.print_errors(errors)
 
     # Add complex value checks to the errors list
-    errors = value_checks.value_tests(val, col, rowStart, errors)
-
-    # Return errors
-    print_errors.print_errors(errors)
+    value_checks.value_tests(val, col, rowStart, errors)
 
     # Set Tolerance
     tol = 1 * 10 ** (-10)

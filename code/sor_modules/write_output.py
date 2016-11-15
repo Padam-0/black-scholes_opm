@@ -18,13 +18,16 @@ system.
 output_text_file() outputs the results of SOR into a text file with a
 user-specified name.
 
-Requirements: None
+Requirements: numpy
 
 """
 
+import numpy as np
 
-def output_text_file(output_file_name, stopping_reason, maxits, iterations,
-                     mach_e, x_seq_tol, res_tol, w, x):
+def output_text_file(output_file_name, stopping_reason,
+                     maxits=100, iterations=0,
+                     mach_e=np.finfo(float).eps, x_seq_tol=(1 * 10 ** (-10)),
+                     res_tol=0, w=1.3, x=""):
 
     with open(output_file_name, 'w') as f:
         # Output solution_vector_x, stopping_reason, maxits, #_of_iterations,
@@ -53,6 +56,7 @@ def output_text_file(output_file_name, stopping_reason, maxits, iterations,
                            values]))
 
         # If convergence, print x
-        if stopping_reason != "Divergence":
+        if stopping_reason not in ["Divergence","Zero on diagonal",
+                                   "Cannot proceed"]:
             f.write("\n")
             f.write(' '.join(["%s" % (str(value)) for value in x]))
