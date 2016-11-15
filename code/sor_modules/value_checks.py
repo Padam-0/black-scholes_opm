@@ -134,9 +134,9 @@ def diag_dominant(val, col, rowStart):
 
     # If the diagonal element or a row / column is greater than the row or
     # column sum, return True
-    return np.greater(diags, col_sums).all() or \
-           np.greater(diags,row_sums).all()
-
+    return np.greater_equal(diags, col_sums).all() or \
+           np.greater_equal(diags,row_sums).all()
+#changed np.greater() to np.greater_equal on line 137 and 138
 
 def value_tests(val, col, rowStart, errors):
 

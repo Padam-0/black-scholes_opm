@@ -114,21 +114,21 @@ def sor(val, col, rowStart, b, n, maxits, w, x, e, tol):
         # Return solution_vector_x, stopping_reason, maxits, #_of_iterations,
         # machine_epsilon, x-seq_tolerance, residual, w
         if r == 0:
-            return x, "Residual convergence", maxits, k+1, tol, r
+            return x, "Residual convergence", maxits, k+1, tol, 0
             # ^^ have to return residual tolerance used..? residual tolerance = ||r|| / ||b|| ?
 
         elif vector_norm.vectornorm(abs(x1-x2)) < tol + 4*e:
             #x-convergence
-            return x, "x Sequence Convergence", maxits, k+1, tol, r
+            return x, "x Sequence Convergence", maxits, k+1, tol, 0
 
         elif k > 0 and l[k]>l[k-1]:
             # divergence
-            return x, "Divergence",  maxits, k+1, tol, r
+            return x, "Divergence",  maxits, k+1, tol, 0
 
         else:
             k += 1
             if k == maxits:
-                return x, "Max Iterations Reached", maxits, k, tol, r
+                return x, "Max Iterations Reached", maxits, k, tol, 0
 
 
 """

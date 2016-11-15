@@ -45,6 +45,21 @@ tests
 -----
 This sub-directory contains all of the tests and error checks used.
 
+----------------------
+Operating Instructions
+----------------------
+
+If you are happy to use the default files, run either sor.py or bsm.py and
+follow the instructions given.
+
+If you would like to use your own input file: add your file to the directory,
+run sor.py or bsm.py and give this filename as your input file when prompted.
+
+You can also define your own output filename if you so desire.
+
+The default input and output files are nas_Sor.in and nas_Sor.out, these are
+both located in the sample_inputs directory.
+
 ---------------
 List of Authors
 ---------------
