@@ -29,8 +29,14 @@ def get_bsm_inputs():
                 print("Error, please ensure each value is a positive number.")
                 continue
         else:
-            if input("Is using default inputs ok? [y/n]: ").upper() == "Y":
-                S = 42  # Stock Price today, in Dollars
+            if input("Is using default inputs ok?\n\n"
+                     "  - Stock Price today: $40.00\n"
+                     "  - Strike Price: $42.00\n"
+                     "  - Days to Maturity: 90\n"
+                     "  - Risk Free Rate: 2%\n"
+                     "  - Volatility: 30%\n\n"
+                     "[y/n]: ").upper() == "Y":
+                S = 40  # Stock Price today, in Dollars
                 X = 42  # Strike Price, in Dollars
                 T = 90  # Maturity Date, Days from now
                 R = 0.02  # Risk free rate (% per year)

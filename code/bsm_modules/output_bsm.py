@@ -17,16 +17,16 @@ def output_bsm(output_filename, option_val, s, X, T, sigma, r):
                       ["Risk Free Rate", 17]]
 
         # Create values list, along with spacings
-        values = [[option_val, 15],
-                      [s, 20],
-                      [X, 15], [T, 19],
-                      [sigma, 13],
-                      [r, 17]]
+        values = [["$%.2f" % (option_val), 15],
+                      ["$%.2f" % (s), 20],
+                      ["$%.2f" % (X), 15], ["%.2f" % (T), 19],
+                      ["%.2f" % (sigma), 13],
+                      ["%.2f" % (r), 17]]
 
         # Output headings
         f.write('| '.join(["%s" % (heading[0].ljust(heading[1])) for heading in
                            headings]))
         f.write("\n")
         # Output values from second_line
-        f.write('| '.join(["%d2f" % (str(value[0]).ljust(value[1])) for value in
+        f.write('| '.join(["%s" % (value[0].ljust(value[1]))for value in
                            values]))

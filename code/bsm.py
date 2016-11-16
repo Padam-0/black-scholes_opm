@@ -128,8 +128,8 @@ def main():
     tol = 1 * 10 ** (-10) # X sequence tolerance
 
     # Define spacing conditions
-    M = 300 # Number of time steps
-    N = 300
+    M = 100 # Number of time steps
+    N = 100
     k = T / M # Time Step distance
     h = S_max / N
 
@@ -151,7 +151,7 @@ def main():
 
     option_val = b[int(N - round(s / (S_max / N), 0) - 1)]
 
-    print("Option value for given inputs is $%s" % (str(option_val)))
+    print("Option value for given inputs is $%.2f" % (option_val))
     print("Output file written to bsm_solution.out")
 
     output_bsm.output_bsm("bsm_solution.out", option_val, s, X, T, sigma, r)
