@@ -16,7 +16,7 @@ definition can only take a single data type.
 read_raw_inputs() returns a boolean value, denoting whether the input file
 contains only the allowed characters or not.
 
-Requirements: re
+Requirements: re, write_output
 
 """
 

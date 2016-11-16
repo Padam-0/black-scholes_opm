@@ -19,7 +19,7 @@ entries of val which correspond to the first entry of each row of A. The
 first entry is always 0, and the last entry is t + 1, which corresponds to
 the first entry of the (n + 1)th row of the matrix, or the end of the matrix.
 
-read_inputs() imports data from an input file in one of two formats. First is
+read_inputs() imports data from an input file in one of three formats. First is
 a dense matrix format:
 
   - First row contains 1 integer, the size of the matrix n
@@ -35,6 +35,9 @@ corresponding entries of val in the matrix A
   - Row 3 contains n + 1 integers, the indices of the entries of val that
 correspond to a new line of the matrix A
   - Row 4 contains n floats, the vector b
+
+The last is a Matrix Market .mtx format. More information can be found here:
+http://math.nist.gov/MatrixMarket/formats.html
 
 read_inputs() differentiates between these input types and imports them. It
 does this by checking the number of entries in row 1. If there are more than
@@ -67,7 +70,7 @@ column 1. However, due to Python using 0-indexing, the first column of this
 matrix is referred to in this function as column 0. As such, the last entry of
 rowStart is simply t, not t + 1, and so on.
 
-Required: numpy, convert_to_csr
+Required: numpy, convert_to_csr, import_mtx, get_extension, write_output
 
 """
 
