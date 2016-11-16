@@ -33,15 +33,10 @@ def test_check_CM_args():
 
     """
 
-    # res1 = get_filename.check_CM_args(["sor.py", "nas_Sor.in", "nas_Sor.out"])
-    #
-    # assert_equal(res1, ("nas_Sor.in", "nas_Sor.out"))
-
-
 def test_check_file_exists():
     a = 'nas_Sor.in'
     b = 'nas_Sor'
-    c = '/nas_Sor.in'
+    c = '/nas_Sor10.in'
     d = './nas_Sor.in'
 
     res1 = get_filename.check_file_exists(a)
@@ -52,11 +47,11 @@ def test_check_file_exists():
     assert_equal(res1, True)
     assert_equal(res2, False)
     assert_equal(res3, False)
-    assert_equal(res4, True)
+    assert_equal(res4, False)
 
 
 def test_con_filename():
-    a = 'nas_Sor2.in'
+    a = 'sample_inputs/nas_Sor2.in'
     b = 'Input_descriptions.txt'
     c = 'san_Ros.ni'
     d = 'sample_inputs/nas_Sor3.in'
@@ -72,6 +67,6 @@ def test_con_filename():
 
     assert_equal(res1, ("sample_inputs/nas_Sor2.in", True))
     assert_equal(res2, ("Input_descriptions.txt", True))
-    assert_equal(res3, ("san_Ros.ni",False))
+    assert_equal(res3, ("san_Ros.ni", False))
     assert_equal(res4, ("sample_inputs/nas_Sor3.in", True))
     assert_equal(res5, ("input.txt", False))
