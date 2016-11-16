@@ -69,7 +69,7 @@ def create_BS_matrix(M, k, r, sigma):
         col = []
         rowStart = [1]
 
-        # for 0 through 3 * (M-2) + 5 (total number of matrix entries):
+        # for 0 through 3 * (N-2) + 5 (total number of matrix entries):
         for n in range(1, 3 * (N-2) + 5):
             # Calculate the row number
             row = math.floor(n / 3) + 1
