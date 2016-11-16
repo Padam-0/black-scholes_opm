@@ -44,8 +44,8 @@ def main():
     input_filename, output_filename = get_filename.check_CM_args(sys.argv)
 
     # Check for any non-decimal entries in the input file
-    if raw_input_check.read_raw_inputs(input_filename, output_filename) \
-            and input_filename[-4:] != '.mtx':
+    if input_filename[-4:] != '.mtx' and raw_input_check.read_raw_inputs(\
+            input_filename, output_filename):
         write_output.output_text_file(output_filename, "Cannot Proceed")
         exit("There is a non-decimal entry in the input file. Please amend "
              "the input according to the guidelines in README.md")
@@ -78,11 +78,14 @@ def main():
     maxits = 100
 
     # Set initial relaxation factor
-    w = 1.3
+    #w = 1.3
+
     # Create initial vector x (if required)
     x = solve_sor.create_initial_x(val, col, rowStart, vector_b, n)
     # Set Machine Epsilon based on computer specifications
     e = np.finfo(float).eps
+
+    w = solve_sor.choose_w(val, col, rowStart, vector_b, n, x, e, tol, output_filename)
 
     # Solve matrixing using Successive Over Relaxation
     x, stop, maxits, iterations, xseqtol, residual = \

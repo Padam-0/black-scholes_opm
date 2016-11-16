@@ -63,12 +63,12 @@ The function will return:
 - and w, the relaxation factor.
 
 
-Requirements: numpy, vector_norm
+Requirements: numpy, calculate_residual, vector_norm, optimise_w, write_output
 """
 
 import numpy as np
-from sor_modules import calculate_residual, vector_norm
-import matplotlib.pyplot as plt
+from sor_modules import calculate_residual, vector_norm, optimise_w, \
+    write_output
 
 
 def create_initial_x(val, col, rowStart, b, n):
@@ -94,8 +94,11 @@ def sor(val, col, rowStart, b, n, maxits, w, x, e, tol):
     b = b.astype(float)
     x = x.astype(float)
 
+    w_l = []
+
     k = 0
     while k <= maxits:
+        print(w, ": Iteration: ", k)
         x1 = x.copy()
 
         for i in range(0, n):
@@ -110,31 +113,60 @@ def sor(val, col, rowStart, b, n, maxits, w, x, e, tol):
 
         r = calculate_residual.residual(val, col, rowStart, b, x)
 
+        print(w, ": Residual: ", r)
+
         l.append(vector_norm.vectornorm(abs(x1 - x2)))
 
+        print(w, ": X-Residual: ", l[-1])
+
+        """
+        if len(l) >= 3:
+            w = optimise_w.op_w(l, w)
+
+        print(w)
+
+        w_l.append(w)
+        """
         # Return solution_vector_x, stopping_reason, maxits, #_of_iterations,
         # machine_epsilon, x-seq_tolerance, residual, w
         if r == 0:
-            plt.plot(l)
-            plt.show()
-            return x, "Residual convergence", maxits, k+1, tol, 0
+            return x, "Residual convergence", maxits, k+1, tol, r
             # ^^ have to return residual tolerance used..? residual tolerance = ||r|| / ||b|| ?
 
         elif vector_norm.vectornorm(abs(x1-x2)) < tol + 4*e:
             #x-convergence
-            plt.plot(l)
-            plt.show()
-            return x, "x Sequence Convergence", maxits, k+1, tol, 0
+            return x, "x Sequence Convergence", maxits, k+1, tol, r
 
         elif k > 0 and l[k]>l[k-1]:
             # divergence
-            plt.plot(l)
-            plt.show()
-            return x, "Divergence",  maxits, k+1, tol, 0
+            return x, "Divergence",  maxits, k+1, tol, r
 
         else:
             k += 1
             if k == maxits:
-                plt.plot(l)
-                plt.show()
-                return x, "Max Iterations Reached", maxits, k, tol, 0
+                return x, "Max Iterations Reached", maxits, k, tol, r
+
+
+def choose_w(val, col, rowStart, vector_b, n, x, e, tol, output_filename):
+    l=[]
+    #if the user inputed any of these:
+    w_test = sor(val, col, rowStart, vector_b, n, 3, 1.2, x, e, tol)
+    if w_test[1] == \
+            "Divergence":
+        write_output.output_text_file(output_filename, w_test)
+        exit()
+
+    w12 = sor(val, col, rowStart, vector_b, n, 10, 1.2, x, e, tol)
+    w13 = sor(val, col, rowStart, vector_b, n, 10, 1.3, x, e, tol)
+    w14 = sor(val, col, rowStart, vector_b, n, 10, 1.4, x, e, tol)
+
+    if w13[5] < w14[5]:
+        if w12[5] < w13[5]:
+            return 1.2
+        else:
+            return 1.3
+    else:
+        if w12[5] < w14[5]:
+            return 1.2
+        else:
+            return 1.4

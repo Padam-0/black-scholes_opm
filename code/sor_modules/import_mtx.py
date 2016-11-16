@@ -66,8 +66,12 @@ def get_mtx_b(val, rowStart, output_filename, rand_b=False):
     # While the b vector is empty
     while vector_b.size == 0:
         if rand_b == True:
-            vector_b = np.random.randint(min(val), max(val), rowStart.size - 1)
-            continue
+            if min(val)!= max(val):
+                vector_b = np.random.randint(min(val), max(val), rowStart.size - 1)
+                continue
+            else:
+                vector_b = np.ones(rowStart.size - 1) * min(val)
+                continue
 
         # If the user wants to provide a file name:
         if input('Would you like to enter a file containing a vector b? '
@@ -116,7 +120,7 @@ def get_mtx_b(val, rowStart, output_filename, rand_b=False):
         # If the user doesn't want to enter a file name
         else:
             # If the user wants to generate a random vector:
-            if input('Would you like to use a random vector?'
+            if input('Would you like to use a random vector? '
                      '[y/n]: ').upper() == 'Y':
                 # Create a random vector_b based on maximum and minimum
                 # values of A
