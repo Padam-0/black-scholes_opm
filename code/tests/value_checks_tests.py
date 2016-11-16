@@ -42,11 +42,5 @@ def test_diag_dominant():
 
 def test_value_tests():
 
-    res1 = value_checks.value_tests(val1, col1, rowStart1, [])
-    res2 = value_checks.value_tests(val2, col2, rowStart2, [])
-    res3 = value_checks.value_tests(val3, col3, rowStart3, [])
-
-    assert_equal(res1, [])
-    assert_equal(res2[0], "There are zeros on the diagonal")
-    assert_equal(res3[0], "The matrix is not strictly row or column "
-                          "diagonally dominant")
+    assert_raises(SystemExit, value_checks.value_tests, val2, col2, rowStart2, [], 'nas_Sor.out')
+    assert_raises(SystemExit, value_checks.value_tests, val3, col3, rowStart3, [], 'nas_Sor.out')

@@ -37,17 +37,14 @@ def test_check_file_exists():
     a = 'nas_Sor.in'
     b = 'nas_Sor'
     c = '/nas_Sor10.in'
-    d = './nas_Sor.in'
 
     res1 = get_filename.check_file_exists(a)
     res2 = get_filename.check_file_exists(b)
     res3 = get_filename.check_file_exists(c)
-    res4 = get_filename.check_file_exists(d)
 
     assert_equal(res1, True)
     assert_equal(res2, False)
     assert_equal(res3, False)
-    assert_equal(res4, False)
 
 
 def test_con_filename():

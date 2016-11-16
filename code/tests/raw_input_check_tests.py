@@ -14,16 +14,14 @@ that we do not want to import
 
 
 def test_read_raw_inputs():
-    a = 'nas_Sor.in'
-    b = 'sample_inputs/nas_Sor2.in'
-    c = 'sample_inputs/nas_Sor4.in'
+    a = 'sample_inputs/nas_Sor4.in'
+    b = 'sample_inputs/nas_Sor5.in'
 
-    res1 = raw_input_check.read_raw_inputs(a)
-    res2 = raw_input_check.read_raw_inputs(b)
-    res3 = raw_input_check.read_raw_inputs(c)
+    out = 'nas_Sor.out'
 
-    assert_equals(res1, True)
-    assert_equals(res2, True)
-    assert_equals(res3, False)
+    res1 = raw_input_check.read_raw_inputs(a, out)
+
+    assert_equals(res1, False)
+    assert_raises(SystemExit, raw_input_check.read_raw_inputs, b, out)
 
 
