@@ -1,6 +1,19 @@
 """
+create_BS_matrix.py
 
-To be written
+This module contains 1 function, output_bsm() which takes 7 arguments:
+
+  - output_filename - String containing the location of the file to write to.
+  - option_val - The present day value of the option in dollars, a float.
+  - s - The present day stock price in dollars, a float.
+  - X - The strike price of the option in dollars, a float.
+  - T - The number of days until option excise, an integer.
+  - sigma - Volatility, a float.
+  - r - Daily risk free rate, a float
+
+output_bsm() prints to a given file the results from the Black-Scholes model.
+
+Requirements: None
 
 """
 
