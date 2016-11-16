@@ -1,3 +1,16 @@
+Dense:
+
 1st line contains an integer n, ie the size (n x n) of the matrix
 Next n lines contain n floats, each a row of the matrix
 Last line contains n floats, each an entry of the vector b
+
+CSR:
+
+1st line contains t floats, the non-zero entries in the matrix
+2nd line contains t integers, the column indices of the above entries
+3rd line contains n + 1 integers, the indices of the first entry of each row
+4th line contains n floats, the entries of the vector b
+
+MTX:
+
+http://math.nist.gov/MatrixMarket/formats.html

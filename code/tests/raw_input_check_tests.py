@@ -14,8 +14,8 @@ that we do not want to import
 
 
 def test_read_raw_inputs():
-    a = 'sample_inputs/nas_Sor4.in'
-    b = 'sample_inputs/nas_Sor5.in'
+    a = 'sample_inputs/nas_Sor2.in'
+    b = 'sample_inputs/nas_Sor3.in'
 
     out = 'nas_Sor.out'
 

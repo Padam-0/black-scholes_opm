@@ -1,6 +1,6 @@
 Below is a list of sample inputs for testing and a description of their contents
 
-zero_on_diag.in
+nas_Sor_zero_on_diag.in
 A small matrix having a 0 on the diagonal
 
 not_diag_dominant_1.in
@@ -9,18 +9,24 @@ A small matrix such that:
     Not diagonally dominant
     All eigenvalues of C have abs < 1
 
-not_diag_dominant_2.in
-A small matrix such that:
-    No 0's on the diagonal
-    Not diagonally dominant
-    All eigenvalues of C have abs > 1
-
-not_diag_dominant_3.in
-A small matrix such that:
-    No 0's on the diagonal
-    Not diagonally dominant
-    All eigenvalues of CtC have abs < 1
-
-large_dd_matrix.in
+large_matrix.in
 A large (n = 1000-10000) sparse dd matrix
 
+nas_Sor.in
+A 14 x 14 diagonally dominant matrix
+
+nas_Sor2.in
+A small matrix with non-digit entries
+
+nas_Sor3.in
+A small matrix with a non-digit first row
+
+sample_mtx.mtx
+
+sample_mtx1.mtx
+
+sample_mtx3.mtx
+
+sample_mtx4.mtx
+
+sample_mtx5.mtx

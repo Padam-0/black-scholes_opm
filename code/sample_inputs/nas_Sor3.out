@@ -1,3 +1,0 @@
-Stopping Reason         | Maximum Number of Iterations  | Number of Iterations  | Machine Epsilon       | X Sequence Tolerance  | Residual Sequence Tolerance   
-x Sequence Convergence  | 100                           | 18                    | 2.22044604925e-16     | 1e-10                 | 0                             
--0.00993039443091 0.0827842227383 0.0580974477958 0.282273781903
