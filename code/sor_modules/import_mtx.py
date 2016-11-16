@@ -25,7 +25,7 @@ maximum and minimum values of the input matrix as upper and lower bounds.
 
 get_mtx_b() returns a 1 dimensional numpy array.
 
-Requirements: numpy, scipy.io
+Requirements: numpy, scipy.io, get_filename, write_output
 
 """
 
