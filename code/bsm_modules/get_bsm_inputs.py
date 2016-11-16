@@ -1,3 +1,20 @@
+"""
+create_BS_matrix.py
+
+This module contains 1 function, get_bsm_inputs() which takes no arguments
+
+get_bsm_inputs() asks the user to enter the Black-Scholes input information
+necessary for calculating the present day value of an option. If the user
+doesn't want to enter manual inputs, they can select a default option.
+
+The function returns the present day stock price, strike price, days to
+maturity, volatility and risk free interest rate.
+
+Requirements: None
+
+"""
+
+
 def get_bsm_inputs():
     met = False
     print("Please define some initial conditions")
