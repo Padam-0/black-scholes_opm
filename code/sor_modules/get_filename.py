@@ -94,7 +94,7 @@ def check_CM_args(cmArgs):
             elif question == 'N':
                 # Asks the user if they want to use the default file names
                 if input('Is using the default file names ok? [y/n]: '
-                                     '').upper() =='Y':
+                                     ).upper() =='Y':
                     # Append default file names to the file name list
                     file_names.append('nas_Sor.in')
                     file_names.append('nas_Sor.out')

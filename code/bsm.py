@@ -106,7 +106,8 @@ try:
     import numpy as np
     import math
     from sor_modules import solve_sor
-    from bsm_modules import create_BS_matrix, create_BS_b, get_bsm_inputs
+    from bsm_modules import create_BS_matrix, create_BS_b, get_bsm_inputs, \
+        output_bsm
     import matplotlib.pyplot as plt
 except ImportError as import_err:
     print(import_err)
@@ -117,18 +118,10 @@ except ImportError as import_err:
 def main():
 
     # Define inital conditions
-    testing = True
-    if testing == False:
-        s, X, T, sigma, r, = get_bsm_inputs.get_bsm_inputs()
-    else:
-        s = 42  # Stock Price today, in Dollars
-        X = 42  # Strike Price, in Dollars
-        T = 90  # Maturity Date, Days from now
-        r = 0.02  # Risk free rate (% per year)
-        sigma = 0.3  # Volatility
+    s, X, T, sigma, r, = get_bsm_inputs.get_bsm_inputs()
 
-    #Smax = min([100, 10 * max(X, s)])
-    S_max = 80
+    S_max = min([100, 10 * max(X, s)])
+
     maxits = 300 # Maximum iterations
     e = np.finfo(float).eps # Machine Epsilon
     w = 1.3 # Relaxation factor
@@ -147,8 +140,6 @@ def main():
 
     # Create initial vector b, f_n,M
     b = create_BS_b.create_BS_b(N, X, h, k, sigma, r)
-    print(b[int(N - round(s / (S_max / N), 0) - 1)])
-    print(int(N - round(s / (S_max / N), 0) - 1))
 
     # Create optimized initial vector x
     x = solve_sor.create_initial_x(val, col, rowStart, b, n)
@@ -158,13 +149,12 @@ def main():
         b[0] += k / 2 * (sigma ** 2 - r) * X
         b = solve_sor.sor(val, col, rowStart, b, n, maxits, w, x, e, tol)[0]
 
+    option_val = b[int(N - round(s / (S_max / N), 0) - 1)]
 
+    print("Option value for given inputs is $%s" % (str(option_val)))
+    print("Output file written to bsm_solution.out")
 
-    print(b[int(N - round(s / (S_max / N), 0) - 1)])
-
-    plt.plot(b)
-    plt.show()
-
+    output_bsm.output_bsm("bsm_solution.out", option_val, s, X, T, sigma, r)
 
 if __name__ == "__main__":
     main()
