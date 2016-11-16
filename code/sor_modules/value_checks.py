@@ -147,11 +147,10 @@ def value_tests(val, col, rowStart, errors, output_file_name):
         # Quit
         exit("There are zeros on the diagonal")
     # Check if the matrix is strictly row or column diagonally dominant:
-    """"
+
     elif not diag_dominant(val, col, rowStart):
         # Write output
 
         # Quit
         exit("The matrix is not strictly row or column diagonally "
                       "dominant")
-    """
