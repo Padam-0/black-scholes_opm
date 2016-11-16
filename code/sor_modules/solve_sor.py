@@ -68,6 +68,7 @@ Requirements: numpy, vector_norm
 
 import numpy as np
 from sor_modules import calculate_residual, vector_norm
+import matplotlib.pyplot as plt
 
 
 def create_initial_x(val, col, rowStart, b, n):
@@ -114,64 +115,26 @@ def sor(val, col, rowStart, b, n, maxits, w, x, e, tol):
         # Return solution_vector_x, stopping_reason, maxits, #_of_iterations,
         # machine_epsilon, x-seq_tolerance, residual, w
         if r == 0:
+            plt.plot(l)
+            plt.show()
             return x, "Residual convergence", maxits, k+1, tol, 0
             # ^^ have to return residual tolerance used..? residual tolerance = ||r|| / ||b|| ?
 
         elif vector_norm.vectornorm(abs(x1-x2)) < tol + 4*e:
             #x-convergence
+            plt.plot(l)
+            plt.show()
             return x, "x Sequence Convergence", maxits, k+1, tol, 0
 
         elif k > 0 and l[k]>l[k-1]:
             # divergence
+            plt.plot(l)
+            plt.show()
             return x, "Divergence",  maxits, k+1, tol, 0
 
         else:
             k += 1
             if k == maxits:
+                plt.plot(l)
+                plt.show()
                 return x, "Max Iterations Reached", maxits, k, tol, 0
-
-
-"""
-# How necessary is this? How does it affect the number of calculations
-performed? Is the total saving significantly less than just an arbitrary guess?
-
-#try out different values of w
-def solve_axb_with_best_w(val, col, rowStart, b, n, maxits, w, x, A, tol):
-    l=[]
-    #if the user inputed any of these:
-    if w == 1.2 or w == 1.3 or w == 1.2:
-        w = 1.2
-        solved1 = solve_axb(val, col, rowstart, b, n, maxits, w, x, A, tol)
-        w = 1.3
-        solved2 = solve_axb(val, col, rowstart, b, n, maxits, w, x, A, tol)
-        if solved1[3]<solved2[3]:
-            best = solved1
-        else:
-            best = solved2
-        w =1.4
-        solved3 = solve_axb(val, col, rowstart, b, n, maxits, w, x, A, tol)
-        if solved3[3]<best[3]:
-            return solved3
-        else:
-            return best
-    else:
-    #if the user inputed something other than 1.2, 1.3 or 1.4
-        solved1 = solve_axb(val, col, rowstart, b, n, maxits, w, x, A, tol)
-        w = 1.2
-        solved2 = solve_axb(val, col, rowstart, b, n, maxits, w, x, A, tol)
-        if solved1[3]<solved2[3]:
-            best = solved1
-        else:
-            best = solved2
-        w = 1.3
-        solved3 = solve_axb(val, col, rowstart, b, n, maxits, w, x, A, tol)
-        if solved3[3] < best[3]:
-            best = solved3
-        w = 1.4
-        solved4 = solve_axb(val, col, rowstart, b, n, maxits, w, x, A, tol)
-        if solved4[3]<best[3]:
-            return solved4
-        else:
-            return best
-"""
-
