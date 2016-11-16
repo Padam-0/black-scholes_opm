@@ -1,2 +1,0 @@
-Stopping Reason         | Maximum Number of Iterations  | Number of Iterations  | Machine Epsilon       | X Sequence Tolerance  | Residual Sequence Tolerance   
-Zero on diagonal        | 100                           | 0                     | 2.22044604925e-16     | 1e-10                 | 0                             

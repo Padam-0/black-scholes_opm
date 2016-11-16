@@ -63,96 +63,20 @@ Requirements: numpy, write_output
 """
 
 from sor_modules import write_output
-import numpy as np
 
-def zero_diag(val, col, rowStart):
-    # Check if there are 0's on the diagonal of the input matrix
+def value_tests(val, col, rowStart, errors, output_file_name):
+
+    # Check if the matrix has zeros on the diagonal:
 
     # Set initial row number
     row = 0
 
-    # For each row
     for i in range(len(rowStart)-1):
         # Create r, a list of all column values for that row
         r = col[int(rowStart[i]):int(rowStart[i+1])]
         # If the row number is not in r:
         if row not in r:
             # Output False
-            return False
-
+            write_output.output_text_file(output_file_name, "Zero on diagonal")
+            exit("There are zeros on the diagonal")
         row += 1
-
-    # If all diagonal values are non-zero
-    return True
-
-
-def diag_dominant(val, col, rowStart):
-    # Check if the diagonal value is larger than the sum of all
-    # other entries in that row or column
-
-    # Initialize empty lists
-    diags = []
-    col_sums = []
-    row_sums = []
-
-    # For each row in the matrix:
-    for i in range(len(rowStart) - 1):
-
-        # Create r, a list of all column values for that row
-        r = col[int(rowStart[i]):int(rowStart[i + 1])]
-        # For each non-zero column entry in a row
-
-        if i in r:
-            # Append the diagonal entry (row number = column number) to the
-            # diags list
-            diags.append(abs(val[int(rowStart[i] + np.where(r == i)[0])]))
-
-        # Set the column sum to 0
-        c_sum = 0
-        # For each column index:
-        for j in range(len(col)):
-            # If the column index is equal to the current
-            if col[j] == i:
-                c_sum += abs(val[j])
-        col_sums.append(c_sum)
-
-        # Set the row sum to 0
-
-        r_sum = 0
-        for k in range(int(rowStart[i]), int(rowStart[i + 1])):
-            r_sum += abs(val[k])
-
-        row_sums.append(r_sum)
-
-    # Convert diag to numpy array to allow element-wise operations
-    diags = np.array(diags)
-
-    # Subtract the diagonal element of each row / column from the row or
-    # column sum
-    col_sums = np.array(col_sums) - diags
-    row_sums = np.array(row_sums) - diags
-
-    # If the diagonal element or a row / column is greater than the row or
-    # column sum, return True
-    return np.greater(diags, col_sums).all() or \
-           np.greater(diags,row_sums).all()
-#changed np.greater() to np.greater_equal on line 137 and 138
-
-def value_tests(val, col, rowStart, errors, output_file_name):
-
-    # Check if the matrix has zeros on the diagonal:
-    if not zero_diag(val, col, rowStart):
-        # Write output file
-        write_output.output_text_file(output_file_name, "Zero on diagonal")
-        # Quit
-        exit("There are zeros on the diagonal")
-    # Check if the matrix is strictly row or column diagonally dominant:
-
-    """
-    elif not diag_dominant(val, col, rowStart):
-        # Write output
-
-        # Quit
-        exit("The matrix is not strictly row or column diagonally "
-                      "dominant")
-    """

@@ -98,7 +98,6 @@ def sor(val, col, rowStart, b, n, maxits, w, x, e, tol):
 
     k = 0
     while k <= maxits:
-        print(w, ": Iteration: ", k)
         x1 = x.copy()
 
         for i in range(0, n):
@@ -113,20 +112,8 @@ def sor(val, col, rowStart, b, n, maxits, w, x, e, tol):
 
         r = calculate_residual.residual(val, col, rowStart, b, x)
 
-        print(w, ": Residual: ", r)
-
         l.append(vector_norm.vectornorm(abs(x1 - x2)))
 
-        print(w, ": X-Residual: ", l[-1])
-
-        """
-        if len(l) >= 3:
-            w = optimise_w.op_w(l, w)
-
-        print(w)
-
-        w_l.append(w)
-        """
         # Return solution_vector_x, stopping_reason, maxits, #_of_iterations,
         # machine_epsilon, x-seq_tolerance, residual, w
         if r == 0:
@@ -145,28 +132,3 @@ def sor(val, col, rowStart, b, n, maxits, w, x, e, tol):
             k += 1
             if k == maxits:
                 return x, "Max Iterations Reached", maxits, k, tol, r
-
-
-def choose_w(val, col, rowStart, vector_b, n, x, e, tol, output_filename):
-    l=[]
-    #if the user inputed any of these:
-    w_test = sor(val, col, rowStart, vector_b, n, 3, 1.2, x, e, tol)
-    if w_test[1] == \
-            "Divergence":
-        write_output.output_text_file(output_filename, w_test)
-        exit()
-
-    w12 = sor(val, col, rowStart, vector_b, n, 10, 1.2, x, e, tol)
-    w13 = sor(val, col, rowStart, vector_b, n, 10, 1.3, x, e, tol)
-    w14 = sor(val, col, rowStart, vector_b, n, 10, 1.4, x, e, tol)
-
-    if w13[5] < w14[5]:
-        if w12[5] < w13[5]:
-            return 1.2
-        else:
-            return 1.3
-    else:
-        if w12[5] < w14[5]:
-            return 1.2
-        else:
-            return 1.4

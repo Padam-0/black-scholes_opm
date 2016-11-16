@@ -1,15 +1,9 @@
-import matplotlib.pyplot as plt
+"""
+
+Need to write this
+
+"""
 import random
-
-def plot_w(list, w_list):
-    change = []
-    for i in range(1, len(list)):
-        change.append(list[i] / list[i - 1])
-
-    plt.plot(w_list)
-    plt.plot(change)
-    plt.show()
-
 
 def op_w(list, w):
     change = list[-1] / list[-2]

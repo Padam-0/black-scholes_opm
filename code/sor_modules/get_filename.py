@@ -203,6 +203,5 @@ def con_filename(filename, argNum = 0, sample_file = False):
         elif argNum == 2:
             filename = os.path.join('sample_inputs', filename)
 
-
     # Return converted file name and if it is a sample file
     return filename, sample_file

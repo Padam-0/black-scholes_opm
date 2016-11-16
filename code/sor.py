@@ -63,7 +63,9 @@ def main():
     # Return errors
     if len(errors) != 0:
         write_output.output_text_file(output_filename, "Cannot Proceed")
-        print_errors.print_errors(errors)
+        exit("The following errors were identified:\n\n" + "\n"
+             .join([" -  %s" % (str(value)) for value in errors]) +
+             "\n\nPlease correct these errors and restart the program")
 
     # Add complex value checks to the errors list
     value_checks.value_tests(val, col, rowStart, errors, output_filename)
