@@ -46,7 +46,6 @@ def create_BS_b(N, X, h, k, sigma, r):
         if n == 1:
             # Append the option value to the list
             b.append(X - n * h)
-            #b.append((S_max - (n + 1) * h) - X)
 
         # If the value of the option is positive:
         elif (X - (n + 1) * h) > 0:
