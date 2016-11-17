@@ -46,7 +46,8 @@ def sor(input_filename, output_filename):
     w = 1.3
 
     # Create initial vector x (if required)
-    x = solve_sor.create_initial_x(val, col, rowStart, vector_b, n)
+    #x = solve_sor.create_initial_x(val, col, rowStart, vector_b, n)
+    x = np.random.randn(n)
     # Set Machine Epsilon based on computer specifications
     e = np.finfo(float).eps
 
@@ -58,8 +59,8 @@ def sor(input_filename, output_filename):
         solve_sor.sor(val, col, rowStart, vector_b, n, maxits, w, x, e, tol)
 
     # Output results to specified output file
-    write_output.output_text_file(output_filename, stop, maxits, iterations,
-                                  e, xseqtol, residual, w, x)
+    #write_output.output_text_file(output_filename, stop, maxits, iterations,
+    #                              e, xseqtol, residual, w, x)
 
 
 def wrapper(func, *args, **kwargs):
