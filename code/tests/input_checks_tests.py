@@ -3,21 +3,6 @@ import numpy.testing
 import numpy as np
 from sor_modules import input_checks
 
-""""
-def test_csr_input_checks():
-    val = np.array([13, 4, 4, 11, 4, 7, 8, 20, 4, 1, 1, 14])
-    val2 = np.array([13, 4, 4, 11, 4])
-
-    col = np.array([0, 3, 0, 1, 3, 0, 1, 2, 3, 0, 2, 3])
-    rowStart = np.array([0, 2, 5, 9, 12])
-    b = np.array([1, 2, 3, 4])
-
-    res1 = input_checks.csr_input_checks(val, col, rowStart, b)
-    res2 = input_checks.csr_input_checks(val2, col, rowStart, b)
-
-    assert_equal(res1, None)
-    assert_equal(res2, "Value and column vectors are not the same length")
-"""
 # Matrix Values
 val1 = np.array([13.0, 4.0, 4.0, 11.0, 4.0, 7.0, 8.0, 20.0, 4.0, 1.0, 1.0, 14.0])
 val2 = np.array([13.0, 4.0, 4.0, 11.0, 4.0, 7.0, 8.0, 4.0, 1.0, 1.0, 14.0])
@@ -35,8 +20,6 @@ rowStart5 = np.array([0, 2, 5, 9, 13])
 
 b1 = np.array([2, 3, 4, 5])
 b2 = np.array([2, 3, 4, 5, 6])
-b3 = np.array([2, 3, 4, 5])
-b4 = np.array([2, 3, 4, 5])
 
 def test_csr_input_checks():
     res1 = input_checks.csr_input_checks(val1, col1, rowStart1, b1)

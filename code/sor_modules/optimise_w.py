@@ -48,3 +48,9 @@ def op_w(list, w):
         else:
             # Return w +/- 0.05 in the other direction
             return w + 0.05 * (-1 * m)
+
+
+list = [0.6, 0.7, 0.79, 0.7, 0.8]
+w = 1.2
+
+print(op_w(list, w))
