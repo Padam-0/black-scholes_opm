@@ -22,15 +22,16 @@ Over Relaxation.
 
 Outputs are printed in a text file, the name of which is provided by the user.
 
-Requirements: numpy, sys
+Requirements: numpy, sys, get_filename, raw_input_check, read_inputs,
+input_checks, value_checks, solve_sor, write_output
+
 """
 
 try:
     import numpy as np
     import sys
     from sor_modules import get_filename, raw_input_check, read_inputs, \
-        input_checks, convert_to_csr, value_checks, solve_sor, vector_norm, \
-        calculate_residual, write_output, print_errors
+        input_checks, value_checks, solve_sor, write_output
 except ImportError as import_err:
     print(import_err)
     print("Unable to import required libraries. Please check installation of "
@@ -44,7 +45,7 @@ def main():
     input_filename, output_filename = get_filename.check_CM_args(sys.argv)
 
     # Check for any non-decimal entries in the input file
-    if input_filename[-4:] != '.mtx' and raw_input_check.read_raw_inputs(\
+    if input_filename[-4:] != '.mtx' and raw_input_check.read_raw_inputs(
             input_filename, output_filename):
         write_output.output_text_file(output_filename, "Cannot Proceed")
         exit("There is a non-decimal entry in the input file. Please amend "
@@ -80,14 +81,12 @@ def main():
     maxits = 100
 
     # Set initial relaxation factor
-    #w = 1.3
+    w = 1.3
 
-    # Create initial vector x (if required)
-    x = solve_sor.create_initial_x(val, col, rowStart, vector_b, n)
+    # Create initial vector x
+    x = np.random.randn(n)
     # Set Machine Epsilon based on computer specifications
     e = np.finfo(float).eps
-
-    w = solve_sor.choose_w(val, col, rowStart, vector_b, n, x, e, tol, output_filename)
 
     # Solve matrixing using Successive Over Relaxation
     x, stop, maxits, iterations, xseqtol, residual = \

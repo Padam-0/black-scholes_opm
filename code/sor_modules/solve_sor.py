@@ -63,12 +63,12 @@ The function will return:
 - and w, the relaxation factor.
 
 
-Requirements: numpy, calculate_residual, vector_norm, optimise_w, write_output
+Requirements: numpy, calculate_residual, vector_norm, optimise_w
+
 """
 
 import numpy as np
-from sor_modules import calculate_residual, vector_norm, optimise_w, \
-    write_output
+from sor_modules import calculate_residual, vector_norm, optimise_w
 
 
 def create_initial_x(val, col, rowStart, b, n):
@@ -113,6 +113,9 @@ def sor(val, col, rowStart, b, n, maxits, w, x, e, tol):
         r = calculate_residual.residual(val, col, rowStart, b, x)
 
         l.append(vector_norm.vectornorm(abs(x1 - x2)))
+
+        if len(l) >= 3:
+            w = optimise_w.op_w(l, w)
 
         # Return solution_vector_x, stopping_reason, maxits, #_of_iterations,
         # machine_epsilon, x-seq_tolerance, residual, w
