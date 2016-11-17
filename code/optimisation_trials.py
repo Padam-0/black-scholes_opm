@@ -43,7 +43,7 @@ def sor(input_filename, output_filename):
     maxits = 100
 
     # Set initial relaxation factor
-    #w = 1.3
+    w = 1.3
 
     # Create initial vector x (if required)
 
@@ -53,8 +53,8 @@ def sor(input_filename, output_filename):
     # Set Machine Epsilon based on computer specifications
     e = np.finfo(float).eps
 
-    w = solve_sor.choose_w(val, col, rowStart, vector_b, n, x, e, tol,
-                           output_filename)
+    #w = solve_sor.choose_w(val, col, rowStart, vector_b, n, x, e, tol,
+    #                       output_filename)
 
     # Solve matrixing using Successive Over Relaxation
     x, stop, maxits, iterations, xseqtol, residual = \
