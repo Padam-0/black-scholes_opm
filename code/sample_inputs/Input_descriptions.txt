@@ -10,23 +10,40 @@ A small matrix such that:
     All eigenvalues of C have abs < 1
 
 large_matrix.in
-A large (n = 1000-10000) sparse dd matrix
+A large (n = 1000) sparse (20%) strictly diagonally dominant matrix of real
+numbers in dense format.
 
 nas_Sor.in
-A 14 x 14 diagonally dominant matrix
+A 14 x 14 strictly diagonally dominant matrix of real numbers in dense format.
+
+nas_Sor1.in
+A 4 x 4 strictly diagonally dominant matrix of real numbers in CSR format.
 
 nas_Sor2.in
-A small matrix with non-digit entries
+A small matrix with non-digit entries in dense format.
 
 nas_Sor3.in
-A small matrix with a non-digit first row
+A small matrix with a non-digit first row in dense format.
+
+nas_Sor4.in
+A 14 x 14 strictly diagonally dominant matrix of real numbers in dense format.
 
 sample_mtx.mtx
+A small (n = 3) non-diagonally dominant general matrix of real numbers.
+Test input data for .mtx files
 
 sample_mtx1.mtx
+A large (n = 90449) sparse (0.023%) non-diagonally dominant symmetric matrix
+of real numbers in .mtx format.
 
 sample_mtx3.mtx
+A large (n = 25588) sparse (0.048%) non-diagonally dominant symmetric matrix
+of 1s in .mtx format.
 
 sample_mtx4.mtx
+A large (n = 25588) sparse (0.012%) non-diagonally dominant symmetric matrix
+of 1s in .mtx format.
 
 sample_mtx5.mtx
+A large (n = 25588) sparse (0.052%) non-diagonally dominant symmetric matrix
+of 1s in .mtx format.
