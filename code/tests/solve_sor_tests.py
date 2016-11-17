@@ -3,19 +3,6 @@ import numpy.testing
 import numpy as np
 from sor_modules import solve_sor
 
-def test_create_initial_x():
-    val = [13.0, 4.0, 4.0, 11.0, 4.0, 7.0, 8.0, 20.0, 4.0, 1.0, 1.0, 14.0]
-    col = np.array([0, 3, 0, 1, 3, 0, 1, 2, 3, 0, 2, 3])
-    rowStart = np.array([0, 2, 5, 9, 12])
-    b = np.array([1, 2, 3, 4])
-    x = np.array([-0.00979992, 0.08289098, 0.06390363, 0.28184973])
-
-    res1 = solve_sor.create_initial_x(val, col, rowStart, b, 4)
-
-    array1 = np.array([1, 2, 3, 4])
-
-    numpy.testing.assert_almost_equal(res1, array1, decimal=-3)
-
 
 def test_sor():
     val = [13.0, 4.0, 4.0, 11.0, 4.0, 7.0, 8.0, 20.0, 4.0, 1.0, 1.0, 14.0]
