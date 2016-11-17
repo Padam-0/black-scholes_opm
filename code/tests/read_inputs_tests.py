@@ -7,9 +7,9 @@ def test_read_inputs():
     a = 'sample_inputs/nas_Sor.in'
     b = 'nas_Sor.out'
 
-    val = np.array([13, 4, 4, 11, 4, 7, 8, 20, 4, 1, 1, 14])
-    col = np.array([0, 3, 0, 1, 3, 0, 1, 2, 3, 0, 2, 3])
-    rowStart = np.array([0, 2, 5, 9, 12])
+    val = np.array([12, 1, 4, 11, 3, 7, 8, 16, 1, 3])
+    col = np.array([0, 3, 0, 1, 3, 0, 1, 2, 0, 3])
+    rowStart = np.array([0, 2, 5, 8, 10])
     vector_b = np.array([1, 2, 3, 4])
 
     res1 = read_inputs.read_inputs(a, b)
