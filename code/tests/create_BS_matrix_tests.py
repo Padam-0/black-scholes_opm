@@ -26,16 +26,16 @@ def test_create_BS_matrix():
     k1 = 5
     k2 = "string"
     r = 0.02
-    theta = 0.3
+    sigma = 0.3
 
 
-    res1 = create_BS_matrix.create_BS_matrix(M3, k1, r, theta)
+    res1 = create_BS_matrix.create_BS_matrix(M3, k1, r, sigma)
 
     # test case 1
-    assert_raises(SystemExit, create_BS_matrix.create_BS_matrix, M1 ,k1 , r, theta)
+    assert_raises(SystemExit, create_BS_matrix.create_BS_matrix, M1 ,k1 , r, sigma)
 
     # test case 2
-    assert_raises(SystemExit, create_BS_matrix.create_BS_matrix, M2, k1, r, theta)
+    assert_raises(SystemExit, create_BS_matrix.create_BS_matrix, M2, k1, r, sigma)
 
     # test case 3
     numpy.testing.assert_array_almost_equal(res1[0], np.array([1.55, -0.275, -0.8, 2.9, -1., -1.875,
@@ -44,4 +44,4 @@ def test_create_BS_matrix():
     numpy.testing.assert_array_equal(res1[2], np.array([0, 2, 5, 8, 10]))
 
     # test case 4
-    assert_raises(TypeError, create_BS_matrix.create_BS_matrix, M3, k2, r, theta)
+    assert_raises(TypeError, create_BS_matrix.create_BS_matrix, M3, k2, r, sigma)

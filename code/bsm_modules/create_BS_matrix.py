@@ -108,14 +108,3 @@ def create_BS_matrix(M, k, r, sigma):
 
         # Return arrays
         return val, col, rowStart
-
-
-M = 5
-k = 5
-r = 0.02
-sigma = 0.3
-val, col, rowStart = create_BS_matrix(M, k, r, sigma)
-
-print('val: ', val)
-print('col: ', col)
-print('rowStart: ', rowStart)
