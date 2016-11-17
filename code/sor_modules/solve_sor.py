@@ -1,32 +1,7 @@
 """
 solve_sor.py
 
-This module contains two functions:
-
-- create_initial_x(); and
-- sor().
-
-create_initial_x() takes 5 arguments. These are:
-
-  - val - A 1 dimensional numpy array containing the input matrix (A) values in
-CRS format.
-  - col - A 1 dimensional numpy array containing the column references for the
-input matrix (A) entries in val.
-  - rowStart - A 1 dimensional numpy array containing the reference indices for
-the beginning of each new row of the the input matrix (A).
-  - b - A 1 dimensional numpy array that represents the solution vector b.
-  - n - an integer the size of the x vector to be created.
-
-create_initial_x() creates 50 initial x-vectors made up of n random
-integers whose values range from -100 to 100. The function residual()
-is imported to calculate residuals. Each x-vector and its residual is appended
-to a list.
-
-Whichever x-vector has the lowest residual returned to be used as the initial x-vector in SOR.
-
-Requirements: numpy and calculate_residual
-
-sor() takes 10 arguments. These are:
+This module contains one function sor() which takes 10 arguments. These are:
 
   - val - A 1 dimensional numpy array containing the input matrix (A) values in
 CRS format.
@@ -43,48 +18,34 @@ initial solution to Ax=b.
   - e - the machine epsilon to be used, float.
   - tol - X Sequence tolerance allowed, float.
 
-Sor() solves Ax=b for x when the matrix A is in CSR format. It creates a while loop
-which iterates a maximum number of times (equal to maxits), improving the initial
-guess for the x-vector each time. After each iteration the function checks whether
-there was residual convergence, x-sequence convergence, or divergence and stops if
-any of these are true. If after maxits number of iterations none of these conditions
-are true then the loop stops.
+sor() solves Ax=b for x when the matrix A is in CSR format. It creates a
+while loop which iterates a maximum number of times (equal to maxits),
+improving the initial guess for the x-vector each time. After each iteration
+the function checks whether there was residual convergence, x-sequence
+convergence, or divergence and stops if any of these are true. If after
+maxits number of iterations none of these conditions are true then the loop
+stops.
 
+The value for w is optimised per iteration depending on the relative rate of
+change of the error term.
 
 The function will return:
 
-- the solution vector_x
-- the stopping reason
-- the maximum number of iterations
-- the actual number of iterations
-- machine epsilon
-- the tolerance allowed
-- the current residual
+- the solution vector_x;
+- the stopping reason;
+- the maximum number of iterations;
+- the actual number of iterations;
+- machine epsilon;
+- the tolerance allowed;
+- the current residual; and
 - and w, the relaxation factor.
 
 
-Requirements: numpy, calculate_residual, vector_norm, optimise_w
+Requirements: calculate_residual, vector_norm, optimise_w
 
 """
 
-import numpy as np
 from sor_modules import calculate_residual, vector_norm, optimise_w
-
-
-def create_initial_x(val, col, rowStart, b, n):
-    # Find a good x initial vector
-    l=[]
-    for i in range(50):
-        # Create 50 random initial vectors of size n
-        x = np.random.randint(-100, 100, size=(n))
-        # Calculate residuals of each random vector
-        l.append([calculate_residual.residual(val, col, rowStart, b, x),x])
-    best = l[0]
-    # Find random vector with lowest residual
-    for item in l:
-        if item[0]<best[0]:
-            best=item[1]
-    return best
 
 
 def sor(val, col, rowStart, b, n, maxits, w, x, e, tol):
@@ -93,8 +54,6 @@ def sor(val, col, rowStart, b, n, maxits, w, x, e, tol):
 
     b = b.astype(float)
     x = x.astype(float)
-
-    w_l = []
 
     k = 0
     while k <= maxits:
@@ -110,27 +69,34 @@ def sor(val, col, rowStart, b, n, maxits, w, x, e, tol):
 
         x2 = x #store x(k-1)th vector in x2
 
+        # Calculate residual
         r = calculate_residual.residual(val, col, rowStart, b, x)
 
+        # Calculate change in calculated vector per iteration
         l.append(vector_norm.vectornorm(abs(x1 - x2)))
 
+        # Optimise w
         if len(l) >= 3:
             w = optimise_w.op_w(l, w)
 
         # Return solution_vector_x, stopping_reason, maxits, #_of_iterations,
         # machine_epsilon, x-seq_tolerance, residual, w
+
+        # Check for residual convergence:
         if r == 0:
             return x, "Residual convergence", maxits, k+1, tol, r
-            # ^^ have to return residual tolerance used..? residual tolerance = ||r|| / ||b|| ?
 
+        # Check for x-sequence convergence
         elif vector_norm.vectornorm(abs(x1-x2)) < tol + 4*e:
-            #x-convergence
+
             return x, "x Sequence Convergence", maxits, k+1, tol, r
 
+        # Check for divergence
         elif k > 0 and l[k]>l[k-1]:
-            # divergence
+
             return x, "Divergence",  maxits, k+1, tol, r
 
+        # Otherwise
         else:
             k += 1
             if k == maxits:
