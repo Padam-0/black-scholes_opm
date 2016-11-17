@@ -38,10 +38,10 @@ def test_create_BS_matrix():
     assert_raises(SystemExit, create_BS_matrix.create_BS_matrix, M2, k1, r, theta)
 
     # test case 3
-    numpy.testing.assert_array_almost_equal(res1[0], np.array([1.55, -0.275, -0.8, 2.9, -1., -1.875, 5.15, -2.175,
-                                                               -3.4, 8.3, -3.8, -5.375, 12.35 ]), decimal=6)
-    numpy.testing.assert_array_equal(res1[1], np.array([0, 1, 0, 1, 2, 1, 2, 3, 2, 3, 4, 3, 4]))
-    numpy.testing.assert_array_equal(res1[2], np.array([0, 2, 5, 8, 11, 13]))
+    numpy.testing.assert_array_almost_equal(res1[0], np.array([1.55, -0.275, -0.8, 2.9, -1., -1.875,
+                                                               5.15, -2.175, -3.4, 8.3]), decimal=10)
+    numpy.testing.assert_array_equal(res1[1], np.array([0, 1, 0, 1, 2, 1, 2, 3, 2, 3]))
+    numpy.testing.assert_array_equal(res1[2], np.array([0, 2, 5, 8, 10]))
 
     # test case 4
     assert_raises(TypeError, create_BS_matrix.create_BS_matrix, M3, k2, r, theta)
