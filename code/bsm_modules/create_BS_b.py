@@ -43,12 +43,7 @@ def create_BS_b(N, X, h, k, sigma, r):
     # For values of b from 0 to N:
     for n in range(1,N):
         # For the first iteration:
-        if n == 1:
-            # Append the option value to the list
-            b.append(X - n * h)
-
-        # If the value of the option is positive:
-        elif (X - (n + 1) * h) > 0:
+        if (X - (n + 1) * h) > 0:
             # Append the option value to the list
             b.append(X - n * h)
 

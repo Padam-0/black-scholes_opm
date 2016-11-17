@@ -120,7 +120,10 @@ def main():
     # Define inital conditions
     s, X, T, sigma, r, = get_bsm_inputs.get_bsm_inputs()
 
-    S_max = min([100, 10 * max(X, s)])
+    if max([X, s]) < 50:
+        S_max = min([100, max([20, 10 * max([X, s])])])
+    else:
+        S_max = max([100, 10 * max([X, s])])
 
     maxits = 300 # Maximum iterations
     e = np.finfo(float).eps # Machine Epsilon
@@ -129,7 +132,7 @@ def main():
 
     # Define spacing conditions
     M = 100 # Number of time steps
-    N = 100
+    N = 300 # Number of price steps
     k = T / M # Time Step distance
     h = S_max / N
 
