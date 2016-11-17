@@ -68,7 +68,7 @@ def main():
              "\n\nPlease correct these errors and restart the program")
 
     # Add complex value checks to the errors list
-    value_checks.value_tests(val, col, rowStart, errors, output_filename)
+    value_checks.value_tests(val, col, rowStart, output_filename)
 
     # Set Tolerance
     tol = 1 * 10 ** (-10)

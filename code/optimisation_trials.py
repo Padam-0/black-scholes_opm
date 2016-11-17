@@ -1,7 +1,7 @@
 import numpy as np
 from sor_modules import get_filename, raw_input_check, read_inputs, \
     input_checks, convert_to_csr, value_checks, solve_sor, vector_norm, \
-    calculate_residual, write_output, print_errors
+    calculate_residual, write_output
 import timeit
 
 def sor(input_filename, output_filename):
@@ -31,7 +31,7 @@ def sor(input_filename, output_filename):
              "\n\nPlease correct these errors and restart the program")
 
     # Add complex value checks to the errors list
-    value_checks.value_tests(val, col, rowStart, errors, output_filename)
+    value_checks.value_tests(val, col, rowStart, output_filename)
 
     # Set Tolerance
     tol = 1 * 10 ** (-10)
@@ -43,16 +43,18 @@ def sor(input_filename, output_filename):
     maxits = 100
 
     # Set initial relaxation factor
-    w = 1.3
+    #w = 1.3
 
     # Create initial vector x (if required)
+
     #x = solve_sor.create_initial_x(val, col, rowStart, vector_b, n)
+    np.random.seed(123)
     x = np.random.randn(n)
     # Set Machine Epsilon based on computer specifications
     e = np.finfo(float).eps
 
-    #w = solve_sor.choose_w(val, col, rowStart, vector_b, n, x, e, tol,
-    #                       output_filename)
+    w = solve_sor.choose_w(val, col, rowStart, vector_b, n, x, e, tol,
+                           output_filename)
 
     # Solve matrixing using Successive Over Relaxation
     x, stop, maxits, iterations, xseqtol, residual = \
@@ -76,3 +78,6 @@ def main():
     wrapped = wrapper(sor, 'sample_inputs/large_matrix.in',
                       'sample_inputs/large_matrix.out')
     print(timeit.timeit(wrapped, number=10))
+
+if __name__ == "__main__":
+    main()

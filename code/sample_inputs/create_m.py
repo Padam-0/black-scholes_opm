@@ -1,11 +1,11 @@
 import random
 
-with open('sample_inputs/large_matrix.in', 'w') as f:
-    f.write("1000\n")
+with open('large_matrix.in', 'w') as f:
+    f.write("4000\n")
     b = []
-    for i in range(1000):
+    for i in range(4000):
         rand = []
-        for j in range(1000):
+        for j in range(4000):
             if random.random() > 0.8:
                 rand.append(random.randint(1,9))
             else:

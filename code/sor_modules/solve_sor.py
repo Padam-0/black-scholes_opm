@@ -114,6 +114,11 @@ def sor(val, col, rowStart, b, n, maxits, w, x, e, tol):
 
         l.append(vector_norm.vectornorm(abs(x1 - x2)))
 
+        """
+        if len(l) >= 3:
+            w = optimise_w.op_w(l, w)
+        """
+
         # Return solution_vector_x, stopping_reason, maxits, #_of_iterations,
         # machine_epsilon, x-seq_tolerance, residual, w
         if r == 0:
@@ -132,3 +137,4 @@ def sor(val, col, rowStart, b, n, maxits, w, x, e, tol):
             k += 1
             if k == maxits:
                 return x, "Max Iterations Reached", maxits, k, tol, r
+
