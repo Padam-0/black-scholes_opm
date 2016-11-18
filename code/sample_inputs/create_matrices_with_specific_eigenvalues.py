@@ -6,7 +6,7 @@ def create_test_matrix(value, A=None):
     if value == "less than":
         if A is None:
             for i in range(500):
-                A = np.random.rand(2,2)
+                A = np.random.rand(4,4)
                 A =A*-1
                 if not_diag_dom(A)==True:
                     C = find_C(A)
@@ -24,7 +24,7 @@ def create_test_matrix(value, A=None):
     else:
         if A is None:
             for i in range(500):
-                A = np.random.rand(2,2)
+                A = np.random.rand(4,4)
                 if not_diag_dom(A)==True:
                     C = find_C(A)
                     if eigenvalues_greater_than(C):
@@ -129,49 +129,21 @@ greater_than_2 = np.array([[ 0.01124162,  0.90960554],
        [ 0.7327776 ,  0.10667227]])
 greater_than_3 = np.array([[ 0.13534856,  0.44150804],
        [ 0.85794161,  0.09988733]])
-# print(find_C(greater_than_1))
-# print()
-# print(find_C(greater_than_2))
-# print(find_C(greater_than_3))
-
-# print(create_test_matrix("greater"))
+greater_than_4 = np.array([[ 0.04288265,  0.23022424,  0.75689106,  0.60613027],
+       [ 0.22182462,  0.06520475,  0.11315589,  0.66654736],
+       [ 0.72094468,  0.72051549,  0.16964975,  0.06643108],
+       [ 0.37278829,  0.01823154,  0.35657968,  0.14358185]])
 
 
-# C = np.array([[ 0.02017705,  0.        ],
-#        [-0.11563215,  0.        ]])
-# A=np.array([[ 1,  2],[ 3,  4]])
-# print(find_C(A))
-
-
-
-
-# A=np.array([[2, 5],[5 ,2]])
-
-# A=np.array([[ 0.08479672,  0.88982317],[ 0.37376882,  0.05942828]])
-# A = np.array([[ 0.08,  0.88],[ 0.37,  0.05]])
-# D=np.array([[ 0.08,  0.0],[ 0.0,  0.05]])
-# L=np.array([[ 0,  0],[ 0.37,  0]])
-# U=np.array([[ 0,  0.88],[ 0.0,  0]])
-# C=D+L+U
-# print(C)
-# print(create_test_matrix("less than", A))
-
-
-# C = - (np.linalg.inv(D+L) * U)
-# print(C)
-# A= np.array([[1,0],[0,1]])
-# B= np.array([[1,0],[0,2]])
-# d=A*B
-# print(d)
-
-# print(not_diag_dom(A))
-# all_eigenvalues = eigvals(A)
-# l = list(all_eigenvalues)
-# print(l)
-# for item in l:
-#     if abs(item)>1:
-#         print("greater than", abs(item))
-#     else:
-#         print("less than", abs(item))
-# print(0.6>0.8 or 0.6>0.8)
-# print(0.4>0.8 or 0.4>0.8)
+CtC = find_C(less_than_1)
+CtC = np.transpose(C)@C
+# print(eigenvalues_less_than(CtC))
+## >>> True
+CtC = find_C(less_than_1)
+CtC = np.transpose(C)@C
+# print(eigenvalues_less_than(CtC))
+## >>> True
+CtC = find_C(less_than_1)
+CtC = np.transpose(C)@C
+# print(eigenvalues_less_than(CtC))
+## >>> True
