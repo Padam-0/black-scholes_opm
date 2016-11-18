@@ -11,12 +11,12 @@ def create_test_matrix(value, A=None):
                 if not_diag_dom(A)==True:
                     C = find_C(A)
                     if eigenvalues_less_than(C):
-                        return "less than", eigenvalues_less_than(C), not_diag_dom(A), A, C
+                        return "less than", eigenvalues_less_than(C), not_diag_dom(A), A
         else:
             if not_diag_dom(A) == True:
                 C = find_C(A)
                 if eigenvalues_less_than(C):
-                    return "evls less than", eigenvalues_less_than(C), not_diag_dom(A), A, C
+                    return "evls less than", eigenvalues_less_than(C), not_diag_dom(A)
                 else:
                     return "evls less than", False
             else:
@@ -28,12 +28,12 @@ def create_test_matrix(value, A=None):
                 if not_diag_dom(A)==True:
                     C = find_C(A)
                     if eigenvalues_greater_than(C):
-                        return "greater than", eigenvalues_greater_than(C), not_diag_dom(A), A, C
+                        return "greater than", eigenvalues_greater_than(C), not_diag_dom(A), A
         else:
             if not_diag_dom(A) == True:
                 C = find_C(A)
                 if eigenvalues_greater_than(C):
-                    return "evls less than", eigenvalues_greater_than(C), not_diag_dom(A), A, C
+                    return "evls less than", eigenvalues_greater_than(C), not_diag_dom(A)
                 else:
                     return "evls less than", False
             else:
@@ -113,9 +113,16 @@ def find_C(A):
     inv1 = np.linalg.inv(D+L)
     C = -inv1@U
     return C
-A=np.array([[6, 8],[8, 4]])
-print(create_test_matrix("less than"))
 
+less_than_1= np.array([[-0.84095474, -0.14674105],
+       [-0.07326811, -0.63363091]])
+less_than_2 = np.array([[-0.87525288, -0.4191722 ],
+       [-0.05217446, -0.59336394]])
+less_than_3 = np.array([[-0.28674648, -0.09610883],
+       [-0.15537608, -0.74101286]])
+print(create_test_matrix("less than"))
+# C = np.array([[ 0.02017705,  0.        ],
+#        [-0.11563215,  0.        ]])
 # A=np.array([[ 1,  2],[ 3,  4]])
 # print(find_C(A))
 
