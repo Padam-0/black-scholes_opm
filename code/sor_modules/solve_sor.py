@@ -54,7 +54,7 @@ def sor(val, col, rowStart, b, n, maxits, w, x, e, tol):
 
     b = b.astype(float)
     x = x.astype(float)
-
+    residual_tolerance = 0
     k = 0
     while k <= maxits:
         x1 = x.copy()
@@ -83,21 +83,21 @@ def sor(val, col, rowStart, b, n, maxits, w, x, e, tol):
         # machine_epsilon, x-seq_tolerance, residual, w
 
         # Check for residual convergence:
-        if r == 0:
-            return x, "Residual convergence", maxits, k+1, tol, r
+        if r <= residual_tolerance:
+            return x, "Residual convergence", maxits, k+1, tol, residual_tolerance
 
         # Check for x-sequence convergence
         elif vector_norm.vectornorm(abs(x1-x2)) < tol + 4*e:
 
-            return x, "x Sequence Convergence", maxits, k+1, tol, r
+            return x, "x Sequence Convergence", maxits, k+1, tol, residual_tolerance
 
         # Check for divergence
         elif k > 0 and l[k]>l[k-1]:
 
-            return x, "Divergence",  maxits, k+1, tol, r
+            return x, "Divergence",  maxits, k+1, tol, residual_tolerance
 
         # Otherwise
         else:
             k += 1
             if k == maxits:
-                return x, "Max Iterations Reached", maxits, k, tol, r
+                return x, "Max Iterations Reached", maxits, k, tol, residual_tolerance
