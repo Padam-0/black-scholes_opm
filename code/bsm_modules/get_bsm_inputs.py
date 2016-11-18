@@ -19,24 +19,47 @@ def get_bsm_inputs():
     met = False
     print("Please define some initial conditions")
     while met != True:
-        if input('Would you like to enter initial conditions for Black-Scholes? '
-                 '[y/n]: ').upper() == 'Y':
+        if input('Would you like to enter initial conditions for '
+                 'Black-Scholes? [y/n]: ').upper() == 'Y':
             s, x, t, sig, r = False, False, False, False, False
 
-            S = input("What is today's stock price?")
-            if type(S + 0.01) == float and S > 0:
+            try:
+                S = float(input("What is today's stock price? "))
+            except:
+                print("Please try again. Stock price must be a number.")
+                continue
+            if S > 0:
                 s = True
-            X = input("What is the strike (exercise) price?")
-            if type(X + 0.01) == float and X > 0:
+
+            try:
+                X = float(input("What is the strike (exercise) price? "))
+            except:
+                print("Please try again. Exercise price must be a number.")
+                continue
+            if X > 0:
                 x = True
-            T = input("How many days away is the exercise date?")
-            if type(T + 0.01) == int and T > 0:
+
+            try:
+                T = int(input("How many days away is the exercise date? "))
+            except:
+                print("Please try again. Days to maturity must be a number.")
+                continue
+            if T > 0:
                 t = True
-            sigma = input("What is the volatility (0.2 - 0.4)")
-            if type(sigma) == float and sigma > 0:
+
+            try:
+                sigma = float(input("What is the volatility (0.2 - 0.4) "))
+            except:
+                print("Please try again. Volatility must be a number.")
+                continue
+            if sigma > 0:
                 sig = True
-            R = input("What is the interest rate? (0.01 - 0.03)")
-            if type(R + 0.01) == float and R > 0:
+
+            try:
+                R = float(input("What is the interest rate? (0.01 - 0.03) "))
+            except:
+                print("Please try again. Interest rate must be a number.")
+            if R > 0:
                 r = True
 
             if s and r and x and t and sig:

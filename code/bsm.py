@@ -121,7 +121,7 @@ def main():
     b = create_BS_b.create_BS_b(N, X, h, k, sigma, r)
 
     # Create optimized initial vector x
-    x = solve_sor.create_initial_x(val, col, rowStart, b, n)
+    x = np.random.rand(n)
 
     # Iterate through each timestamp from M-1 to 0
     for m in range(M - 1, -1, -1):
