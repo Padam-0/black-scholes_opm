@@ -54,7 +54,7 @@ def sor(val, col, rowStart, b, n, maxits, w, x, e, tol):
 
     b = b.astype(float)
     x = x.astype(float)
-    residual_tolerance = 1 *10**(-5)
+    residual_tolerance = 1 *10**(-10)
     k = 0
     while k <= maxits:
         x1 = x.copy()
