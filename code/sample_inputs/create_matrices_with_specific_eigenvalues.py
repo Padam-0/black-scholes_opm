@@ -7,24 +7,38 @@ def create_test_matrix(value, A=None):
         if A is None:
             for i in range(500):
                 A = np.random.rand(2,2)
-                if eigenvalues_less_than(A)==True and not_diag_dom(A)==True:
-                    return "less than", eigenvalues_less_than(A), not_diag_dom(A), A
+                A =A*-1
+                if not_diag_dom(A)==True:
+                    C = find_C(A)
+                    if eigenvalues_less_than(C):
+                        return "less than", eigenvalues_less_than(C), not_diag_dom(A), A, C
         else:
-            if eigenvalues_less_than(A) == True and not_diag_dom(A) == True:
-                return "less than", eigenvalues_less_than(A), not_diag_dom(A)
+            if not_diag_dom(A) == True:
+                C = find_C(A)
+                if eigenvalues_less_than(C):
+                    return "evls less than", eigenvalues_less_than(C), not_diag_dom(A), A, C
+                else:
+                    return "evls less than", False
             else:
-                return "less than", False
+                return "A is diag dom", not_diag_dom(A)
     else:
         if A is None:
             for i in range(500):
                 A = np.random.rand(2,2)
-                if eigenvalues_greater_than(A)==True and not_diag_dom(A)==True:
-                    return "greater than", eigenvalues_greater_than(A), not_diag_dom(A), A
+                if not_diag_dom(A)==True:
+                    C = find_C(A)
+                    if eigenvalues_greater_than(C):
+                        return "greater than", eigenvalues_greater_than(C), not_diag_dom(A), A, C
         else:
-            if eigenvalues_greater_than(A) == True and not_diag_dom(A) == True:
-                return "greater than", eigenvalues_greater_than(A), not_diag_dom(A)
+            if not_diag_dom(A) == True:
+                C = find_C(A)
+                if eigenvalues_greater_than(C):
+                    return "evls less than", eigenvalues_greater_than(C), not_diag_dom(A), A, C
+                else:
+                    return "evls less than", False
             else:
-                return "greater than", False
+                return "A is diag dom", not_diag_dom(A)
+
 def eigenvalues_less_than(A):
     toggle = True
     all_eigenvalues = eigvals(A)
@@ -73,12 +87,59 @@ def not_diag_dom(A):
         return False #diag dom
     else:
         return True #not diag dom
+def find_C(A):
+    D = np.empty_like(A)
+    U = np.empty_like(A)
+    L = np.empty_like(A)
+    for i in range(A.shape[0]):
+        for j in range(A.shape[0]):
+            elem = A[i][j]
+            if i == j:
+                D[i][j] = elem
+            else:
+                D[i][j]= 0
+    for i in range(A.shape[0]):
+        for j in range(A.shape[0]):
+            elem = A[i][j]
+            if i > j:
+                U[i][j] = elem
+                L[i][j] = 0
+            elif i==j:
+                U[i][j] = 0
+                L[i][j] = 0
+            else:
+                U[i][j] = 0
+                L[i][j] = elem
+    inv1 = np.linalg.inv(D+L)
+    C = -inv1@U
+    return C
+A=np.array([[6, 8],[8, 4]])
+print(create_test_matrix("less than"))
+
+# A=np.array([[ 1,  2],[ 3,  4]])
+# print(find_C(A))
+
+
+
 
 # A=np.array([[2, 5],[5 ,2]])
-# A=np.array([[0.6787815, 0.88149846],[0.824858, 0.48882749]])
-# A=np.array([[ 0.08479672,  0.88982317],[ 0.37376882,  0.05942828]])
 
-print(create_test_matrix("less than"))
+# A=np.array([[ 0.08479672,  0.88982317],[ 0.37376882,  0.05942828]])
+# A = np.array([[ 0.08,  0.88],[ 0.37,  0.05]])
+# D=np.array([[ 0.08,  0.0],[ 0.0,  0.05]])
+# L=np.array([[ 0,  0],[ 0.37,  0]])
+# U=np.array([[ 0,  0.88],[ 0.0,  0]])
+# C=D+L+U
+# print(C)
+# print(create_test_matrix("less than", A))
+
+
+# C = - (np.linalg.inv(D+L) * U)
+# print(C)
+# A= np.array([[1,0],[0,1]])
+# B= np.array([[1,0],[0,2]])
+# d=A*B
+# print(d)
 
 # print(not_diag_dom(A))
 # all_eigenvalues = eigvals(A)
