@@ -2,17 +2,43 @@ from scipy.linalg import eigvals
 import numpy as np
 from scipy.sparse import csr_matrix
 
-def create_test_matrix(A=None):
-    if A is None:
-        for i in range(500):
-            A = np.random.rand(3,3)
-            if eigenvalues_less_than(A)==True and diag_dom(A)==True:
-                return eigenvalues_less_than(A), diag_dom(A), A
-    else:
-        if eigenvalues_less_than(A) == True and diag_dom(A) == True:
-            return eigenvalues_less_than(A), diag_dom(A)
+def create_test_matrix(value, A=None):
+    if value == "less than":
+        if A is None:
+            for i in range(500):
+                A = np.random.rand(4,4)
+                A =A*-1
+                if not_diag_dom(A)==True:
+                    C = find_C(A)
+                    if eigenvalues_less_than(C):
+                        return "less than", eigenvalues_less_than(C), not_diag_dom(A), A
         else:
-            return False
+            if not_diag_dom(A) == True:
+                C = find_C(A)
+                if eigenvalues_less_than(C):
+                    return "evls less than", eigenvalues_less_than(C), not_diag_dom(A)
+                else:
+                    return "evls less than", False
+            else:
+                return "A is diag dom", not_diag_dom(A)
+    else:
+        if A is None:
+            for i in range(500):
+                A = np.random.rand(4,4)
+                if not_diag_dom(A)==True:
+                    C = find_C(A)
+                    if eigenvalues_greater_than(C):
+                        return "greater than", eigenvalues_greater_than(C), not_diag_dom(A), A
+        else:
+            if not_diag_dom(A) == True:
+                C = find_C(A)
+                if eigenvalues_greater_than(C):
+                    return "evls less than", eigenvalues_greater_than(C), not_diag_dom(A)
+                else:
+                    return "evls less than", False
+            else:
+                return "A is diag dom", not_diag_dom(A)
+
 def eigenvalues_less_than(A):
     toggle = True
     all_eigenvalues = eigvals(A)
@@ -23,7 +49,17 @@ def eigenvalues_less_than(A):
             toggle = False
     #False means the matrix isn't right, True means the matrix is right
     return toggle
-def diag_dom(A):
+def eigenvalues_greater_than(A):
+    toggle = False
+    all_eigenvalues = eigvals(A)
+    l = list(all_eigenvalues)
+    for item in l:
+        # if an eigenvalue is less than 1
+        if abs(item) > 1:
+            toggle = True
+    #False means the matrix isn't right, True means the matrix is right
+    return toggle
+def not_diag_dom(A):
     diag = []
     col = []
     row = []
@@ -46,15 +82,68 @@ def diag_dom(A):
     diag = np.array(diag)
     col = np.array(colsum)
     row = np.array(rowsum)
-    if np.greater(diag, colsum).all() and \
-               np.greater(diag, rowsum).all():
-        return True #diag dom
+    if np.greater_equal(diag, col).any() or \
+               np.greater_equal(diag, row).any():
+        return False #diag dom
     else:
-        return False
+        return True #not diag dom
+def find_C(A):
+    D = np.empty_like(A)
+    U = np.empty_like(A)
+    L = np.empty_like(A)
+    for i in range(A.shape[0]):
+        for j in range(A.shape[0]):
+            elem = A[i][j]
+            if i == j:
+                D[i][j] = elem
+            else:
+                D[i][j]= 0
+    for i in range(A.shape[0]):
+        for j in range(A.shape[0]):
+            elem = A[i][j]
+            if i > j:
+                U[i][j] = elem
+                L[i][j] = 0
+            elif i==j:
+                U[i][j] = 0
+                L[i][j] = 0
+            else:
+                U[i][j] = 0
+                L[i][j] = elem
+    inv1 = np.linalg.inv(D+L)
+    C = -inv1@U
+    return C
 
-A=np.array([[.7 , .21],[.32, .39]])
-# [ 0.68283148,  0.28007863,  0.10298043],
-#        [ 0.13572267,  0.75639731,  0.18839798],
-#        [ 0.02094409,  0.06355872,  0.53039456]]
-A=np.array([[ 0.6,  0.2,  0.1],[ 0.1,  0.7,  0.1],[ 0.0,  0.0,  0.5]])
-print(create_test_matrix(A))
+less_than_1= np.array([[-0.84095474, -0.14674105],
+       [-0.07326811, -0.63363091]])
+less_than_2 = np.array([[-0.87525288, -0.4191722 ],
+       [-0.05217446, -0.59336394]])
+less_than_3 = np.array([[-0.28674648, -0.09610883],
+       [-0.15537608, -0.74101286]])
+# print(find_C(less_than_1))
+# print(eigenvalues_less_than(less_than_1))
+
+greater_than_1 = np.array([[ 0.32485338,  0.75049587],
+       [ 0.71390588,  0.22020623]])
+greater_than_2 = np.array([[ 0.01124162,  0.90960554],
+       [ 0.7327776 ,  0.10667227]])
+greater_than_3 = np.array([[ 0.13534856,  0.44150804],
+       [ 0.85794161,  0.09988733]])
+greater_than_4 = np.array([[ 0.04288265,  0.23022424,  0.75689106,  0.60613027],
+       [ 0.22182462,  0.06520475,  0.11315589,  0.66654736],
+       [ 0.72094468,  0.72051549,  0.16964975,  0.06643108],
+       [ 0.37278829,  0.01823154,  0.35657968,  0.14358185]])
+
+
+CtC = find_C(less_than_1)
+CtC = np.transpose(C)@C
+# print(eigenvalues_less_than(CtC))
+## >>> True
+CtC = find_C(less_than_1)
+CtC = np.transpose(C)@C
+# print(eigenvalues_less_than(CtC))
+## >>> True
+CtC = find_C(less_than_1)
+CtC = np.transpose(C)@C
+# print(eigenvalues_less_than(CtC))
+## >>> True
