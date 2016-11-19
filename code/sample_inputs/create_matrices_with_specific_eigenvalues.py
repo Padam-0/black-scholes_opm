@@ -110,12 +110,15 @@ def find_C(A):
             else:
                 U[i][j] = 0
                 L[i][j] = elem
+    # C = - inverse(D+L) U
     inv1 = np.linalg.inv(D+L)
     C = -inv1@U
+    print(U)
     return C
 
 less_than_1= np.array([[-0.84095474, -0.14674105],
        [-0.07326811, -0.63363091]])
+print(find_C(less_than_1))
 less_than_2 = np.array([[-0.87525288, -0.4191722 ],
        [-0.05217446, -0.59336394]])
 less_than_3 = np.array([[-0.28674648, -0.09610883],
@@ -135,15 +138,15 @@ greater_than_4 = np.array([[ 0.04288265,  0.23022424,  0.75689106,  0.60613027],
        [ 0.37278829,  0.01823154,  0.35657968,  0.14358185]])
 
 
-CtC = find_C(less_than_1)
-CtC = np.transpose(C)@C
-# print(eigenvalues_less_than(CtC))
-## >>> True
-CtC = find_C(less_than_1)
-CtC = np.transpose(C)@C
-# print(eigenvalues_less_than(CtC))
-## >>> True
-CtC = find_C(less_than_1)
-CtC = np.transpose(C)@C
-# print(eigenvalues_less_than(CtC))
-## >>> True
+# CtC = find_C(less_than_1)
+# CtC = np.transpose(C)@C
+# # print(eigenvalues_less_than(CtC))
+# ## >>> True
+# CtC = find_C(less_than_1)
+# CtC = np.transpose(C)@C
+# # print(eigenvalues_less_than(CtC))
+# ## >>> True
+# CtC = find_C(less_than_1)
+# CtC = np.transpose(C)@C
+# # print(eigenvalues_less_than(CtC))
+# ## >>> True
