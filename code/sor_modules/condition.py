@@ -1,6 +1,8 @@
 from scipy.linalg import eigvals
 import numpy as np
 from scipy.sparse import csr_matrix
+# from sor_modules import import_mtx
+# from sample_inputs import sample_mtx4
 
 def condition(m, n):
     all_eigenvalues=eigvals(m)
@@ -12,6 +14,11 @@ def condition(m, n):
 def create_dense(row, col, vals, n):
     m = csr_matrix((vals, (row, col)), shape=(n, n)).todense()
     return m
+
+# val, col, row = import_mtx("sample_mtx4.mtx", "output")
+# A = create_dense(row, col, val, 28924)
+# print(condition(A, 28924))
+
 
 # m= np.array([[ 0.01513653,  0.91844431],[ 0.47155416,  0.32966512]])
 # m=np.array([[1007632839, 0.61860076],[0.59402266, 51.434347]])
