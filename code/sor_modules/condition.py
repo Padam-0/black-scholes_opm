@@ -12,8 +12,9 @@ def condition(m, n):
     return relative_condition
 
 def create_dense(row, col, vals, n):
-    m = csr_matrix((vals, (row, col)), shape=(n, n)).todense()
-    return m
+    # m = csr_matrix((vals, (row, col)), shape=(n, n)).todense()
+    m_out = csr_matrix((vals, col, row), shape=(n, n)).todense()
+    return m_out
 
 # val, col, row = import_mtx("sample_mtx4.mtx", "output")
 # A = create_dense(row, col, val, 28924)

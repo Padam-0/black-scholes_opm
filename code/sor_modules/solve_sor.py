@@ -45,7 +45,7 @@ Requirements: calculate_residual, vector_norm, optimise_w
 
 """
 
-from sor_modules import calculate_residual, vector_norm, optimise_w
+from sor_modules import calculate_residual, vector_norm, optimise_w, condition
 
 
 def sor(val, col, rowStart, b, n, maxits, w, x, e, tol):
@@ -54,8 +54,14 @@ def sor(val, col, rowStart, b, n, maxits, w, x, e, tol):
 
     b = b.astype(float)
     x = x.astype(float)
-    residual_tolerance = 1 *10**(-10)
+    # residual_tolerance = 1 *10**(-10)
+    m = condition.create_dense(rowStart, col, val, n)
+    condit = condition.condition(m, n)
+    # print(condit)
+    residual_tolerance = (condit)* (1*10**(-10))
+    # print(residual_tolerance)
     k = 0
+    # maxits = 40
     while k <= maxits:
         x1 = x.copy()
 
@@ -65,7 +71,7 @@ def sor(val, col, rowStart, b, n, maxits, w, x, e, tol):
                 sum1 = sum1 + val[j] * x[int(col[j])]
                 if col[j] == i:  # identify and store diagonal entry
                     d = val[j]
-        x[i] = x[i] + w * (b[i] - sum1) / d
+            x[i] = x[i] + w * (b[i] - sum1) / d
 
         x2 = x #store x(k-1)th vector in x2
         # Calculate residual

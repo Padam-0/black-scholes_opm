@@ -78,7 +78,7 @@ def main():
     n = rowStart.size - 1
 
     # Set number of maximum iterations
-    maxits = 200
+    maxits = 100
 
     # Set initial relaxation factor
     w = 1.3
