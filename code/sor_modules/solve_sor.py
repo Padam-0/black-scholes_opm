@@ -65,10 +65,9 @@ def sor(val, col, rowStart, b, n, maxits, w, x, e, tol):
                 sum1 = sum1 + val[j] * x[int(col[j])]
                 if col[j] == i:  # identify and store diagonal entry
                     d = val[j]
-            x[i] = x[i] + w * (b[i] - sum1) / d
+        x[i] = x[i] + w * (b[i] - sum1) / d
 
         x2 = x #store x(k-1)th vector in x2
-
         # Calculate residual
         r = calculate_residual.residual(val, col, rowStart, b, x)
 
