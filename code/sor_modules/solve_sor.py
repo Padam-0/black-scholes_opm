@@ -46,7 +46,7 @@ Requirements: calculate_residual, vector_norm, optimise_w
 """
 
 from sor_modules import calculate_residual, vector_norm, optimise_w, condition
-
+import numpy as np
 
 def sor(val, col, rowStart, b, n, maxits, w, x, e, tol):
 
@@ -58,8 +58,10 @@ def sor(val, col, rowStart, b, n, maxits, w, x, e, tol):
     m = condition.create_dense(rowStart, col, val, n)
     condit = condition.condition(m, n)
     # print(condit)
-    residual_tolerance = (condit)* (1*10**(-10))
+
+    residual_tolerance = (np.sqrt(condit))* (1*10**(-10))
     # print(residual_tolerance)
+
     k = 0
     # maxits = 40
     while k <= maxits:
