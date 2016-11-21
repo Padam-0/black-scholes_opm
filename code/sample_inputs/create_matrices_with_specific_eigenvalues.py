@@ -1,3 +1,18 @@
+"""
+This program contains 5 functions which were used to create test matrices with
+specific attributes.
+
+create_test_matrix(),
+eigenvalues_less_than(),
+eigenvalues_creater_than(),
+not_diag_dom() and
+find_C().
+
+These were manipulated to produce matrices with specific eigenvalues, dominance
+and iteration matrix, C, attributes.
+
+"""
+
 from scipy.linalg import eigvals
 import numpy as np
 from scipy.sparse import csr_matrix
@@ -116,26 +131,26 @@ def find_C(A):
     print(U)
     return C
 
-less_than_1= np.array([[-0.84095474, -0.14674105],
-       [-0.07326811, -0.63363091]])
-print(find_C(less_than_1))
-less_than_2 = np.array([[-0.87525288, -0.4191722 ],
-       [-0.05217446, -0.59336394]])
-less_than_3 = np.array([[-0.28674648, -0.09610883],
-       [-0.15537608, -0.74101286]])
+# less_than_1= np.array([[-0.84095474, -0.14674105],
+#        [-0.07326811, -0.63363091]])
 # print(find_C(less_than_1))
-# print(eigenvalues_less_than(less_than_1))
-
-greater_than_1 = np.array([[ 0.32485338,  0.75049587],
-       [ 0.71390588,  0.22020623]])
-greater_than_2 = np.array([[ 0.01124162,  0.90960554],
-       [ 0.7327776 ,  0.10667227]])
-greater_than_3 = np.array([[ 0.13534856,  0.44150804],
-       [ 0.85794161,  0.09988733]])
-greater_than_4 = np.array([[ 0.04288265,  0.23022424,  0.75689106,  0.60613027],
-       [ 0.22182462,  0.06520475,  0.11315589,  0.66654736],
-       [ 0.72094468,  0.72051549,  0.16964975,  0.06643108],
-       [ 0.37278829,  0.01823154,  0.35657968,  0.14358185]])
+# less_than_2 = np.array([[-0.87525288, -0.4191722 ],
+#        [-0.05217446, -0.59336394]])
+# less_than_3 = np.array([[-0.28674648, -0.09610883],
+#        [-0.15537608, -0.74101286]])
+# # print(find_C(less_than_1))
+# # print(eigenvalues_less_than(less_than_1))
+#
+# greater_than_1 = np.array([[ 0.32485338,  0.75049587],
+#        [ 0.71390588,  0.22020623]])
+# greater_than_2 = np.array([[ 0.01124162,  0.90960554],
+#        [ 0.7327776 ,  0.10667227]])
+# greater_than_3 = np.array([[ 0.13534856,  0.44150804],
+#        [ 0.85794161,  0.09988733]])
+# greater_than_4 = np.array([[ 0.04288265,  0.23022424,  0.75689106,  0.60613027],
+#        [ 0.22182462,  0.06520475,  0.11315589,  0.66654736],
+#        [ 0.72094468,  0.72051549,  0.16964975,  0.06643108],
+#        [ 0.37278829,  0.01823154,  0.35657968,  0.14358185]])
 
 
 # CtC = find_C(less_than_1)

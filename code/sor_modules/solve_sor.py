@@ -26,6 +26,10 @@ convergence, or divergence and stops if any of these are true. If after
 maxits number of iterations none of these conditions are true then the loop
 stops.
 
+The residual tolerance is optimised depending on the size of the relative
+condition of the matrix. The larger the condition of the matrix, the larger the
+residual tolerance.
+
 The value for w is optimised per iteration depending on the relative rate of
 change of the error term.
 
