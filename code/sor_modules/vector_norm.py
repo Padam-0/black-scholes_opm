@@ -29,8 +29,9 @@ def vectornorm(vector):
     sum_of_squares = 0
     # For each element in the vector
     for element in vector:
-        # Increase the sum of squares by the square of the given element
-        sum_of_squares += element ** 2
+        # Increase the sum of squares by the square of the absolute value of
+        # the given element
+        sum_of_squares += abs(element) ** 2
 
     # Return the square root of the sum of squares, or the norm of the vector
     return math.sqrt(sum_of_squares)
